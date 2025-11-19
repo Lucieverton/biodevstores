@@ -3,48 +3,56 @@ import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: "Bio Link",
-    price: "29,90",
-    period: "único",
+    name: "Bio DevStores",
+    price: "35",
+    period: "mês",
+    anualPrice: "360",
+    anualEquivalent: "30",
+    dailyCost: "1,00",
+    savings: "60",
     features: [
-      "Design profissional",
-      "Links ilimitados",
-      "Botão WhatsApp",
-      "Redes sociais integradas",
-      "Responsivo (mobile/desktop)",
-      "Suporte por 30 dias",
+      "Design moderno",
+      "Logo principal",
+      "3 itens na vitrine em destaque",
+      "Até 5 links/seções",
+      "3 FAQs interativos",
+      "Suporte via WhatsApp",
     ],
     popular: false,
   },
   {
-    name: "Site Completo",
-    price: "299,90",
-    period: "único",
+    name: "Bio DevStores PRO",
+    price: "60",
+    period: "mês",
+    anualPrice: "600",
+    anualEquivalent: "50",
+    dailyCost: "1,65",
+    savings: "120",
     features: [
-      "Tudo do plano Bio Link",
-      "Até 5 páginas",
-      "Formulário de contato",
-      "Galeria de fotos",
-      "SEO otimizado",
-      "Google Analytics",
-      "Suporte por 90 dias",
-      "1 revisão grátis",
+      "Tudo do plano básico +",
+      "Até 8 links/seções",
+      "6 imagens na vitrine",
+      "5 FAQs interativos",
+      "Suporte prioritário",
     ],
     popular: true,
   },
   {
-    name: "Premium",
-    price: "599,90",
-    period: "único",
+    name: "Bio DevStores ULTRA",
+    price: "90",
+    period: "mês via Pix",
+    anualPrice: "960",
+    anualEquivalent: "80",
+    dailyCost: "2,63",
+    savings: "120",
     features: [
-      "Tudo do plano Site Completo",
-      "Páginas ilimitadas",
-      "Blog/Notícias",
-      "Integração com APIs",
-      "Chat online",
-      "Sistema de agendamento",
-      "Suporte prioritário",
-      "3 revisões grátis",
+      "Tudo do plano PRO +",
+      "Links/seções ilimitados",
+      "Até 10 imagens na vitrine",
+      "FAQs ilimitados",
+      "Design 100% personalizado",
+      "Integração com ferramentas externas",
+      "Suporte VIP",
     ],
     popular: false,
   },
@@ -93,13 +101,28 @@ export const PricingSection = () => {
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold text-primary">R$ {plan.price}</span>
-                    <span className="text-muted-foreground">/ {plan.period}</span>
+                    <span className="text-muted-foreground text-sm">/ {plan.period}</span>
+                  </div>
+                  
+                  <div className="mt-4 p-4 bg-accent/10 rounded-lg border border-accent/20">
+                    <div className="text-xs text-accent font-semibold mb-2">
+                      ECONOMIZE R$ {plan.savings}!
+                    </div>
+                    <div className="text-lg font-bold text-foreground">
+                      R$ {plan.anualPrice}/ano
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Equivale a R$ {plan.anualEquivalent}/mês
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Apenas R$ {plan.dailyCost} por dia!
+                    </div>
                   </div>
                 </div>
 
                 <ul className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
                       <Check className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-foreground">{feature}</span>
                     </li>
