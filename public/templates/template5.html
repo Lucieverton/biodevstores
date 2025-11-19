@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Vintage | Sua Página de Links</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [PADRÃO] Oculta a barra de rolagem */
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+    
+        /* --- [MELHORIA] Configurações Globais (Cores Vintage/Luxo) --- */
+        :root {
+            --color-bg: #100F0F;           /* Fundo Preto Fosco */
+            --color-container-bg: rgba(16, 15, 15, 0.85); /* Fundo do container c/ transparência */
+            --color-primary: #8B4513;      /* Marrom Sela (Madeira) */
+            --color-secondary: #DAA520;     /* Dourado (Ouro Velho) */
+            --color-accent: #B87333;       /* Cobre (Substituindo o Vermelho) */
+            --color-text: #E0E0E0;         /* Texto claro */
+            --color-text-dark: #333333;    /* Texto escuro (para botões) */
+
+            /* --- [MELHORIA RESPONSIVA] Controle de Tamanho da Logo Fluido --- */
+            /* Min: 50px, Ideal: 15% da tela, Max: 70px */
+            --logo-size: clamp(50px, 15vw, 70px); 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px; 
+        }
+
+        body {
+            font-family: 'Roboto Slab', serif; 
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            
+            background-image: linear-gradient(rgba(16, 15, 15, 0.9), rgba(16, 15, 15, 0.9)), url('img/fundo-barbearia.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            min-height: 100%;
+            overflow-y: auto;
+
+            /* [MELHORIA RESPONSIVA] Adiciona padding ao corpo */
+            /* Impede que o container cole nas bordas da tela */
+            padding: 1rem 0.5rem;
+        }
+
+        /* --- Contêiner Principal --- */
+        .container {
+            /* [MELHORIA RESPONSIVA] Padrão de 420px (bio link) em vez de 194px (mockup) */
+            max-width: 420px; 
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--color-container-bg);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 2px solid var(--color-secondary);
+            border-radius: 10px;
+            padding: 0.5rem 0; /* Padding vertical no container */
+            box-shadow: 0 0 10px var(--color-secondary), 
+                        0 0 20px rgba(218, 165, 32, 0.5), 
+                        inset 0 0 8px rgba(218, 165, 32, 0.3);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        /* --- Cabeçalho --- */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+            /* Padding interno horizontal e inferior */
+            padding: 0 0.75rem 0.75rem 0.75rem; 
+            margin-bottom: 0.75rem;
+        }
+
+        .logo {
+            /* [CONTROLE] O tamanho é controlado pela variável --logo-size */
+            width: var(--logo-size);
+            height: var(--logo-size);
+            
+            margin: 0.25rem auto 0.5rem;
+            filter: drop-shadow(0 0 5px var(--color-secondary));
+
+            /* Garante o formato circular */
+            border-radius: 50%; 
+            object-fit: cover;    
+            
+            /* [MELHORIA] Adiciona uma transição suave para o efeito de hover */
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        /* [MELHORIA] Efeito de hover para interatividade */
+        .logo:hover {
+            transform: scale(1.1); /* Aumenta levemente o tamanho */
+            filter: drop-shadow(0 0 8px var(--color-secondary)); /* Aumenta o brilho */
+            cursor: pointer; /* Indica que é clicável (mesmo que não seja um link) */
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif; 
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 1.5rem, Ideal 6% tela, Max 2rem */
+            font-size: clamp(1.5rem, 6vw, 2rem); 
+            font-weight: 700;
+            color: var(--color-secondary);
+            text-shadow: 0 0 4px var(--color-secondary), 0 0 10px rgba(218, 165, 32, 0.7);
+        }
+        
+        .header .subtitle {
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3% tela, Max 0.85rem */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            margin-top: 0.25rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* --- [MELHORIA] Botão CTA "Barber Pole" Animado --- */
+        .btn-schedule {
+            display: inline-block;
+            padding: 6px 12px;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3% tela, Max 0.85rem */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            border: 2px solid var(--color-secondary);
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 700;
+            background: linear-gradient(-45deg, 
+                #ffffff 25%, 
+                var(--color-accent) 25%, var(--color-accent) 50%, 
+                #ffffff 50%, #ffffff 75%, 
+                var(--color-primary) 75%, var(--color-primary) 100%);
+            background-size: 40px 40px;
+            box-shadow: 0 0 10px var(--color-secondary), inset 0 0 5px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: barberPole 10s linear infinite;
+            color: var(--color-text-dark);
+            text-shadow: 0 0 2px #fff, 0 0 2px #fff;
+            cursor: pointer;
+        }
+        
+        @keyframes barberPole {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 0; }
+        }
+
+        .btn-schedule:hover {
+            box-shadow: 0 0 20px var(--color-secondary);
+            transform: scale(1.05);
+        }
+
+        /* --- Seção de Destaque (Serviços) --- */
+        .services {
+             padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+             border-top: 1px solid rgba(218, 165, 32, 0.3);
+             border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+             margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 1.1rem, Ideal 5% tela, Max 1.4rem */
+            font-size: clamp(1.1rem, 5vw, 1.4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            color: var(--color-secondary);
+            text-shadow: 0 0 5px var(--color-secondary);
+        }
+
+        .services-grid { 
+            display: grid;
+            /* [MELHORIA RESPONSIVA] Grid fluido: Colunas de no min. 120px */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .service-item {
+            width: 100%; 
+            background-color: rgba(139, 69, 19, 0.1); 
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            padding: 0.5rem 0.3rem;
+            text-align: center;
+            box-shadow: 0 0 5px var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 10px var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .service-item .icon {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido: Min 35px, Ideal 10% tela, Max 45px */
+            width: clamp(35px, 10vw, 45px);
+            height: clamp(35px, 10vw, 45px);
+            margin-bottom: 0.25rem;
+            fill: var(--color-secondary);
+            object-fit: contain;
+        }
+        
+        .service-item h3 {
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3.5% tela, Max 0.8rem */
+            font-size: clamp(0.7rem, 3.5vw, 0.8rem);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-text);
+            
+            /* Define uma altura fixa para 2 linhas (baseado no font-size fluido) */
+            line-height: 1.3;
+            height: 2.1em; 
+            
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .service-item a {
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.65rem, Ideal 2.5% tela, Max 0.75rem */
+            font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+            color: var(--color-secondary);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+            cursor: pointer; 
+            font-weight: 700;
+        }
+        
+        .service-item a:hover {
+            opacity: 1;
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        /* --- Seção do Barbeiro --- */
+        .barber-profile { 
+            text-align: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-pic {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido: Min 60px, Ideal 18% tela, Max 80px */
+            width: clamp(60px, 18vw, 80px);
+            height: clamp(60px, 18vw, 80px);
+            border-radius: 50%;
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 10px var(--color-accent), inset 0 0 5px rgba(184, 115, 51, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 0.5rem;
+            background-color: rgba(184, 115, 51, 0.1);
+            overflow: hidden; 
+        }
+
+        .profile-pic .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .barber-profile h2 {
+            font-family: 'Playfair Display', serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 1.1rem, Ideal 5% tela, Max 1.4rem */
+            font-size: clamp(1.1rem, 5vw, 1.4rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-secondary);
+        }
+
+        /* --- [MELHORIA] Botões Sociais "Vidro" --- */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .button .bloom-container {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido: Min 35px, Ideal 10% tela, Max 40px */
+            width: clamp(35px, 10vw, 40px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-content: center;
+            border-right: 2px solid var(--color-secondary); /* Dourado */
+            border-left: 2px solid var(--color-accent);   /* Cobre */
+            transform: rotate(-45deg);
+            transition: transform 0.4s ease-in-out, border-color 0.4s ease-in-out;
+        }
+        .button .bloom-container .button-container-main { width: 100%; height: 100%; position: relative; }
+        .button .bloom-container .button-inner {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido: Min 25px, Ideal 7% tela, Max 30px */
+            height: clamp(25px, 7vw, 30px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: rgba(0, 0, 0, 0.5) -3px 2px 3px 0px;
+            transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
+        }
+        .button .bloom-container .button-inner .back {
+            position: absolute; inset: 0; border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+        }
+        .button .bloom-container .button-inner .front {
+            position: absolute; inset: 3px; border-radius: 50%;
+            background: transparent; display: grid; place-content: center;
+        }
+        .button .bloom-container .button-inner .front .svg {
+            fill: #ffffff;
+            /* [MELHORIA RESPONSIVA] Tamanho fluido: Min 16px, Ideal 4% tela, Max 18px */
+            width: clamp(16px, 4vw, 18px);
+            aspect-ratio: 1 / 1;
+            transform: rotate(45deg);
+            transition: filter 0.2s ease-in, transform 0.4s ease-in-out;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+        }
+        .button .bloom-container .button-glass {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translate(0%, -50%) rotate(0deg);
+            transform-origin: bottom center;
+            transition: transform 0.4s ease-in-out;
+        }
+        .button .bloom-container .bloom { height: 1px; width: 1px; position: absolute; background: white; }
+        .button .bloom-container .bloom1 { top: 5px; right: 10px; box-shadow: var(--color-secondary) 0px 0px 2px 2px, var(--color-secondary) 0px 0px 4px 4px; }
+        .button .bloom-container .bloom2 { bottom: 5px; left: 10px; box-shadow: var(--color-accent) 0px 0px 2px 2px, var(--color-accent) 0px 0px 5px 5px; }
+        .button .bloom-container:hover { transform: rotate(0deg) scale(1.1); border-right-color: var(--color-primary); border-left-color: var(--color-primary); }
+        .button .bloom-container:hover .button-inner .front { box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); }
+        .button .bloom-container:hover .button-inner .front .svg { filter: drop-shadow(0 0 3px white); transform: rotate(0deg); }
+        .button .bloom-container:hover .button-glass { transform: translate(0%, -40%); }
+        .button .bloom-container:active { transform: scale(0.7); }
+        .button .bloom-container:active .button-inner { transform: scale(1.2); }
+
+
+        /* --- Seção de FAQ (Dúvidas) --- */
+        .faq {
+            width: 100%;
+            padding: 0 0.75rem 0.25rem 0.75rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .question {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            padding: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            color: var(--color-text);
+            font-family: 'Roboto Slab', serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.65rem, Ideal 3% tela, Max 0.8rem */
+            font-size: clamp(0.65rem, 3vw, 0.8rem);
+            font-weight: 600;
+            box-shadow: 0 0 5px var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: rgba(139, 69, 19, 0.15);
+        }
+
+        .question .arrow {
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            background-color: rgba(139, 69, 19, 0.05);
+            border-radius: 0 0 6px 6px;
+            padding: 0 0.4rem;
+            transition: all 0.4s ease-out;
+            color: var(--color-text);
+            opacity: 0.8;
+            border: 1px solid transparent;
+            border-top: 0;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.6rem, Ideal 2.8% tela, Max 0.75rem */
+            font-size: clamp(0.6rem, 2.8vw, 0.75rem);
+            line-height: 1.5;
+            text-align: left; 
+        }
+        
+        .faq-item.active .question {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 0 10px var(--color-primary);
+        }
+        
+        .faq-item.active .answer {
+            max-height: 10rem; 
+            padding: 0.4rem;
+            border-color: var(--color-primary);
+        }
+
+        .faq-item.active .arrow {
+            transform: rotate(90deg);
+        }
+        
+        /* --- Estilos do Modal (Pop-up) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none; 
+            justify-content: center;
+            /* [MELHORIA RESPONSIVA] Centraliza o modal e adiciona padding */
+            align-items: center; 
+            padding: 1rem; 
+            z-index: 1000;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn {
+            from { transform: translateY(-25px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal {
+            background-color: var(--color-container-bg);
+            border: 2px solid var(--color-secondary);
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 0 25px var(--color-secondary);
+            /* [MELHORIA RESPONSIVA] Modal nunca passa de 95% da tela */
+            max-width: 95%; 
+            width: 100%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.4s forwards;
+            
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .modal::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .modal-close:hover {
+            color: var(--color-accent);
+        }
+        
+        .modal-img {
+            width: 100%;
+            object-fit: contain; 
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--color-primary);
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 1.1rem, Ideal 5% tela, Max 1.4rem */
+            font-size: clamp(1.1rem, 5vw, 1.4rem);
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .modal-description {
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3% tela, Max 0.85rem */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            opacity: 0.9;
+            line-height: 1.6;
+            text-align: left; 
+        }
+        
+        /* --- [NOVO] Estilos do Modal de Agendamento --- */
+        .appointment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .appointment-form label {
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3% tela, Max 0.85rem */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            font-weight: 700;
+        }
+
+        .appointment-form input, .appointment-form select {
+            padding: 0.4rem; 
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.65rem, Ideal 3% tela, Max 0.8rem */
+            font-size: clamp(0.65rem, 3vw, 0.8rem);
+            border: 1px solid var(--color-primary);
+            border-radius: 4px;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Roboto Slab', sans-serif;
+            width: 100%;
+        }
+        /* Estiliza o placeholder do seletor de data */
+        .appointment-form input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8) sepia(0.5) saturate(5) hue-rotate(350deg);
+        }
+        .appointment-form input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8) sepia(0.5) saturate(5) hue-rotate(350deg);
+        }
+
+        .appointment-form button {
+            padding: 0.5rem;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.7rem, Ideal 3.5% tela, Max 0.85rem */
+            font-size: clamp(0.7rem, 3.5vw, 0.85rem);
+            border: none;
+            border-radius: 5px;
+            background-color: var(--color-secondary);
+            color: var(--color-text-dark);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .appointment-form button:hover {
+            background-color: #B8860B; /* Dourado escuro */
+            box-shadow: 0 2px 8px rgba(218, 165, 32, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* --- Estilo do Rodapé --- */
+        .footer {
+            width: 100%;
+            /* [MELHORIA RESPONSIVA] Alinha com o container */
+            max-width: 420px; 
+            margin: 0 auto;
+            text-align: center;
+            /* [MELHORIA RESPONSIVA] Fonte fluida: Min 0.6rem, Ideal 2.5% tela, Max 0.7rem */
+            font-size: clamp(0.6rem, 2.5vw, 0.7rem);
+            color: var(--color-text);
+            opacity: 0.5;
+            padding: 0 0.5rem 0.5rem 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="header">
+
+            <img class="logo" src="img/sua-logo.png" alt="Logo da Barbearia Vintage">
+
+            <h1>Barbearia Vintage</h1>
+            <p class="subtitle">Seu Estilo, Nossa Arte.</p>
+            <a href="#" class="btn-schedule" id="open-agendamento-modal">Agendar Horário</a>
+        </header>
+        <section class="services">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                
+                <div class="service-item">
+                    <img class="icon" src="img/icon-corte.png" alt="Ícone de Corte">
+                    <h3>Corte Clássico</h3>
+                    <a class="open-modal-btn" 
+                       data-service="Corte Clássico"
+                       data-img="img/servico-corte.jpg" data-description="Nosso corte clássico é feito com tesoura e navalha, respeitando a tradição. Inclui lavagem especial com produtos premium e finalização com pomada de alta fixação para um estilo impecável que dura o dia todo.">
+                       Ver Detalhes
+                    </a>
+                </div>
+                
+                <div class="service-item">
+                    <img class="icon" src="img/icon-barba.png" alt="Ícone de Barba">
+                    <h3>Barba Tradicional</h3>
+                    <a class="open-modal-btn"
+                       data-service="Barba Tradicional"
+                       data-img="img/servico-barba.jpg" data-description="A experiência completa da barba tradicional. Usamos toalhas quentes para abrir os poros, espuma de barbear rica e navalha precisa. Finalizamos com óleos essenciais e uma massagem facial relaxante para uma pele macia e revigorada.">
+                       Ver Detalhes
+                    </a>
+                </div>
+
+                <div class="service-item">
+                    <img class="icon" src="img/icon-pigmentacao.png" alt="Ícone de Pigmentação">
+                    <h3>Pigmentação</h3>
+                    <a class="open-modal-btn"
+                       data-service="Pigmentação (Barba e Cabelo)"
+                       data-img="img/servico-pigmentacao.jpg" data-description="Ideal para cobrir falhas ou dar mais volume e definição. Usamos pigmentos semipermanentes de alta qualidade que proporcionam um visual natural e duradouro, tanto para a barba quanto para o cabelo.">
+                       Ver Detalhes
+                    </a>
+                </div>
+                
+                <div class="service-item">
+                    <img class="icon" src="img/icon-kids.png" alt="Ícone de Corte Infantil">
+                    <h3>Kids Cut</h3>
+                    <a class="open-modal-btn"
+                       data-service="Corte Infantil (Kids Cut)"
+                       data-img="img/servico-kids.jpg" data-description="Temos paciência e técnica para o corte dos pequenos. Um ambiente divertido e profissionais treinados para garantir que a primeira experiência na barbearia seja tranquila e divertida, com um resultado estiloso.">
+                       Ver Detalhes
+                    </a>
+                </div>
+
+            </div>
+        </section>
+        
+        <section class="barber-profile">
+            <div class="profile-pic">
+                <img src="img/profile-joao.jpg" alt="Foto do Barbeiro João" class="profile-img">
+            </div>
+            <h2>Mestre Barbeiro João</h2>
+            <div class="social-buttons">
+                <a href="#" target="_blank" class="button" role="button" tabindex="0" aria-label="Veja nosso Instagram">
+                    <div class="bloom-container">
+                        <div class="button-container-main"><div class="button-inner"><div class="back"></div><div class="front"><svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></div></div><div class="button-glass"><div class="back"></div><div class="front"></div></div></div><div class="bloom bloom1"></div><div class="bloom bloom2"></div></div>
+                </a>
+                <a href="#" target="_blank" class="button" role="button" tabindex="0" aria-label="Fale conosco no WhatsApp">
+                    <div class="bloom-container">
+                        <div class="button-container-main"><div class="button-inner"><div class="back"></div><div class="front"><svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg></div></div><div class="button-glass"><div class="back"></div><div class="front"></div></div></div><div class="bloom bloom1"></div><div class="bloom bloom2"></div></div>
+                </a>
+            </div>
+        </section>
+
+        <section class="faq">
+            <h2 class="section-title">Dúvidas</h2>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>1. Preciso agendar?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Recomendamos agendar para garantir seu horário, mas aceitamos clientes por ordem de chegada se houver disponibilidade.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>2. Formas de pagamento?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Aceitamos Pix, cartão de crédito (principais bandeiras) e dinheiro.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="question">
+                    <span>3. Há estacionamento?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Dispomos de vagas limitadas em frente à barbearia, além de opções de estacionamento público nas proximidades.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+    
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-img" src="" alt="Imagem do Serviço" class="modal-img">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-description" class="modal-description"></p>
+        </div>
+    </div>
+    
+    <div id="agendamento-modal-overlay" class="modal-overlay">
+        <div id="agendamento-modal" class="modal">
+            <span id="agendamento-modal-close" class="modal-close">&times;</span>
+            <h2 class="modal-title">Pré-Agendamento</h2>
+            
+            <form class="appointment-form" id="agendamento-form">
+                <label for="nome-agendamento">Seu Nome:</label>
+                <input type="text" id="nome-agendamento" name="nome-agendamento" required placeholder="Digite seu nome">
+
+                <label for="data-agendamento">Data Preferida:</label>
+                <input type="date" id="data-agendamento" name="data-agendamento" required>
+                
+                <label for="horario-agendamento">Horário Preferido:</label>
+                <input type="time" id="horario-agendamento" name="horario-agendamento" required>
+                
+                <button type="submit">Solicitar no WhatsApp</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>Modelo de página "biodevstores".</p>
+    </footer>
+
+
+    <script>
+        // --- Script do FAQ (Sanfona) ---
+        const faqButtons = document.querySelectorAll('.question');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        
+        // --- Script do Modal de DETALHES (Pop-up) ---
+        const modalButtons = document.querySelectorAll('.open-modal-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalCloseBtn = document.getElementById('modal-close');
+        
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        function openModal(event) {
+            event.preventDefault(); 
+            const serviceTitle = event.currentTarget.dataset.service;
+            const serviceImg = event.currentTarget.dataset.img;
+            const serviceDesc = event.currentTarget.dataset.description;
+            
+            modalTitle.textContent = serviceTitle;
+            modalImg.src = serviceImg;
+            modalDescription.textContent = serviceDesc;
+            
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+        
+        if(modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if(modalOverlay) modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // --- [NOVO] Script do Modal de AGENDAMENTO ---
+        const openAgendamentoBtn = document.getElementById('open-agendamento-modal');
+        const agendamentoModalOverlay = document.getElementById('agendamento-modal-overlay');
+        const agendamentoModalCloseBtn = document.getElementById('agendamento-modal-close');
+        const agendamentoForm = document.getElementById('agendamento-form');
+
+        function openAgendamentoModal(e) {
+            e.preventDefault();
+            if(agendamentoModalOverlay) agendamentoModalOverlay.classList.add('active');
+        }
+
+        function closeAgendamentoModal() {
+            if(agendamentoModalOverlay) agendamentoModalOverlay.classList.remove('active');
+        }
+        
+        if(openAgendamentoBtn) openAgendamentoBtn.addEventListener('click', openAgendamentoModal);
+        if(agendamentoModalCloseBtn) agendamentoModalCloseBtn.addEventListener('click', closeAgendamentoModal);
+        
+        if(agendamentoModalOverlay) agendamentoModalOverlay.addEventListener('click', (event) => {
+            if (event.target === agendamentoModalOverlay) {
+                closeAgendamentoModal();
+            }
+        });
+        
+        // [NOVO] Script de Envio do WhatsApp para Agendamento
+        if(agendamentoForm) agendamentoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            const nome = document.getElementById('nome-agendamento').value;
+            const data = document.getElementById('data-agendamento').value;
+            const horario = document.getElementById('horario-agendamento').value;
+            
+            // Formata a data para DD/MM/AAAA
+            // Adiciona T00:00:00 para evitar problemas de fuso horário
+            const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+
+            // ATENÇÃO: Substitua 'SEU_NUMERO_AQUI'
+            const whatsappNumber = "558299801009"; // Substitua pelo nº correto
+            let message = `Olá, Barbearia Vintage! 💈\n\n`;
+            message += `Gostaria de solicitar um agendamento:\n\n`;
+            message += `*Nome:* ${nome}\n`;
+            message += `*Data Sugerida:* ${dataFormatada}\n`;
+            message += `*Horário Sugerido:* ${horario}\n\n`;
+            message += `Aguardo a confirmação da disponibilidade. Obrigado!`;
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeAgendamentoModal();
+        });
+
+    </script>
+
+</body>
+</html>

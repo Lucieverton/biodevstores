@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flocos Mágicos | A Magia do Sorvete</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [PADRÃO] Oculta a barra de rolagem */
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+    
+        /* --- [MELHORIA] Novas Cores (Tema Sorveteria) --- */
+        :root {
+            --color-bg: #FFF9E6;          /* Fundo Baunilha */ 
+            --color-container-bg: #FFFFFF; /* Branco */
+            --color-cone-border: #D2B48C;  /* Cor da Casquinha */
+            --color-cone-edge: #A1887F;    /* Sombra da Casquinha */
+            
+            --color-primary: #E91E63;      /* Morango (Principal) */
+            --color-secondary: #00BCD4;     /* Menta/Azul (Secundário) */
+            --color-accent: #FFC107;       /* Manga (Destaque) */
+            --color-text: #6D4C41;         /* Chocolate (Texto) */
+            --color-plate-text: #FFFFFF;   /* Texto branco da placa */
+            
+            --primary-cyan: var(--color-primary); /* Morango */
+            --gradient-secondary: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            /* [MELHORIA] Novas fontes e fundo com "granulados" */
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            /* [MELHORIA] Fundo de "granulados" */
+            background-image: url('img/fundo-templade4.jpg');
+            
+            /* [PADRÃO] Correção de layout */
+            padding: 0;
+            min-height: 100%;
+            overflow-y: auto;
+        }
+
+        /* --- Contêiner Principal --- */
+        .container {
+            max-width: 194px; /* [PADRÃO] Largura do Mockup */
+            width: 100%;
+            margin: 0 auto;
+            
+            /* [MELHORIA] Imagem de fundo de sorvete */
+            background-image: url('img/fundo-templade4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            /* [MELHORIA] Borda "Casquinha de Sorvete" */
+            border-radius: 12px;
+            border: 10px solid transparent;
+            padding: 0.5rem 0; /* Padding interno da tela */
+            border-image-slice: 10;
+            border-image-repeat: repeat;
+            border-image-source: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNIDAgMTUgTCAxNSAwIEwzMCAxNSBMMTUgMzAgWiIgZmlsbD0iI0QyQjQ4QyIvPjxwYXRoIGQ9Ik0gMCAwIEwzMCAzMCBNIDMwIDAgTCAwIDMwIiBzdHJva2U9IiNBMTg4N0YiIHN0cm9rZS1pZHRoPSiMiIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPjwvc3ZnPg==');
+            
+            box-shadow: 0 5px 15px rgba(121, 85, 72, 0.2),
+                        0 0 10px var(--color-cone-edge),
+                        inset 0 0 5px rgba(121, 85, 72, 0.5);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .header, .artist-profile, .faq {
+            padding: 0 0.75rem;
+        }
+        
+        /* [MELHORIA] Adiciona um fundo semi-transparente aos itens para legibilidade */
+        .header, .services, .artist-profile, .faq {
+            background-color: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .header {
+            border-radius: 6px 6px 0 0;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+         .faq {
+            border-radius: 0 0 6px 6px;
+            margin-bottom: 0;
+            padding-bottom: 0.75rem;
+         }
+        .services-carousel-wrapper {
+            margin-bottom: 0; /* Removido pois 'services' já tem margem */
+        }
+        .container > .services {
+            padding-bottom: 0.75rem;
+        }
+
+        /* --- Cabeçalho --- */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid rgba(121, 85, 72, 0.3);
+        }
+
+        .logo-img {
+            width: 50px; 
+            height: 50px;
+            margin: 0 auto 0.5rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 4px var(--color-accent));
+            
+            /* [MELHORIA] Bordas redondas aplicadas */
+            border-radius: 50%; 
+            
+            /* [MELHORIA] CSS de Flex removido pois 'margin: auto' já centraliza a imagem */
+            background-color: rgba(0, 188, 212, 0.05);
+            color: var(--color-text);
+            font-size: 0.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-align: center;
+            padding: 2px;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 4px var(--color-primary), 0 0 8px var(--color-primary); }
+            50% { text-shadow: 0 0 8px var(--color-primary), 0 0 12px rgba(233, 30, 99, 0.6), 0 0 16px var(--color-primary); }
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: var(--color-text);
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            animation: pulse-glow 3s infinite alternate ease-in-out;
+        }
+        
+        .header .subtitle {
+            font-size: 0.7rem; 
+            color: var(--color-text);
+            margin-top: 0.3rem;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .btn-schedule {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            border: 1px solid var(--color-primary);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            background-color: var(--color-primary);
+            color: #FFFFFF;
+            box-shadow: 0 1px 3px rgba(233, 30, 99, 0.2), 0 0 8px var(--color-primary);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .btn-schedule:hover {
+            background-color: #C2185B; /* Morango mais escuro */
+            border-color: #C2185B;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.5), 0 0 12px var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Título da Seção --- */
+        .section-title-wrapper {
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.9rem;
+            padding: 6px 8px;
+            font-weight: 400;
+            color: var(--color-plate-text); 
+            background-color: var(--color-secondary);
+            border: 1px solid var(--color-secondary);
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 3px rgba(0, 188, 212, 0.2), 
+                        inset 0 1px 1px rgba(255,255,255,0.3),
+                        inset 0 -1px 1px rgba(0, 188, 212, 0.1);
+            margin-bottom: 0; 
+            transition: all 0.3s ease;
+            text-align: center; 
+        }
+        
+        /* --- Carrossel de Destaques --- */
+        .services-carousel-wrapper {
+            width: 100%;
+            position: relative;
+        }
+
+        .services-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .services-carousel::-webkit-scrollbar { display: none; }
+        .services-carousel.dragging { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+
+        .services-carousel .service-item {
+            flex: 0 0 85%; /* [PADRÃO] Ajuste de layout */
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            margin-left: 0.5rem;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-cone-edge);
+            border-radius: 6px;
+            padding: 0.5rem 0.3rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(121, 85, 72, 0.2), 0 0 5px rgba(121, 85, 72, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: auto;
+            cursor: grab;
+        }
+        
+        .services-carousel.dragging .service-item { cursor: grabbing; }
+
+        .services-carousel .service-item:first-child {
+            margin-left: 0.75rem;
+        }
+        .services-carousel .service-item:last-child {
+            margin-right: 0.75rem;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3), 0 0 10px var(--color-secondary), inset 0 0 5px var(--color-cone-edge);
+        }
+
+        .service-item .icon {
+            width: 35px; /* [PADRÃO] Tamanho estático */
+            height: 35px;
+            margin-bottom: 0.3rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 3px var(--color-accent));
+            pointer-events: none;
+            
+            /* [MELHORIA] CSS de Flex removido. A <img> é centrada pelo 'text-align: center' do pai */
+            display: inline-block; /* Comportamento padrão de imagem */
+            
+            background-color: rgba(0, 188, 212, 0.05);
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 0.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-align: center;
+            padding: 2px;
+        }
+        
+        .service-item h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.9rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: var(--color-text);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        .service-item .open-modal-btn {
+            font-size: 0.65rem; /* [PADRÃO] Tamanho estático */
+            color: var(--color-primary); /* Morango */
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+            /* [MELHORIA] Adicionado cursor para melhor feedback de UI */
+            cursor: pointer; 
+        }
+        
+        .service-item .open-modal-btn:hover {
+            color: var(--color-secondary); /* Menta */
+            text-decoration: underline;
+        }
+
+        /* --- Localização e Contato --- */
+        .artist-profile {
+            text-align: center;
+            border-top: 1px solid rgba(121, 85, 72, 0.3);
+        }
+
+        .profile-pic {
+            width: 60px; /* [PADRÃO] Tamanho estático */
+            height: 60px;
+            margin: 0 auto 0.5rem;
+            
+            /* [MELHORIA] Borda redonda já estava correta */
+            border-radius: 50%;
+            border: 2px solid var(--color-text);
+            box-shadow: 0 0 8px var(--color-text), inset 0 0 5px rgba(0, 188, 212, 0.3);
+            
+            /* [MELHORIA] CSS de Flex removido pois 'margin: auto' já centraliza */
+            background-color: rgba(0, 188, 212, 0.1);
+            overflow: hidden;
+            color: var(--color-text);
+            font-size: 0.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .profile-pic .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .artist-profile h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--color-text);
+        }
+        .artist-profile .artist-role {
+            font-size: 0.65rem; /* [PADRÃO] Tamanho estático */
+            color: var(--color-text);
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        /* --- Botões Sociais (WhatsApp e Instagram) --- */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .button .bloom-container {
+            width: 35px; /* [PADRÃO] Tamanho estático */
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-content: center;
+            border-right: 2px solid var(--color-primary); /* Morango */
+            border-left: 2px solid var(--color-secondary); /* Menta */
+            transform: rotate(-45deg);
+            transition: transform 0.4s ease-in-out, border-color 0.4s ease-in-out;
+        }
+        
+        .button .bloom-container .button-inner .back {
+            background: var(--gradient-secondary);
+        }
+        .button .bloom-container .bloom1 {
+            box-shadow: var(--color-primary) 0px 0px 2px 2px, var(--color-primary) 0px 0px 4px 4px;
+        }
+        .button .bloom-container .bloom2 {
+            box-shadow: var(--color-secondary) 0px 0px 2px 2px, var(--color-secondary) 0px 0px 5px 5px;
+        }
+        .button .bloom-container:hover {
+            border-right-color: var(--color-accent);
+            border-left-color: var(--color-accent);
+        }
+
+        .button .bloom-container .button-container-main { width: 100%; height: 100%; position: relative; }
+        .button .bloom-container .button-inner { height: 25px; aspect-ratio: 1 / 1; border-radius: 50%; position: relative; box-shadow: rgba(100, 100, 111, 0.3) -3px 2px 3px 0px; transition: transform 0.4s ease-in-out, box-shadow 0.3s ease; }
+        .button .bloom-container .button-inner .back { position: absolute; inset: 0; border-radius: 50%; }
+        .button .bloom-container .button-inner .front { position: absolute; inset: 3px; border-radius: 50%; background: transparent; display: grid; place-content: center; }
+        .button .bloom-container .button-inner .front .svg { fill: #ffffff; width: 16px; aspect-ratio: 1 / 1; transform: rotate(45deg); transition: filter 0.2s ease-in, transform 0.4s ease-in-out; filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6)); }
+        .button .bloom-container .button-glass { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%); transform: translate(0%, -50%) rotate(0deg); transform-origin: bottom center; transition: transform 0.4s ease-in-out; }
+        .button .bloom-container .bloom { height: 1px; width: 1px; position: absolute; background: white; }
+        .button .bloom-container:hover { transform: rotate(0deg) scale(1.1); }
+        .button .bloom-container:hover .button-inner .front { box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); }
+        .button .bloom-container:hover .button-inner .front .svg { filter: drop-shadow(0 0 3px white); transform: rotate(0deg); }
+        .button .bloom-container:hover .button-glass { transform: translate(0%, -40%); }
+        .button .bloom-container:active { transform: scale(0.7); }
+        .button .bloom-container:active .button-inner { transform: scale(1.2); }
+
+
+        /* --- Seção de FAQ (Dúvidas) --- */
+        .faq {
+            width: 100%;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .question {
+            width: 100%;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-cone-edge);
+            border-radius: 6px;
+            padding: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            color: var(--color-text);
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.65rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(121, 85, 72, 0.2), 0 0 4px rgba(121, 85, 72, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: rgba(0, 188, 212, 0.1);
+            box-shadow: 0 3px 6px rgba(0, 188, 212, 0.3), 0 0 8px var(--color-secondary);
+        }
+
+        .question .arrow {
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+            color: var(--color-text);
+        }
+
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            background-color: rgba(0, 188, 212, 0.05);
+            border-radius: 0 0 6px 6px;
+            padding: 0 0.4rem;
+            transition: all 0.4s ease-out;
+            color: var(--color-text);
+            opacity: 0.9;
+            border: 1px solid transparent;
+            border-top: 0;
+            font-size: 0.6rem; /* [PADRÃO] Tamanho estático */
+            line-height: 1.4;
+            text-align: left; /* [PADRÃO] Correção de justify */
+            text-shadow: 0 0.5px 1px rgba(0, 188, 212, 0.2);
+        }
+        
+        .faq-item.active .question {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 3px 6px rgba(0, 188, 212, 0.3), 0 0 10px var(--color-secondary);
+        }
+        
+        .faq-item.active .answer {
+            max-height: 10rem;
+            padding: 0.4rem;
+            border-color: var(--color-cone-edge);
+        }
+
+        .faq-item.active .arrow {
+            transform: rotate(90deg);
+            color: var(--color-secondary);
+        }
+        
+        /* --- Estilos do Modal (Pop-up de Detalhes - Carrossel) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(121, 85, 72, 0.7); /* Overlay Chocolate */
+            display: none;
+            justify-content: center;
+            align-items: flex-start; /* [PADRÃO] Correção de corte */
+            padding-top: 1rem; /* [PADRÃO] Correção de corte */
+            z-index: 1000;
+            padding: 0.5rem;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn {
+            from { transform: translateY(-25px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal {
+            background-color: var(--color-container-bg);
+            border: 2px solid var(--color-text);
+            border-radius: 10px;
+            padding: 0.75rem;
+            box-shadow: 0 0 15px var(--color-secondary), inset 0 0 5px var(--color-text);
+            max-width: 90%;
+            width: 100%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.4s forwards;
+            
+            /* [PADRÃO] Oculta barra de rolagem do modal */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .modal::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover { color: var(--color-primary); }
+        
+        .modal-img {
+            width: 100%;
+            /* [PADRÃO] Altura automática da imagem */
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--color-cone-edge);
+            box-shadow: 0 0 5px rgba(121, 85, 72, 0.5);
+        }
+        
+        .modal-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.4rem;
+            text-align: center;
+            text-shadow: 0 0 4px var(--color-accent);
+        }
+        
+        .modal-description {
+            font-size: 0.7rem; /* [PADRÃO] Tamanho estático */
+            color: var(--color-text);
+            opacity: 0.9;
+            line-height: 1.5;
+            text-align: left; /* [PADRÃO] Correção de justify */
+            text-shadow: 0 0.5px 1px rgba(0, 188, 212, 0.2);
+        }
+
+        /* --- CSS: Estilos do Modal de CARDÁPIO --- */
+        #menu-modal .modal-title {
+            text-shadow: 0 0 4px var(--color-primary);
+        }
+        
+        .menu-content {
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+        
+        .menu-category {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 400;
+            color: var(--color-text);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 2px;
+            margin-top: 0.75rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .menu-item {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px dashed rgba(121, 85, 72, 0.3);
+            padding-bottom: 0.6rem;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-item-name {
+            font-size: 0.8rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            color: var(--color-text);
+        }
+        
+        .menu-item-price {
+            font-size: 0.75rem; /* [PADRÃO] Tamanho estático */
+            font-weight: 700;
+            color: var(--color-primary);
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+        
+        .menu-item-description {
+            font-size: 0.65rem; /* [PADRÃO] Tamanho estático */
+            color: var(--color-text);
+            opacity: 0.8;
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        /* --- Estilos do Lightbox (Tela Cheia) --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(233, 30, 99, 0.85); /* Overlay Morango */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .lightbox-overlay.active { display: flex; }
+        
+        .lightbox-overlay img {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            border: 1px solid var(--color-primary);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--color-secondary);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-bg);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+        .lightbox-close:hover { color: var(--color-text); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <img src="img/sorvete-logo.png" alt="Flocos Mágicos Logo" class="logo-img"> 
+            <h1>Flocos Mágicos</h1>
+            <p class="subtitle">A Magia do Sorvete Artesanal</p>
+            
+            <a href="#" class="btn-schedule" id="open-menu-modal">Ver Cardápio Digital</a>
+        </header>
+
+        <section class="services">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Destaques da Semana</h2>
+            </div>
+
+            <div class="services-carousel-wrapper">
+                <div class="services-carousel">
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-taca.png" alt="Ícone Taça">
+                        <h3>Taça Avalanche</h3>
+                        <a class="open-modal-btn" 
+                            data-service="Taça Avalanche de Morango"
+                            data-img="img/servico-taca.jpg" 
+                            data-description="Nossa taça especial com 3 bolas de sorvete, morangos frescos, chantilly, calda de chocolate e um canudo wafer.">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-acai.png" alt="Ícone Açaí">
+                        <h3>Açaí Mágico</h3>
+                        <a class="open-modal-btn"
+                            data-service="Açaí Mágico Premium"
+                            data-img="img/servico-acai.jpg" 
+                            data-description="O mais puro açaí batido com banana (ou morango), servido com granola premium, leite em pó e mel.">
+                            Ver Detalhes
+                        </a>
+                    </div>
+
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-picole.png" alt="Ícone Picolé">
+                        <h3>Picolés Artesanais</h3>
+                        <a class="open-modal-btn"
+                            data-service="Picolés Artesanais"
+                            data-img="img/servico-picoles.jpg" 
+                            data-description="Sabores puros da fruta, como Maracujá com calda, Limão Siciliano, e também nossas opções recheadas.">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="artist-profile">
+            <div class="profile-pic">
+                 <img src="img/loja-sorveteria.jpg" alt="Foto da Loja" class="profile-img">
+            </div>
+            <h2>Venha nos Visitar!</h2>
+            <p class="artist-role">Rua da Magia, 123 - Bairro Feliz<br>Abertos de Ter a Dom, 14h às 22h</p>
+            <div class="social-buttons">
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Veja nosso Instagram">
+                    <div class="bloom-container">
+                        <div class="button-container-main"><div class="button-inner"><div class="back"></div><div class="front"><svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></div></div><div class="button-glass"><div class="back"></div><div class="front"></div></div></div><div class="bloom bloom1"></div><div class="bloom bloom2"></div></div>
+                </a>
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Peça pelo WhatsApp">
+                    <div class="bloom-container">
+                        <div class="button-container-main"><div class="button-inner"><div class="back"></div><div class="front"><svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg></div></div><div class="button-glass"><div class="back"></div><div class="front"></div></div></div><div class="bloom bloom1"></div><div class="bloom bloom2"></div></div>
+                </a>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>1. Vocês fazem delivery?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Sim! Peça pelo nosso WhatsApp (botão acima) ou pelo iFood. Entregamos em um raio de 5km.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>2. Têm opções sem lactose/veganas?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Temos sim! Nossos sorvetes de fruta (como limão, maracujá e morango) são à base de água. Também temos opções veganas de chocolate.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="question">
+                    <span>3. Qual o horário de funcionamento?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Estamos abertos de Terça a Domingo, das 14h às 22h. Fechamos às Segundas para criar mais magias!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-img" src="" alt="Imagem do Destaque" class="modal-img">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-description" class="modal-description"></p>
+        </div>
+    </div>
+    
+    <div id="menu-modal-overlay" class="modal-overlay">
+        <div id="menu-modal" class="modal">
+            <span id="menu-modal-close" class="modal-close">&times;</span>
+            <h2 class="modal-title">Cardápio Flocos Mágicos</h2>
+            
+            <div class="menu-content">
+                
+                <h3 class="menu-category">Sorvetes de Massa (Por bola)</h3>
+                
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Chocolate Belga</span>
+                        <span class="menu-item-price">R$ 9,00</span>
+                    </div>
+                    <p class="menu-item-description">Cremoso e intenso, feito com 70% cacau.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Flocos Mágicos</span>
+                        <span class="menu-item-price">R$ 8,00</span>
+                    </div>
+                    <p class="menu-item-description">Baunilha com pedaços crocantes de chocolate e um toque azul.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Ninho Trufado</span>
+                        <span class="menu-item-price">R$ 8,00</span>
+                    </div>
+                    <p class="menu-item-description">O queridinho: Leite Ninho com recheio de trufa de chocolate.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Morango (0% Lactose)</span>
+                        <span class="menu-item-price">R$ 8,00</span>
+                    </div>
+                    <p class="menu-item-description">Pura fruta, à base de água. Refrescante e vegano.</p>
+                </div>
+                 <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Pistache</span>
+                        <span class="menu-item-price">R$ 10,00</span>
+                    </div>
+                    <p class="menu-item-description">Receita original italiana com pedaços de pistache.</p>
+                </div>
+
+                <h3 class="menu-category">Picolés Especiais</h3>
+                
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Limão Siciliano</span>
+                        <span class="menu-item-price">R$ 6,00</span>
+                    </div>
+                    <p class="menu-item-description">Azedinho na medida certa, super refrescante.</p>
+                </div>
+                 <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Coco com Doce de Leite</span>
+                        <span class="menu-item-price">R$ 7,00</span>
+                    </div>
+                    <p class="menu-item-description">Picolé de coco cremoso com recheio de doce de leite.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Iogurte com Amarena</span>
+                        <span class="menu-item-price">R$ 7,00</span>
+                    </div>
+                    <p class="menu-item-description">A cremosidade do iogurte grego com calda de cereja italiana.</p>
+                </div>
+
+                <h3 class="menu-category">Taças & Milkshakes</h3>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Taça Avalanche</span>
+                        <span class="menu-item-price">R$ 22,00</span>
+                    </div>
+                    <p class="menu-item-description">3 bolas, frutas, chantilly e calda. (Ver foto nos destaques)</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Petit Gateau</span>
+                        <span class="menu-item-price">R$ 18,00</span>
+                    </div>
+                    <p class="menu-item-description">Bolo quente de chocolate com 1 bola de sorvete à sua escolha.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Milkshake (500ml)</span>
+                        <span class="menu-item-price">R$ 16,00</span>
+                    </div>
+                    <p class="menu-item-description">Escolha qualquer sabor de massa para o seu milkshake.</p>
+                </div>
+                
+                <h3 class="menu-category">Açaí & Complementos</h3>
+                
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Copo Açaí 300ml</span>
+                        <span class="menu-item-price">R$ 12,00</span>
+                    </div>
+                    <p class="menu-item-description">Inclui 3 complementos (fruta ou secos).</p>
+                </div>
+                 <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Copo Açaí 500ml</span>
+                        <span class="menu-item-price">R$ 16,00</span>
+                    </div>
+                    <p class="menu-item-description">Inclui 4 complementos (fruta ou secos).</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Adicional de Leite Pó</span>
+                        <span class="menu-item-price">R$ 2,00</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Adicional de Morango</span>
+                        <span class="menu-item-price">R$ 3,00</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-name">Adicional de Paçoca</span>
+                        <span class="menu-item-price">R$ 1,50</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="lightbox-overlay" class="lightbox-overlay">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Destaque em tela cheia">
+    </div>
+    
+    <script>
+        // --- Script do FAQ (Sanfona) ---
+        const faqButtons = document.querySelectorAll('.question');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // --- Script do Modal de Informações (Destaques) ---
+        const modalButtons = document.querySelectorAll('.open-modal-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalCloseBtn = document.getElementById('modal-close');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        function openModal(event) {
+            event.preventDefault(); 
+            const serviceTitle = event.currentTarget.dataset.service;
+            const serviceImg = event.currentTarget.dataset.img;
+            const serviceDesc = event.currentTarget.dataset.description;
+            
+            modalTitle.textContent = serviceTitle;
+            modalImg.src = serviceImg;
+            modalDescription.textContent = serviceDesc;
+            
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+        if(modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if(modalOverlay) modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // --- MUDANÇA: Script do Modal de CARDÁPIO ---
+        const openMenuModalBtn = document.getElementById('open-menu-modal');
+        const menuModalOverlay = document.getElementById('menu-modal-overlay');
+        const menuModalCloseBtn = document.getElementById('menu-modal-close');
+
+        function openMenuModal(event) {
+            event.preventDefault();
+            menuModalOverlay.classList.add('active');
+        }
+
+        function closeMenuModal() {
+            menuModalOverlay.classList.remove('active');
+        }
+
+        if(openMenuModalBtn) openMenuModalBtn.addEventListener('click', openMenuModal);
+        if(menuModalCloseBtn) menuModalCloseBtn.addEventListener('click', closeMenuModal);
+        
+        if(menuModalOverlay) menuModalOverlay.addEventListener('click', (event) => {
+            if (event.target === menuModalOverlay) {
+                closeMenuModal();
+            }
+        });
+
+        // --- Script de Arrastar (Drag) para o Carrossel ---
+        const carousel = document.querySelector('.services-carousel');
+        if(carousel) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            carousel.addEventListener('mousedown', (e) => { e.preventDefault(); isDown = true; carousel.classList.add('dragging'); startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft; });
+            carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('dragging'); });
+            carousel.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('dragging'); });
+            carousel.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - carousel.offsetLeft; const walk = (x - startX) * 2; carousel.scrollLeft = scrollLeft - walk; });
+        }
+        
+        // --- Script do Lightbox (Duplo Clique) ---
+        const serviceItems = document.querySelectorAll('.service-item');
+        const lightboxOverlay = document.getElementById('lightbox-overlay');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function openLightbox(e) {
+            const link = e.currentTarget.querySelector('.open-modal-btn');
+            if (link) {
+                const imgUrl = link.dataset.img;
+                lightboxImg.src = imgUrl;
+                lightboxOverlay.classList.add('active');
+            }
+        }
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            lightboxImg.src = "";
+        }
+        serviceItems.forEach(item => { item.addEventListener('dblclick', openLightbox); });
+        if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if(lightboxOverlay) lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) { closeLightbox(); } });
+    </script>
+</body>
+</html>

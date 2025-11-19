@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Encanto Personalizado | Papelaria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [CORREÇÃO] Força a ocultação da barra de rolagem no documento */
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+    
+        /* --- Configurações Globais (Cores para Papelaria) --- */
+        :root {
+            --color-bg: #FFE6F2;           /* Rosa bebê claro */ 
+            --color-container-bg: #F5F5F9; /* Creme, quase branco */
+            --color-item-bg: #FFFFFF;      /* Branco puro */
+            --color-primary: #C8A2C8;      /* Lilás suave (Bordas) */
+            --color-secondary: #FFE6F2;    /* Rosa bebê claro (Usado para textos sobre fundo roxo) */
+            --color-accent: #800080;       /* Roxo vibrante (Detalhes, Títulos de Seção) */
+            --color-text: #4A2C4A;         /* Roxo escuro suave (Texto principal) */
+            --color-plate-text: #4A2C4A;   
+            --primary-cyan: #C8A2C8;       /* Lilás suave (Botões sociais) */
+            --gradient-secondary: linear-gradient(135deg, #800080, #C8A2C8); /* Gradiente Roxo/Lilás */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px; /* Define uma base consistente para 'rem' */
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            /* [CORREÇÃO] Padding removido para evitar overflow horizontal */
+            padding: 0; 
+            min-height: 100%;
+            overflow-y: auto;
+            line-height: 1.4;
+        }
+
+        /* --- Contêiner Principal --- */
+        .container {
+            /* [CORREÇÃO] Largura alinhada com a tela do mockup (194px) */
+            max-width: 194px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--color-container-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 12px;
+            /* [CORREÇÃO] Padding vertical ajustado */
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 15px rgba(200, 162, 200, 0.2),
+                        0 0 10px var(--color-primary),
+                        0 0 20px rgba(200, 162, 200, 0.3), 
+                        inset 0 0 5px rgba(200, 162, 200, 0.5);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .header, .artist-profile, .faq {
+            /* [CORREÇÃO] Padding interno para o conteúdo */
+            padding: 0 0.75rem;
+        }
+
+        /* --- Cabeçalho --- */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid rgba(200, 162, 200, 0.3);
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-img {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 0.5rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 4px var(--color-accent));
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 4px var(--color-accent), 0 0 8px var(--color-accent); }
+            50% { text-shadow: 0 0 8px var(--color-accent), 0 0 12px rgba(128, 0, 128, 0.6), 0 0 16px var(--color-accent); }
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 1.3rem; 
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            animation: pulse-glow 3s infinite alternate ease-in-out;
+        }
+        
+        .header .subtitle {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.7rem; 
+            color: var(--color-text);
+            margin-top: 0.3rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .btn-schedule {
+            display: inline-block;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            border: 1px solid var(--color-primary);
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--color-accent);
+            font-weight: 600;
+            background-color: rgba(200, 162, 200, 0.1); 
+            box-shadow: 0 1px 3px rgba(128, 0, 128, 0.2), 0 0 5px var(--color-primary);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+
+        .btn-schedule:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-secondary);
+            box-shadow: 0 2px 8px rgba(128, 0, 128, 0.4), 0 0 10px var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- Título da Seção --- */
+        .section-title-wrapper {
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 1rem;
+            padding: 4px 6px;
+            font-weight: 400;
+            color: var(--color-secondary);
+            background-color: var(--color-accent);
+            border: 1px solid var(--color-accent); 
+            text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 3px rgba(128, 0, 128, 0.2), 
+                        inset 0 1px 1px rgba(255,255,255,0.3),
+                        inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0; 
+            transition: all 0.3s ease;
+        }
+        
+        /* --- Carrossel de Produtos --- */
+        .services-carousel-wrapper {
+            width: 100%;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .services-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* [CORREÇÃO] Scrollbar já oculta no <head>, mas mantido aqui por segurança */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .services-carousel::-webkit-scrollbar { display: none; }
+        .services-carousel.dragging { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+
+        .services-carousel .service-item {
+            /* [CORREÇÃO] Ajuste de flex-basis para caber na tela */
+            flex: 0 0 85%; 
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            margin-left: 0.5rem;
+            background-color: var(--color-item-bg);
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            padding: 0.5rem 0.3rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(200, 162, 200, 0.2), 0 0 5px rgba(200, 162, 200, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: auto;
+            cursor: grab;
+        }
+        
+        .services-carousel.dragging .service-item { cursor: grabbing; }
+
+        .services-carousel .service-item:first-child {
+            /* [CORREÇÃO] Alinha com o padding do container */
+            margin-left: 0.75rem; 
+        }
+        .services-carousel .service-item:last-child {
+            margin-right: 0.75rem;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 4px 10px rgba(128, 0, 128, 0.3), 0 0 10px var(--color-accent), inset 0 0 5px var(--color-primary);
+        }
+
+        .service-item .icon {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            width: 35px;
+            height: 35px;
+            margin-bottom: 0.3rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 3px var(--color-accent));
+            pointer-events: none;
+        }
+        
+        .service-item h3 {
+            font-family: 'Exo 2', sans-serif;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+            color: var(--color-text);
+            pointer-events: none;
+        }
+        
+        .service-item .open-modal-btn {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.65rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-item .open-modal-btn:hover {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        /* --- Seção da Artesã --- */
+        .artist-profile {
+            text-align: center;
+            margin-bottom: 1rem;
+            border-top: 1px solid rgba(200, 162, 200, 0.3);
+            padding-top: 0.75rem;
+        }
+
+        .profile-pic {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 8px var(--color-accent), inset 0 0 5px rgba(128, 0, 128, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 0.5rem;
+            background-color: rgba(128, 0, 128, 0.1);
+            overflow: hidden;
+        }
+
+        .profile-pic .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .artist-profile h2 {
+            font-family: 'Dancing Script', cursive;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--color-accent);
+        }
+        .artist-profile .artist-role {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.65rem;
+            color: var(--color-text);
+            opacity: 0.7;
+            margin-bottom: 0.3rem;
+            font-weight: 400;
+        }
+
+        /* --- Botões Sociais --- */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .button .bloom-container {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            width: 35px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-content: center;
+            border-right: 2px solid var(--primary-cyan);
+            border-left: 2px solid rgba(128, 0, 128, 0.3);
+            transform: rotate(-45deg);
+            transition: transform 0.4s ease-in-out, border-color 0.4s ease-in-out;
+        }
+
+        .button .bloom-container .button-container-main {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .button .bloom-container .button-inner {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            height: 25px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: rgba(100, 100, 111, 0.3) -3px 2px 3px 0px;
+            transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
+        }
+
+        .button .bloom-container .button-inner .back {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: var(--gradient-secondary);
+        }
+
+        .button .bloom-container .button-inner .front {
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            background: transparent;
+            display: grid;
+            place-content: center;
+        }
+
+        .button .bloom-container .button-inner .front .svg {
+            fill: #ffffff;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            width: 16px;
+            aspect-ratio: 1 / 1;
+            transform: rotate(45deg);
+            transition: filter 0.2s ease-in, transform 0.4s ease-in-out;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+        }
+
+        .button .bloom-container .button-glass {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translate(0%, -50%) rotate(0deg);
+            transform-origin: bottom center;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .button .bloom-container .bloom {
+            height: 1px;
+            width: 1px;
+            position: absolute;
+            background: white;
+        }
+
+        .button .bloom-container .bloom1 {
+            top: 5px;
+            right: 10px;
+            box-shadow: var(--primary-cyan) 0px 0px 2px 2px, var(--primary-cyan) 0px 0px 4px 4px;
+        }
+
+        .button .bloom-container .bloom2 {
+            bottom: 5px;
+            left: 10px;
+            box-shadow: rgba(128, 0, 128, 0.3) 0px 0px 2px 2px, rgba(128, 0, 128, 0.3) 0px 0px 5px 5px;
+        }
+
+        .button .bloom-container:hover {
+            transform: rotate(0deg) scale(1.1);
+            border-right-color: var(--color-accent);
+            border-left-color: var(--color-accent);
+        }
+
+        .button .bloom-container:hover .button-inner .front {
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .button .bloom-container:hover .button-inner .front .svg {
+            filter: drop-shadow(0 0 3px white);
+            transform: rotate(0deg);
+        }
+        
+        .button .bloom-container:hover .button-glass {
+            transform: translate(0%, -40%);
+        }
+
+        .button .bloom-container:active {
+            transform: scale(0.7);
+        }
+
+        .button .bloom-container:active .button-inner {
+            transform: scale(1.2);
+        }
+
+        /* --- Seção de FAQ (Dúvidas) --- */
+        .faq {
+            width: 100%;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .question {
+            width: 100%;
+            background-color: var(--color-item-bg);
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            padding: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            color: var(--color-text);
+            font-family: 'Exo 2', sans-serif;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.65rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(200, 162, 200, 0.2), 0 0 4px rgba(200, 162, 200, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: var(--color-container-bg);
+            box-shadow: 0 3px 6px rgba(128, 0, 128, 0.3), 0 0 8px var(--color-accent);
+        }
+
+        .question .arrow {
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+            color: var(--color-primary);
+        }
+
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            background-color: var(--color-container-bg);
+            border-radius: 0 0 6px 6px;
+            padding: 0 0.4rem;
+            transition: all 0.4s ease-out;
+            color: var(--color-text);
+            opacity: 0.9;
+            border: 1px solid transparent;
+            border-top: 0;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.6rem;
+            line-height: 1.5;
+            text-align: justify;
+            text-shadow: 0 0.5px 1px rgba(128, 0, 128, 0.2);
+        }
+        
+        .faq-item.active .question {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 3px 6px rgba(128, 0, 128, 0.3), 0 0 10px var(--color-accent);
+        }
+        
+        .faq-item.active .answer {
+            max-height: 10rem;
+            padding: 0.4rem;
+            border-color: var(--color-primary);
+        }
+
+        .faq-item.active .arrow {
+            transform: rotate(90deg);
+            color: var(--color-accent);
+        }
+        
+        /* --- Estilos do Modal (Pop-up) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 0, 128, 0.7);
+            display: none;
+            justify-content: center;
+            /* [CORREÇÃO] Alinha o modal ao topo, não ao centro */
+            align-items: flex-start;
+            /* [CORREÇÃO] Adiciona padding para o modal não colar no topo */
+            padding-top: 1rem;
+            z-index: 1000;
+            padding: 0.5rem;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn {
+            from { transform: translateY(-25px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal {
+            background-color: var(--color-item-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 10px;
+            padding: 0.75rem;
+            box-shadow: 0 0 15px var(--color-accent), inset 0 0 5px var(--color-primary);
+            max-width: 90%;
+            width: 100%;
+            position: relative;
+            max-height: 90vh; /* A altura máxima está correta */
+            overflow-y: auto;   /* O scroll interno está correto */
+            animation: slideIn 0.4s forwards;
+            
+            /* [CORREÇÃO] Adiciona as regras para ocultar a barra de rolagem DO MODAL */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        /* [CORREÇÃO] Oculta a barra de rolagem DO MODAL no WebKit */
+        .modal::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover { color: var(--color-accent); }
+        
+        .modal-img {
+            width: 100%;
+            /*height: 8rem;
+            /* [CORREÇÃO] 'cover' mudado para 'contain' para mostrar a imagem inteira */
+            object-fit: contain; 
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 0 5px rgba(200, 162, 200, 0.5);
+            /* [NOVO] Adiciona um fundo sutil caso a imagem seja transparente */
+            background-color: rgba(200, 162, 200, 0.1);
+        }
+        
+        .modal-title {
+            font-family: 'Dancing Script', cursive;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 0.4rem;
+            text-align: center;
+            text-shadow: 0 0 4px var(--color-accent);
+        }
+        
+        .modal-description {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.7rem;
+            color: var(--color-text);
+            opacity: 0.9;
+            line-height: 1.6;
+            text-align: justify;
+            text-shadow: 0 0.5px 1px rgba(128, 0, 128, 0.2);
+        }
+
+        /* --- Estilos do Modal de Orçamento --- */
+        .appointment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .appointment-form label {
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.7rem;
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .appointment-form input, .appointment-form select {
+            padding: 0.3rem;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.65rem;
+            border: 1px solid var(--color-primary);
+            border-radius: 4px;
+            background-color: var(--color-item-bg);
+            color: var(--color-text);
+        }
+
+        .appointment-form button {
+            padding: 0.4rem;
+            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
+            font-size: 0.7rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--color-accent);
+            color: var(--color-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .appointment-form button:hover {
+            background-color: #660066;
+            box-shadow: 0 2px 8px rgba(128, 0, 128, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* --- Estilos do Lightbox (Tela Cheia) --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(128, 0, 128, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .lightbox-overlay.active { display: flex; }
+        
+        .lightbox-overlay img {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            border: 1px solid var(--color-primary);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--color-accent);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+        .lightbox-close:hover { color: var(--color-accent); }
+        
+        /* Media query mantida para larguras extremas */
+        @media (max-width: 200px) {
+            .container {
+                padding-top: 0.75rem;
+            }
+            .header, .artist-profile, .faq, .section-title-wrapper {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .services-carousel .service-item:first-child { margin-left: 0.5rem; }
+            .services-carousel .service-item:last-child { margin-right: 0.5rem; }
+            .question { padding: 0.3rem; }
+            .lightbox-close { top: 0.3rem; right: 0.5rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <img src="img/encanto-personalizado-logo.jpg" alt="Encanto Personalizado Logo" class="logo-img"> 
+            <h1>Encanto Personalizado</h1>
+            <p class="subtitle">Papelaria & Mimos Criativos</p>
+            <a href="#" class="btn-schedule" id="open-order-modal">Solicitar Orçamento</a>
+        </header>
+
+        <section class="services">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Nossos Produtos</h2>
+            </div>
+
+            <div class="services-carousel-wrapper">
+                <div class="services-carousel">
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-convites.jpg" alt="Ícone Convites e Cartões">
+                        <h3>Convites & Cartões</h3>
+                        <a class="open-modal-btn" 
+                           data-service="Convites & Cartões"
+                           data-img="img/servico-convites.jpg" 
+                           data-description="Designs exclusivos para convites de casamento, aniversário e cartões comemorativos. Totalmente personalizado para o seu evento.">
+                           Ver Detalhes
+                        </a>
+                    </div>
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-topos-bolo.jpg" alt="Ícone Topos de Bolo">
+                        <h3>Topos de Bolo</h3>
+                        <a class="open-modal-btn"
+                           data-service="Topos de Bolo"
+                           data-img="img/servico-topos-bolo.jpg" 
+                           data-description="Topos de bolo personalizados em papelaria (shaker, 3D, camadas) para tornar sua festa inesquecível.">
+                           Ver Detalhes
+                        </a>
+                    </div>
+
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-mimos.jpg" alt="Ícone Mimos e Cadernos">
+                        <h3>Mimos & Cadernos</h3>
+                        <a class="open-modal-btn"
+                           data-service="Mimos & Cadernos"
+                           data-img="img/servico-mimos.jpg" 
+                           data-description="Cadernos, agendas, tags, caixas personalizadas e uma variedade de mimos para presentes ou organização.">
+                           Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="artist-profile">
+            <div class="profile-pic">
+                <img src="img/artesa-foto.jpg" alt="Foto da Artesã" class="profile-img">
+            </div>
+            <h2>Ana Clara</h2>
+            <p class="artist-role">Designer & Fundadora</p>
+            <div class="social-buttons">
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Siga-nos no Instagram">
+                    <div class="bloom-container">
+                        <div class="button-container-main">
+                            <div class="button-inner">
+                                <div class="back"></div>
+                                <div class="front">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512">
+                                        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="button-glass">
+                                <div class="back"></div>
+                                <div class="front"></div>
+                            </div>
+                        </div>
+                        <div class="bloom bloom1"></div>
+                        <div class="bloom bloom2"></div>
+                    </div>
+                </a>
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Fale conosco no WhatsApp">
+                    <div class="bloom-container">
+                        <div class="button-container-main">
+                            <div class="button-inner">
+                                <div class="back"></div>
+                                <div class="front">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512">
+                                        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="button-glass">
+                                <div class="back"></div>
+                                <div class="front"></div>
+                            </div>
+                        </div>
+                        <div class="bloom bloom1"></div>
+                        <div class="bloom bloom2"></div>
+                    </div>
+                </a>
+            </div> </section>
+
+        <section class="faq">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Dúvidas Frequentes</h2>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>1. Qual o prazo de produção?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Nosso prazo varia de 5 a 10 dias úteis, dependendo da complexidade e quantidade do pedido. Consulte-nos!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>2. Vocês enviam para todo o Brasil?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Sim! Enviamos para todo o território nacional. O frete é calculado no momento do pedido.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="question">
+                    <span>3. Posso personalizar com meu tema?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Com certeza! Somos especialistas em personalização. Traga sua ideia, tema ou paleta de cores e nós criamos a arte para você.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-img" src="" alt="Imagem do Produto" class="modal-img">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-description" class="modal-description"></p>
+        </div>
+    </div>
+    
+    <div id="order-modal-overlay" class="modal-overlay">
+        <div id="order-modal" class="modal">
+            <span id="order-modal-close" class="modal-close">&times;</span>
+            <h2 class="modal-title">Solicitar Orçamento</h2>
+            <form class="appointment-form" id="order-form">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required placeholder="Digite seu nome">
+                
+                <label for="phone">Telefone:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="(XX) XXXXX-XXXX">
+                
+                <label for="service">Produto de Interesse:</label>
+                <select id="service" name="service" required>
+                    <option value="Convites & Cartões">Convites & Cartões</option>
+                    <option value="Topos de Bolo">Topos de Bolo</option>
+                    <option value="Mimos & Cadernos">Mimos & Cadernos</option>
+                </select>
+                
+                <button type="submit">Solicitar no WhatsApp</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="lightbox-overlay" class="lightbox-overlay">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Produto em tela cheia">
+    </div>
+    
+    <script>
+        // --- Script do FAQ (Sanfona) ---
+        const faqButtons = document.querySelectorAll('.question');
+
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // --- Script do Modal de Informações (Clique Simples) ---
+        const modalButtons = document.querySelectorAll('.open-modal-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalCloseBtn = document.getElementById('modal-close');
+        
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        function openModal(event) {
+            event.preventDefault(); 
+            const serviceTitle = event.currentTarget.dataset.service;
+            const serviceImg = event.currentTarget.dataset.img;
+            const serviceDesc = event.currentTarget.dataset.description;
+            
+            modalTitle.textContent = serviceTitle;
+            modalImg.src = serviceImg;
+            
+            // [MUDANÇA] Usar innerHTML para renderizar a lista de preços, se houver
+            // Se for só texto, funciona igual. Se for HTML (como sua lista), ele renderiza.
+            modalDescription.innerHTML = serviceDesc; 
+            
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+        
+        modalCloseBtn.addEventListener('click', closeModal);
+        
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // --- Script do Modal de Orçamento (Atualizado) ---
+        const openOrderModalBtn = document.getElementById('open-order-modal');
+        const orderModalOverlay = document.getElementById('order-modal-overlay');
+        const orderModalCloseBtn = document.getElementById('order-modal-close');
+
+        function openOrderModal(event) {
+            event.preventDefault();
+            orderModalOverlay.classList.add('active');
+        }
+
+        function closeOrderModal() {
+            orderModalOverlay.classList.remove('active');
+        }
+
+        openOrderModalBtn.addEventListener('click', openOrderModal);
+        orderModalCloseBtn.addEventListener('click', closeOrderModal);
+        
+        orderModalOverlay.addEventListener('click', (event) => {
+            if (event.target === orderModalOverlay) {
+                closeOrderModal();
+            }
+        });
+
+        // --- Script de Envio para WhatsApp (Atualizado) ---
+        const orderForm = document.getElementById('order-form');
+        orderForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            
+            // ATENÇÃO: Substitua 'SEU_NUMERO_AQUI' pelo seu número de WhatsApp com código do país (ex: 5511999999999)
+            const message = `Olá, sou ${name}. Gostaria de um orçamento para ${service}. Meu telefone é ${phone}.`;
+            // [CORREÇÃO] O número de telefone deve ser pego da variável global do bio.js,
+            // mas como este arquivo é independente, você deve inserir manualmente aqui.
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=558299801009&text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeOrderModal();
+        });
+
+        // --- Script de Arrastar (Drag) para o Carrossel ---
+        const carousel = document.querySelector('.services-carousel');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        carousel.addEventListener('mousedown', (e) => {
+            e.preventDefault(); 
+            isDown = true;
+            carousel.classList.add('dragging');
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+            carousel.classList.remove('dragging');
+        });
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+            carousel.classList.remove('dragging');
+        });
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+        
+        // --- Script do Lightbox (Duplo Clique) ---
+        const serviceItems = document.querySelectorAll('.service-item');
+        const lightboxOverlay = document.getElementById('lightbox-overlay');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function openLightbox(e) {
+            const link = e.currentTarget.querySelector('.open-modal-btn');
+            if (link) {
+                const imgUrl = link.dataset.img;
+                lightboxImg.src = imgUrl;
+                lightboxOverlay.classList.add('active');
+            }
+        }
+
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            lightboxImg.src = "";
+        }
+
+        serviceItems.forEach(item => {
+            item.addEventListener('dblclick', openLightbox);
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxOverlay.addEventListener('click', (e) => {
+            if (e.target === lightboxOverlay) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

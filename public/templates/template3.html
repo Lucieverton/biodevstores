@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Animal | Pet Shop & Veterinária</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [PADRÃO] Oculta a barra de rolagem */
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+    
+        /* --- [NOVO] Configurações Globais (Cores Pet Shop) --- */
+        :root {
+            --color-bg: #FDFBF5;            /* Fundo Creme Claro */ 
+            --color-container-bg: #FFFFFF; /* Fundo Branco (Limpo/Vet) */
+            --color-primary: #009B90;       /* Verde-Água (Profissional) */
+            --color-secondary: #F9A826;      /* Amarelo Ouro (Amigável) */
+            --color-accent: #E87A00;         /* Laranja (CTA) */
+            --color-text: #4A3F35;          /* Marrom Escuro (Legível) */
+            --color-plate-text: #FFFFFF;    /* Texto Branco (Placa) */
+
+            /* --- [MELHORIA RESPONSIVA] Controle de Tamanho da Logo Fluido --- */
+            --logo-size: clamp(50px, 15vw, 70px); 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px; 
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100%;
+            overflow-y: auto;
+            line-height: 1.4;
+
+            /* [MELHORIA] Adiciona o fundo de patinhas solicitado */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ3h0PSIzMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxwYXRoIGZpbGw9InJnYmEoMCwgMTU1LCAxNDQsIDAuMDgpIiBkPSJNMjU2IDEyOGMtMjYuNSAwLTQ4IDIxLjUtNDggNDhzMjEuNSA0OCA0OCA0OCA0OC0yMS41IDQ4LTQ4LTIxLjUtNDgtNDgtNDh6TTE0NCAyMDhjLTI2LjUgMC00OCAyMS41LTQ4IDQ4czIxLjUgNDggNDggNDggNDgtMjEuNSA0OC00OC0yMS41LTQ4LTQ4LTQ4em0yMjQgMGMtMjYuNSAwLTQ4IDIxLjUtNDggNDhzMjEuNSA0OCA0OCA0OCA0OC0yMS41IDQ4LTQ4LTIxLjUtNDgtNDgtNDh6bS0xMTIgOTZjLTQ0LjIgMC04MCAzNS44LTgwIDgwczM1Ui44IDgwIDgwIDgwIDgwLTM1LjggODAtODAtMzUuOC04MC04MC04MHoiLz48L3N2Zz4=');
+            background-size: 50px 50px;
+            background-repeat: repeat;
+
+            /* [MELHORIA RESPONSIVA] Adiciona padding ao corpo */
+            padding: 1rem 0.5rem;
+        }
+
+        /* --- Contêiner Principal --- */
+        .container {
+            /* [MELHORIA RESPONSIVA] Padrão de 420px (bio link) em vez de 194px (mockup) */
+            max-width: 420px; 
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--color-container-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1),
+                        0 0 10px var(--color-primary),
+                        0 0 20px rgba(0, 155, 144, 0.3), 
+                        inset 0 0 5px rgba(0, 155, 144, 0.3);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .header, .artist-profile, .faq {
+            padding: 0 0.75rem; /* [PADRÃO] Padding interno */
+        }
+
+        /* --- Cabeçalho --- */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 155, 144, 0.2);
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-img {
+            /* [CONTROLE] O tamanho é controlado pela variável --logo-size */
+            width: var(--logo-size);
+            height: var(--logo-size);
+            margin: 0 auto 0.5rem;
+            filter: drop-shadow(0 0 4px var(--color-secondary));
+
+            /* [MELHORIA] Garante o formato circular */
+            border-radius: 50%;
+            object-fit: cover; 
+            
+            /* [MELHORIA] Adiciona uma transição suave para o efeito de hover */
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px var(--color-secondary));
+            cursor: pointer;
+        }
+
+        @keyframes pulse-glow-pet {
+            0%, 100% { text-shadow: 0 0 4px var(--color-secondary), 0 0 8px var(--color-secondary); }
+            50% { text-shadow: 0 0 8px var(--color-secondary), 0 0 12px rgba(249, 168, 38, 0.8), 0 0 16px var(--color-secondary); }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 400;
+            color: var(--color-primary);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+            animation: pulse-glow-pet 3s infinite alternate ease-in-out;
+        }
+        
+        .header .subtitle {
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            margin-top: 0.3rem;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .btn-schedule {
+            display: inline-block;
+            padding: 6px 12px;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            border: 1px solid var(--color-accent);
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--color-accent);
+            font-weight: 700;
+            background-color: rgba(232, 122, 0, 0.1); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 0 5px rgba(232, 122, 0, 0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .btn-schedule:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-container-bg);
+            box-shadow: 0 2px 8px rgba(232, 122, 0, 0.5), 0 0 10px var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- Título da Seção --- */
+        .section-title-wrapper {
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(1rem, 5vw, 1.2rem);
+            padding: 6px 8px;
+            font-weight: 400;
+            color: var(--color-plate-text);
+            background-color: var(--color-primary);
+            border: 1px solid var(--color-primary); 
+            text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2), 
+                        inset 0 1px 1px rgba(255,255,255,0.3),
+                        inset 0 -1px 1px rgba(0,0,0,0.2);
+            margin-bottom: 0; 
+            transition: all 0.3s ease;
+            text-align: center; 
+        }
+        
+        /* --- Carrossel de Serviços --- */
+        .services-carousel-wrapper {
+            width: 100%;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .services-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .services-carousel::-webkit-scrollbar { display: none; }
+        .services-carousel.dragging { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+
+        .services-carousel .service-item {
+            /* [MELHORIA RESPONSIVA] Um pouco mais estreito para telas maiores */
+            flex: 0 0 75%; 
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            margin-left: 0.5rem;
+            background-color: var(--color-container-bg);
+            border: 1px solid rgba(0, 155, 144, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem 0.3rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1), 0 0 5px rgba(0, 155, 144, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: auto;
+            cursor: grab;
+        }
+        
+        .services-carousel.dragging .service-item { cursor: grabbing; }
+
+        .services-carousel .service-item:first-child {
+            margin-left: 0.75rem; 
+        }
+        .services-carousel .service-item:last-child {
+            margin-right: 0.75rem;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 0 10px var(--color-secondary), inset 0 0 5px var(--color-primary);
+        }
+
+        .service-item .icon {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido */
+            width: clamp(35px, 10vw, 45px);
+            height: clamp(35px, 10vw, 45px);
+            margin: 0 auto 0.3rem auto; /* [CORREÇÃO] Centraliza o ícone */
+            object-fit: contain;
+            filter: drop-shadow(0 0 3px var(--color-secondary));
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 155, 144, 0.05);
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 0.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-align: center;
+            padding: 2px;
+        }
+        
+        .service-item h3 {
+            font-family: 'Nunito', sans-serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.8rem, 4vw, 0.9rem);
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            pointer-events: none;
+            
+            /* [CORREÇÃO] Permite quebra de linha para "Clínica Veterinária" */
+            white-space: normal; 
+            line-height: 1.3;
+            height: 2.6em; /* 2 * 1.3em (Garante altura para 2 linhas) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .service-item .open-modal-btn {
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.65rem, 3vw, 0.75rem);
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+        
+        .service-item .open-modal-btn:hover {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        /* --- Seção de Perfil (Veterinário) --- */
+        .artist-profile {
+            text-align: center;
+            margin-bottom: 1rem;
+            border-top: 1px solid rgba(0, 155, 144, 0.2);
+            padding-top: 0.75rem;
+        }
+
+        .profile-pic {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido */
+            width: clamp(60px, 18vw, 80px);
+            height: clamp(60px, 18vw, 80px);
+            border-radius: 50%;
+            border: 2px solid var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary), inset 0 0 5px rgba(0, 155, 144, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 0.5rem;
+            background-color: rgba(0, 155, 144, 0.05);
+            overflow: hidden;
+        }
+
+        .profile-pic .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .artist-profile h2 {
+            font-family: 'Fredoka One', cursive;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(1rem, 5vw, 1.2rem);
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+            color: var(--color-text);
+        }
+        .artist-profile .artist-role {
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.65rem, 3vw, 0.75rem);
+            color: var(--color-text);
+            opacity: 0.7;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        /* [MELHORIA RESPONSIVA] Botões Sociais */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .button .bloom-container {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido */
+            width: clamp(35px, 10vw, 40px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-content: center;
+            border-right: 2px solid var(--color-secondary);
+            border-left: 2px solid rgba(249, 168, 38, 0.3);
+            transform: rotate(-45deg);
+            transition: transform 0.4s ease-in-out, border-color 0.4s ease-in-out;
+        }
+        .button .bloom-container .button-container-main { width: 100%; height: 100%; position: relative; }
+        .button .bloom-container .button-inner {
+            /* [MELHORIA RESPONSIVA] Tamanho fluido */
+            height: clamp(25px, 7vw, 30px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: rgba(100, 100, 111, 0.3) -3px 2px 3px 0px;
+            transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
+        }
+        .button .bloom-container .button-inner .back {
+            position: absolute; inset: 0; border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+        .button .bloom-container .button-inner .front {
+            position: absolute; inset: 3px; border-radius: 50%;
+            background: transparent; display: grid; place-content: center;
+        }
+        .button .bloom-container .button-inner .front .svg {
+            fill: #ffffff;
+            /* [MELHORIA RESPONSIVA] Tamanho fluido */
+            width: clamp(16px, 4vw, 18px);
+            aspect-ratio: 1 / 1;
+            transform: rotate(45deg);
+            transition: filter 0.2s ease-in, transform 0.4s ease-in-out;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+        }
+        .button .bloom-container .button-glass {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translate(0%, -50%) rotate(0deg);
+            transform-origin: bottom center;
+            transition: transform 0.4s ease-in-out;
+        }
+        .button .bloom-container .bloom { height: 1px; width: 1px; position: absolute; background: white; }
+        .button .bloom-container .bloom1 { top: 5px; right: 10px; box-shadow: var(--color-primary) 0px 0px 2px 2px, var(--color-primary) 0px 0px 4px 4px; }
+        .button .bloom-container .bloom2 { bottom: 5px; left: 10px; box-shadow: var(--color-secondary) 0px 0px 2px 2px, var(--color-secondary) 0px 0px 5px 5px; }
+        .button .bloom-container:hover { transform: rotate(0deg) scale(1.1); border-right-color: var(--color-accent); border-left-color: var(--color-accent); }
+        .button .bloom-container:hover .button-inner .front { box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); }
+        .button .bloom-container:hover .button-inner .front .svg { filter: drop-shadow(0 0 3px white); transform: rotate(0deg); }
+        .button .bloom-container:hover .button-glass { transform: translate(0%, -40%); }
+        .button .bloom-container:active { transform: scale(0.7); }
+        .button .bloom-container:active .button-inner { transform: scale(1.2); }
+
+
+        /* --- Seção de FAQ (Dúvidas) --- */
+        .faq {
+            width: 100%;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .question {
+            width: 100%;
+            background-color: var(--color-container-bg);
+            border: 1px solid rgba(0, 155, 144, 0.3);
+            border-radius: 6px;
+            padding: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            color: var(--color-text);
+            font-family: 'Nunito', sans-serif;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.65rem, 3vw, 0.8rem);
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 4px rgba(0, 155, 144, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: #F8F4E3; /* Fundo Bege sutil */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 0 8px var(--color-accent);
+        }
+
+        .question .arrow {
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+            color: var(--color-primary);
+        }
+
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            background-color: #F8F4E3; /* Fundo Bege sutil */
+            border-radius: 0 0 6px 6px;
+            padding: 0 0.4rem;
+            transition: all 0.4s ease-out;
+            color: var(--color-text);
+            opacity: 0.9;
+            border: 1px solid transparent;
+            border-top: 0;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.6rem, 2.8vw, 0.75rem);
+            line-height: 1.5;
+            text-align: left; 
+            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-item.active .question {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 0 10px var(--color-accent);
+        }
+        
+        .faq-item.active .answer {
+            max-height: 10rem;
+            padding: 0.4rem;
+            border-color: rgba(0, 155, 144, 0.3);
+        }
+
+        .faq-item.active .arrow {
+            transform: rotate(90deg);
+            color: var(--color-accent);
+        }
+        
+        /* --- Estilos do Modal (Pop-up) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(74, 63, 53, 0.85); /* Fundo Marrom Transparente */
+            display: none;
+            justify-content: center;
+            /* [MELHORIA RESPONSIVA] Centraliza o modal */
+            align-items: center; 
+            z-index: 1000;
+            padding: 1rem; /* Padding para evitar colar nas bordas */
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn {
+            from { transform: translateY(-25px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal {
+            background-color: var(--color-container-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 10px;
+            padding: 0.75rem;
+            box-shadow: 0 0 15px var(--color-accent), inset 0 0 5px var(--color-primary);
+            /* [MELHORIA RESPONSIVA] Modal nunca passa de 95% da tela */
+            max-width: 95%;
+            width: 100%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.4s forwards;
+            
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .modal::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover { color: var(--color-accent); }
+        
+        .modal-img {
+            width: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 0 5px rgba(0, 155, 144, 0.3);
+            background-color: rgba(0, 155, 144, 0.05);
+        }
+        
+        .modal-title {
+            font-family: 'Fredoka One', cursive;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(1.1rem, 5vw, 1.4rem);
+            font-weight: 400;
+            color: var(--color-accent);
+            margin-bottom: 0.4rem;
+            text-align: center;
+            text-shadow: 0 0 4px var(--color-accent);
+        }
+        
+        .modal-description {
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            opacity: 0.9;
+            line-height: 1.6;
+            text-align: left;
+            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Estilos do Modal de Agendamento (Formulário) --- */
+        .appointment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .appointment-form label {
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: var(--color-text);
+            font-weight: 700;
+        }
+
+        .appointment-form input, .appointment-form select {
+            padding: 0.4rem;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.65rem, 3vw, 0.8rem);
+            border: 1px solid var(--color-primary);
+            border-radius: 4px;
+            background-color: var(--color-bg); /* Fundo creme claro para inputs */
+            color: var(--color-text);
+            font-family: 'Nunito', sans-serif;
+            width: 100%;
+        }
+
+        .appointment-form button {
+            padding: 0.5rem;
+            /* [MELHORIA RESPONSIVA] Fonte fluida */
+            font-size: clamp(0.7rem, 3.5vw, 0.85rem);
+            border: none;
+            border-radius: 5px;
+            background-color: var(--color-accent);
+            color: var(--color-container-bg);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .appointment-form button:hover {
+            background-color: #c96800; /* Laranja mais escuro */
+            box-shadow: 0 2px 8px rgba(232, 122, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* --- Estilos do Lightbox (Tela Cheia) --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(74, 63, 53, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .lightbox-overlay.active { display: flex; }
+        
+        .lightbox-overlay img {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            border: 1px solid var(--color-primary);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--color-secondary);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-container-bg);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+        .lightbox-close:hover { color: var(--color-secondary); }
+
+        /* --- [NOVO] Estilo do Rodapé --- */
+        .footer {
+            width: 100%;
+            max-width: 420px; 
+            margin: 0 auto;
+            text-align: center;
+            font-size: clamp(0.6rem, 2.5vw, 0.7rem);
+            color: var(--color-text);
+            opacity: 0.5;
+            padding: 0 0.5rem 0.5rem 0.5rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <img src="img/mundo-animal-logo.jpg" alt="Mundo Animal Logo" class="logo-img"> 
+            <h1>Mundo Animal</h1>
+            <p class="subtitle">Pet Shop & Clínica Veterinária</p>
+            <a href="#" class="btn-schedule" id="open-consulta-modal">Marcar Consulta</a>
+        </header>
+
+        <section class="services">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Nossos Serviços</h2>
+            </div>
+
+            <div class="services-carousel-wrapper">
+                <div class="services-carousel">
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-racao.jpg" alt="Ícone Casa de Ração">
+                        <h3>Casa de Ração</h3>
+                        <a class="open-modal-btn" 
+                            data-service="Casa de Ração"
+                            data-img="img/servico-racao.jpg" 
+                            data-description="Ampla variedade de rações premium e super-premium. Do filhote ao sênior, temos a nutrição ideal para seu pet. Entregamos em domicílio!">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-vet.jpg" alt="Ícone Clínica Veterinária">
+                        <h3>Clínica Veterinária</h3>
+                        <a class="open-modal-btn"
+                            data-service="Clínica Veterinária"
+                            data-img="img/servico-vet.jpg" 
+                            data-description="Consultas, vacinas, exames e cirurgias. Nossos veterinários estão prontos para cuidar da saúde do seu melhor amigo. Atendemos emergências.">
+                            Ver Detalhes
+                        </a>
+                    </div>
+
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-banho.jpg" alt="Ícone Banho & Tosa">
+                        <h3>Banho & Tosa</h3>
+                        <a class="open-modal-btn"
+                            data-service="Banho & Tosa"
+                            data-img="img/servico-banho.jpg" 
+                            data-description="Serviços de estética completos. Banhos terapêuticos, tosa higiênica, tosa da raça e hidratação. Deixe seu pet limpo e cheiroso!">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                    
+                    <div class="service-item">
+                        <img class="icon" src="img/icon-acessorios.jpg" alt="Ícone Acessórios">
+                        <h3>Acessórios</h3>
+                        <a class="open-modal-btn"
+                            data-service="Acessórios e Brinquedos"
+                            data-img="img/servico-acessorios.jpg" 
+                            data-description="Coleiras, guias, caminhas, arranhadores, brinquedos e tudo que seu pet precisa para uma vida feliz e confortável.">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="artist-profile">
+            <div class="profile-pic">
+                <img src="img/vet-foto.jpg" alt="Foto do Veterinário" class="profile-img">
+            </div>
+            <h2>Dr. André Silva</h2>
+            <p class="artist-role">Veterinário Chefe & Fundador</p>
+            <div class="social-buttons">
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Siga-nos no Instagram">
+                    <div class="bloom-container">
+                        <div class="button-container-main">
+                            <div class="button-inner">
+                                <div class="back"></div>
+                                <div class="front">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512">
+                                        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="button-glass"><div class="back"></div><div class="front"></div></div>
+                        </div>
+                        <div class="bloom bloom1"></div><div class="bloom bloom2"></div>
+                    </div>
+                </a>
+                <a href="#" class="button" role="button" tabindex="0" aria-label="Fale conosco no WhatsApp">
+                    <div class="bloom-container">
+                        <div class="button-container-main">
+                            <div class="button-inner">
+                                <div class="back"></div>
+                                <div class="front">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 448 512">
+                                        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="button-glass"><div class="back"></div><div class="front"></div></div>
+                        </div>
+                        <div class="bloom bloom1"></div><div class="bloom bloom2"></div>
+                    </div>
+                </a>
+            </div> 
+        </section>
+
+        <section class="faq">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Dúvidas Frequentes</h2>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>1. Qual o horário de atendimento?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Clínica: 8h às 18h (Seg-Sáb). Pet Shop: 8h às 19h (Seg-Sáb) e 9h às 13h (Dom). Atendemos emergências 24h.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="question">
+                    <span>2. Preciso agendar banho e tosa?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Sim, recomendamos o agendamento para garantir o melhor horário para você e seu pet. Consultas também devem ser agendadas.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="question">
+                    <span>3. Vocês fazem entrega de ração?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Sim! Fazemos delivery de rações e medicamentos em toda a região. Peça pelo nosso WhatsApp.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="question">
+                    <span>4. Atendem animais silvestres?</span>
+                    <span class="arrow">&rsaquo;</span>
+                </button>
+                <div class="answer">
+                    <p>Nosso foco principal são cães e gatos. Para animais silvestres ou exóticos, por favor, entre em contato para indicarmos um especialista.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-img" src="" alt="Imagem do Serviço" class="modal-img">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-description" class="modal-description"></p>
+        </div>
+    </div>
+    
+    <div id="consulta-modal-overlay" class="modal-overlay">
+        <div id="consulta-modal" class="modal">
+            <span id="consulta-modal-close" class="modal-close">&times;</span>
+            <h2 class="modal-title">Agendar Serviço</h2>
+            <form class="appointment-form" id="consulta-form">
+                <label for="tutor-name">Nome do Tutor:</label>
+                <input type="text" id="tutor-name" name="tutor-name" required placeholder="Digite seu nome">
+
+                <label for="pet-name">Nome do Pet:</label>
+                <input type="text" id="pet-name" name="pet-name" required placeholder="Digite o nome do pet">
+                
+                <label for="phone">Telefone:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="(XX) XXXXX-XXXX">
+                
+                <label for="service">Serviço Desejado:</label>
+                <select id="service" name="service" required>
+                    <option value="" disabled selected>Selecione um serviço...</option>
+                    <option value="Consulta Veterinária">Consulta Veterinária</option>
+                    <option value="Vacinação">Vacinação</option>
+                    <option value="Banho & Tosa">Banho & Tosa</option>
+                    <option value="Exames">Exames</option>
+                </select>
+                
+                <button type="submit">Agendar no WhatsApp</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="lightbox-overlay" class="lightbox-overlay">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Arte em tela cheia">
+    </div>
+
+    <footer class="footer">
+        <p>Modelo de página "biodevstores".</p>
+    </footer>
+    
+    <script>
+        // --- Script do FAQ (Sanfona) ---
+        const faqButtons = document.querySelectorAll('.question');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // --- Script do Modal de Informações (Clique Simples) ---
+        const modalButtons = document.querySelectorAll('.open-modal-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalCloseBtn = document.getElementById('modal-close');
+        
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        function openModal(event) {
+            event.preventDefault(); 
+            const serviceTitle = event.currentTarget.dataset.service;
+            const serviceImg = event.currentTarget.dataset.img;
+            const serviceDesc = event.currentTarget.dataset.description;
+            
+            modalTitle.textContent = serviceTitle;
+            modalImg.src = serviceImg;
+            modalDescription.innerHTML = serviceDesc; // Use innerHTML para listas
+            
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+        
+        if(modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if(modalOverlay) modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // --- Script do Modal de Agendamento (Formulário) ---
+        const openConsultaModalBtn = document.getElementById('open-consulta-modal');
+        const consultaModalOverlay = document.getElementById('consulta-modal-overlay');
+        const consultaModalCloseBtn = document.getElementById('consulta-modal-close');
+
+        function openConsultaModal(event) {
+            event.preventDefault();
+            consultaModalOverlay.classList.add('active');
+        }
+
+        function closeConsultaModal() {
+            consultaModalOverlay.classList.remove('active');
+        }
+
+        if(openConsultaModalBtn) openConsultaModalBtn.addEventListener('click', openConsultaModal);
+        if(consultaModalCloseBtn) consultaModalCloseBtn.addEventListener('click', closeConsultaModal);
+        
+        if(consultaModalOverlay) consultaModalOverlay.addEventListener('click', (event) => {
+            if (event.target === consultaModalOverlay) {
+                closeConsultaModal();
+            }
+        });
+
+        // --- Script de Envio para WhatsApp (Formulário) ---
+        const consultaForm = document.getElementById('consulta-form');
+        if(consultaForm) consultaForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const tutorName = document.getElementById('tutor-name').value;
+            const petName = document.getElementById('pet-name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            
+            // ATENÇÃO: Substitua 'SEU_NUMERO_AQUI' 
+            const whatsappNumber = "558299801009"; // Substitua pelo nº correto
+            const message = `Olá, Mundo Animal! 🐾\n\nGostaria de agendar *${service}*.\n\n*Tutor:* ${tutorName}\n*Pet:* ${petName}\n*Telefone:* ${phone}\n\nAguardo confirmação!`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeConsultaModal();
+        });
+
+        // --- Script de Arrastar (Drag) para o Carrossel ---
+        const carousel = document.querySelector('.services-carousel');
+        if (carousel) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                e.preventDefault(); 
+                isDown = true;
+                carousel.classList.add('dragging');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('dragging');
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('dragging');
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        }
+        
+        // --- Script do Lightbox (Duplo Clique) ---
+        const serviceItems = document.querySelectorAll('.service-item');
+        const lightboxOverlay = document.getElementById('lightbox-overlay');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function openLightbox(e) {
+            const link = e.currentTarget.querySelector('.open-modal-btn');
+            if (link) {
+                const imgUrl = link.dataset.img;
+                lightboxImg.src = imgUrl;
+                lightboxOverlay.classList.add('active');
+            }
+        }
+
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            lightboxImg.src = "";
+        }
+
+        serviceItems.forEach(item => {
+            item.addEventListener('dblclick', openLightbox);
+        });
+
+        if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if(lightboxOverlay) lightboxOverlay.addEventListener('click', (e) => {
+            if (e.target === lightboxOverlay) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
