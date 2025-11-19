@@ -5,13 +5,22 @@ export const ContactSection = () => {
   const whatsappNumber = "558299801009";
   const email = "contato@devstores.com.br";
   const instagram = "devstores";
+  
+  const selectedTemplate = typeof window !== 'undefined' ? localStorage.getItem('selectedTemplate') : null;
 
   const handleWhatsApp = () => {
-    window.open(`https://wa.me/${whatsappNumber}?text=Olá! Gostaria de saber mais sobre os planos.`, "_blank");
+    let message = "Olá! Gostaria de saber mais sobre os planos.";
+    if (selectedTemplate) {
+      message = `Olá! Estou interessado no template: ${selectedTemplate}. Gostaria de saber mais informações.`;
+    }
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   const handleEmail = () => {
-    window.location.href = `mailto:${email}`;
+    const subject = selectedTemplate 
+      ? `Interesse no Template ${selectedTemplate}` 
+      : "Contato - DevStores";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
 
   const handleInstagram = () => {
