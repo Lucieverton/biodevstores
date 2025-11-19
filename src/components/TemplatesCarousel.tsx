@@ -1,11 +1,12 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCallback, useState, useEffect } from "react";
+import { TemplatePreviewModal } from "./templates/TemplatePreviewModal";
 
 const templates = [
   {
-    id: 1,
+    id: "template1",
     name: "AutoTech Solutions",
     category: "Automotivo",
     description: "Perfeito para oficinas e lojas de peças",
@@ -18,7 +19,7 @@ const templates = [
     },
   },
   {
-    id: 2,
+    id: "template2",
     name: "Encanto Personalizado",
     category: "Papelaria",
     description: "Ideal para produtos personalizados",
@@ -31,7 +32,7 @@ const templates = [
     },
   },
   {
-    id: 3,
+    id: "template3",
     name: "Mundo Animal",
     category: "Pet Shop",
     description: "Veterinários e pet shops",
@@ -44,7 +45,7 @@ const templates = [
     },
   },
   {
-    id: 4,
+    id: "template4",
     name: "Flocos Mágicos",
     category: "Sorveteria",
     description: "Sorveterias e docerias",
@@ -57,7 +58,7 @@ const templates = [
     },
   },
   {
-    id: 5,
+    id: "template5",
     name: "Barbearia Vintage",
     category: "Barbearia",
     description: "Barbearias e salões masculinos",
@@ -72,22 +73,12 @@ const templates = [
 ];
 
 export const TemplatesCarousel = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "center",
-    skipSnaps: false,
-  });
-
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [previewTemplate, setPreviewTemplate] = useState<string | null>(null);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
@@ -102,9 +93,28 @@ export const TemplatesCarousel = () => {
     };
   }, [emblaApi, onSelect]);
 
+  const handleContactClick = () => {
+    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handlePreviewNavigate = (direction: 'prev' | 'next') => {
+    const currentIndex = templates.findIndex(t => t.id === previewTemplate);
+    const newIndex = direction === 'prev' 
+      ? (currentIndex > 0 ? currentIndex - 1 : templates.length - 1)
+      : (currentIndex < templates.length - 1 ? currentIndex + 1 : 0);
+    setPreviewTemplate(templates[newIndex].id);
+  };
+
+  const handleSelectTemplate = () => {
+    if (previewTemplate) {
+      const template = templates.find(t => t.id === previewTemplate);
+      if (template) localStorage.setItem('selectedTemplate', template.name);
+    }
+    handleContactClick();
+  };
+
   return (
     <section id="templates" className="py-24 px-4 relative overflow-hidden">
-      {/* Background Decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-neon-green rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-neon-purple rounded-full blur-3xl" />
@@ -116,157 +126,74 @@ export const TemplatesCarousel = () => {
             Uma Vitrine Digital à Altura da Sua Marca
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore nossos templates profissionais. Cada design é otimizado para conversão
-            e totalmente personalizável para o seu negócio.
+            Explore nossos templates profissionais. Cada design é otimizado para conversão e totalmente personalizável.
           </p>
         </div>
 
-        {/* Carousel */}
         <div className="relative">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-6">
               {templates.map((template, index) => (
-                <div
-                  key={template.id}
-                  className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_40%]"
-                >
-                  <div className="mx-3">
-                    <div
-                      className={`relative transition-all duration-300 ${
-                        selectedIndex === index ? "scale-105" : "scale-95 opacity-70"
-                      }`}
-                    >
-                      {/* Phone Mockup */}
-                      <div className="relative mx-auto max-w-[320px]">
-                        <div className="bg-muted/50 rounded-[3rem] p-4 shadow-2xl border-4 border-muted backdrop-blur-sm">
-                          {/* Notch */}
-                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-background rounded-b-3xl z-10" />
-
-                          {/* Screen */}
-                          <div className="relative bg-background rounded-[2.5rem] overflow-hidden aspect-[9/19] shadow-inner">
-                            {/* Gradient Background */}
-                            <div
-                              className="absolute inset-0"
-                              style={{
-                                background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})`,
-                                opacity: 0.15,
-                              }}
-                            />
-
-                            {/* Content */}
-                            <div className="relative h-full flex flex-col p-6">
-                              {/* Header */}
-                              <div className="text-center mb-6">
-                                <div
-                                  className="w-16 h-16 mx-auto rounded-2xl mb-3 flex items-center justify-center text-2xl font-bold shadow-lg"
-                                  style={{
-                                    background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})`,
-                                    color: "white",
-                                  }}
-                                >
-                                  {template.id}
-                                </div>
-                                <h3 className="text-xl font-bold text-foreground mb-1">
-                                  {template.preview.header}
-                                </h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {template.preview.subtitle}
-                                </p>
-                              </div>
-
-                              {/* Links/Buttons */}
-                              <div className="space-y-3 flex-1">
-                                {template.preview.items.map((item, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="h-12 bg-card rounded-xl border border-border flex items-center justify-center text-sm font-medium hover:border-primary transition-all shadow-sm"
-                                  >
-                                    {item}
-                                  </div>
-                                ))}
-                              </div>
-
-                              {/* Social Icons */}
-                              <div className="flex justify-center gap-4 mt-4 pt-4 border-t border-border">
-                                {["instagram", "whatsapp", "facebook"].map((social) => (
-                                  <div
-                                    key={social}
-                                    className="w-10 h-10 rounded-full bg-muted flex items-center justify-center"
-                                  >
-                                    <div className="w-4 h-4 rounded-full bg-foreground/30" />
-                                  </div>
-                                ))}
-                              </div>
+                <div key={template.id} className="flex-[0_0_90%] md:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0">
+                  <div className={`relative group cursor-pointer bg-card rounded-2xl overflow-hidden border-2 transition-all duration-300 ${selectedIndex === index ? 'border-primary shadow-neon-cyan scale-105' : 'border-border hover:border-primary/50'}`}>
+                    <div className="relative bg-gradient-to-br from-card to-muted p-8 aspect-[9/16]">
+                      <div className="relative h-full bg-background rounded-3xl border-8 border-foreground/20 shadow-2xl overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-6 bg-foreground/20 rounded-b-2xl z-10" />
+                        <div className="h-full w-full overflow-y-auto p-4" style={{ backgroundColor: template.colors[0], backgroundImage: `linear-gradient(135deg, ${template.colors[0]}20, ${template.colors[1]}20)` }}>
+                          <div className="text-center mb-4 pb-3 border-b" style={{ borderColor: `${template.colors[1]}40` }}>
+                            <div className="w-12 h-12 mx-auto mb-2 rounded-full flex items-center justify-center" style={{ backgroundColor: template.colors[1] }}>
+                              <Sparkles className="h-6 w-6 text-white" />
                             </div>
+                            <h3 className="font-bold text-sm" style={{ color: template.colors[1] }}>{template.preview.header}</h3>
+                            <p className="text-xs opacity-80">{template.preview.subtitle}</p>
+                          </div>
+                          <div className="space-y-2">
+                            {template.preview.items.map((item, idx) => (
+                              <div key={idx} className="rounded-lg p-3 text-center text-xs font-medium" style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: template.colors[1], border: `1px solid ${template.colors[1]}40` }}>{item}</div>
+                            ))}
                           </div>
                         </div>
                       </div>
-
-                      {/* Template Info Card */}
-                      <div className="mt-6 text-center space-y-3">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-primary/30">
-                          <Sparkles className="h-4 w-4 text-primary" />
-                          <span className="text-sm font-semibold text-primary">
-                            {template.category}
-                          </span>
+                    </div>
+                    <div className="p-6 space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="font-bold text-xl">{template.name}</h3>
+                          <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">{template.category}</span>
                         </div>
-                        <h4 className="text-xl font-bold">{template.name}</h4>
                         <p className="text-sm text-muted-foreground">{template.description}</p>
-                        
-                        <div className="flex flex-wrap justify-center gap-2 pt-2">
-                          {template.features.map((feature, idx) => (
-                            <span
-                              key={idx}
-                              className="text-xs px-3 py-1 bg-muted rounded-full text-muted-foreground"
-                            >
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
                       </div>
+                      <div className="flex gap-2 flex-wrap">
+                        {template.features.map((feature, idx) => (
+                          <span key={idx} className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">{feature}</span>
+                        ))}
+                      </div>
+                      <Button onClick={() => setPreviewTemplate(template.id)} variant="outline" size="sm" className="w-full gap-2">
+                        <Eye className="h-4 w-4" />
+                        Ver Preview Completo
+                      </Button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-0 md:left-4 top-1/3 -translate-y-1/2 z-10 rounded-full bg-card/80 backdrop-blur-sm border-primary hover:bg-primary hover:text-primary-foreground shadow-lg"
-            onClick={scrollPrev}
-          >
+          <Button onClick={scrollPrev} variant="outline" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full shadow-lg z-10">
             <ChevronLeft className="h-6 w-6" />
           </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-0 md:right-4 top-1/3 -translate-y-1/2 z-10 rounded-full bg-card/80 backdrop-blur-sm border-primary hover:bg-primary hover:text-primary-foreground shadow-lg"
-            onClick={scrollNext}
-          >
+          <Button onClick={scrollNext} variant="outline" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full shadow-lg z-10">
             <ChevronRight className="h-6 w-6" />
           </Button>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
-            Todos os templates são 100% personalizáveis para o seu negócio
-          </p>
-          <Button
-            onClick={() => {
-              const element = document.getElementById("contato");
-              if (element) element.scrollIntoView({ behavior: "smooth" });
-            }}
-            size="lg"
-            className="bg-gradient-neon hover:shadow-glow"
-          >
+        <div className="text-center mt-16">
+          <Button onClick={handleContactClick} size="lg" className="bg-gradient-neon text-lg px-8 py-6 hover:scale-105 transition-transform">
             Solicitar Personalização
           </Button>
         </div>
       </div>
+
+      <TemplatePreviewModal isOpen={!!previewTemplate} onClose={() => setPreviewTemplate(null)} templateId={previewTemplate || "template1"} onNavigate={handlePreviewNavigate} onSelect={handleSelectTemplate} />
     </section>
   );
 };
