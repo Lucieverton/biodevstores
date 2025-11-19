@@ -2,17 +2,16 @@ import { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
-import { TemplatePreviewModal } from './templates/TemplatePreviewModal';
 import { templates } from '@/config/templates';
 
 export const TemplatesCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
-    align: 'center',
-    skipSnaps: false 
+    align: 'start',
+    skipSnaps: false,
+    slidesToScroll: 1
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [previewTemplate, setPreviewTemplate] = useState<number | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -38,7 +37,6 @@ export const TemplatesCarousel = () => {
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
-    setPreviewTemplate(null);
   };
 
   return (
@@ -61,9 +59,7 @@ export const TemplatesCarousel = () => {
                   key={template.id}
                   className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-4"
                 >
-                  <div className={`transition-all duration-300 ${
-                    selectedIndex === index ? 'scale-105' : 'scale-95 opacity-70'
-                  }`}>
+                  <div className="transition-all duration-300">
                     {/* Phone Mockup */}
                     <div className="mini-phone mx-auto mb-6">
                       <div className="mini-phone-notch" />
@@ -71,9 +67,7 @@ export const TemplatesCarousel = () => {
                         <iframe
                           src={`/templates/${template.file}`}
                           title={template.name}
-                          className={`template-iframe ${
-                            selectedIndex === index ? 'pointer-events-auto' : 'pointer-events-none'
-                          }`}
+                          className="template-iframe pointer-events-auto"
                           loading="lazy"
                         />
                       </div>
@@ -99,12 +93,12 @@ export const TemplatesCarousel = () => {
                         ))}
                       </div>
                       <Button
-                        variant="outline"
+                        variant="default"
                         size="sm"
-                        onClick={() => setPreviewTemplate(template.id)}
+                        onClick={() => handleSelectTemplate(template.id)}
                         className="w-full max-w-xs"
                       >
-                        Ver Preview Completo
+                        Escolher Template
                       </Button>
                     </div>
                   </div>
@@ -147,25 +141,6 @@ export const TemplatesCarousel = () => {
         </div>
       </div>
 
-      {/* Preview Modal */}
-      {previewTemplate && (
-        <TemplatePreviewModal
-          isOpen={!!previewTemplate}
-          onClose={() => setPreviewTemplate(null)}
-          templateId={previewTemplate}
-          onNavigate={(direction) => {
-            const currentIndex = templates.findIndex(t => t.id === previewTemplate);
-            let newIndex;
-            if (direction === 'next') {
-              newIndex = (currentIndex + 1) % templates.length;
-            } else {
-              newIndex = currentIndex === 0 ? templates.length - 1 : currentIndex - 1;
-            }
-            setPreviewTemplate(templates[newIndex].id);
-          }}
-          onSelect={handleSelectTemplate}
-        />
-      )}
     </section>
   );
 };
