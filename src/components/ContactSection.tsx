@@ -1,24 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Mail, Instagram } from "lucide-react";
+import { templates } from "@/config/templates";
 
 export const ContactSection = () => {
   const whatsappNumber = "558299801009";
   const email = "contato@devstores.com.br";
   const instagram = "devstores";
   
-  const selectedTemplate = typeof window !== 'undefined' ? localStorage.getItem('selectedTemplate') : null;
+  const selectedTemplateId = typeof window !== 'undefined' ? localStorage.getItem('selectedTemplate') : null;
+  const selectedTemplate = selectedTemplateId 
+    ? templates.find(t => t.id === parseInt(selectedTemplateId))
+    : null;
 
   const handleWhatsApp = () => {
     let message = "Olá! Gostaria de saber mais sobre os planos.";
     if (selectedTemplate) {
-      message = `Olá! Estou interessado no template: ${selectedTemplate}. Gostaria de saber mais informações.`;
+      message = `Olá! Estou interessado no template: ${selectedTemplate.name}. Gostaria de saber mais informações.`;
     }
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   const handleEmail = () => {
     const subject = selectedTemplate 
-      ? `Interesse no Template ${selectedTemplate}` 
+      ? `Interesse no Template ${selectedTemplate.name}` 
       : "Contato - DevStores";
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
