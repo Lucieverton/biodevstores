@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Shield, Zap, HeadphonesIcon } from "lucide-react";
+import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const trustBadges = [
   { icon: Shield, text: "Site Seguro" },
@@ -7,18 +8,36 @@ const trustBadges = [
   { icon: HeadphonesIcon, text: "Suporte Humano" },
 ];
 
+const benefits = [
+  {
+    icon: Users,
+    title: "Converte Visitantes",
+    description: "Transforme curiosos em clientes com CTAs estratégicos"
+  },
+  {
+    icon: TrendingUp,
+    title: "Profissionaliza sua Marca",
+    description: "Deixe de usar links genéricos e tenha presença digital de elite"
+  },
+  {
+    icon: Clock,
+    title: "Disponível 24/7",
+    description: "Seu mini-site trabalha por você enquanto você dorme"
+  },
+  {
+    icon: Sparkles,
+    title: "100% Personalizável",
+    description: "Adaptamos cores, fontes e layout para seu negócio"
+  }
+];
+
 export const Hero = () => {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const { setActiveSection } = useActiveSection();
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-32 pb-24 lg:pb-8 px-4 relative overflow-hidden"
+      className="min-h-screen flex items-center pt-8 pb-24 lg:pb-8 px-4 relative overflow-hidden"
     >
       {/* Animated Background */}
       <div className="absolute inset-0">
@@ -32,30 +51,34 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto relative z-10">
-        <div className="max-w-3xl lg:max-w-4xl space-y-8">
-          {/* Main Content - Left Aligned */}
-          <div className="space-y-6 animate-fade-in">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="text-gradient">Sua Bio,</span>
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Main Content - Centered */}
+          <div className="text-center space-y-6 animate-fade-in">
+            <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
+              Mini-Sites Estratégicos
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="text-foreground">Seu negócio merece uma</span>
               <br />
-              <span className="text-foreground">Agora </span>
-              <span className="text-gradient-purple">Profissional</span>
+              <span className="text-gradient">Presença Digital</span>
+              <span className="text-foreground"> de </span>
+              <span className="text-gradient-purple">Elite</span>
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl">
-              Chega de links genéricos. Transforme sua bio em um{" "}
-              <span className="text-primary font-semibold">mini-site estratégico</span>{" "}
-              que converte visitantes em clientes.
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
+              De Bios profissionais a Sistemas com IA: criamos a tecnologia que{" "}
+              <span className="text-primary font-semibold">vende por você</span>{" "}
+              enquanto você dorme.
             </p>
           </div>
 
           {/* Trust Badges */}
-          <div className="flex flex-wrap gap-4 animate-fade-in delay-200">
-            {trustBadges.map((badge) => {
+          <div className="flex flex-wrap justify-center gap-3 animate-fade-in delay-100">
+            {trustBadges.map((badge, index) => {
               const Icon = badge.icon;
               return (
                 <div
                   key={badge.text}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 border border-border/50 backdrop-blur-sm"
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 border border-border/50 backdrop-blur-sm ${index === 2 ? 'hidden sm:flex' : ''}`}
                 >
                   <Icon className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">{badge.text}</span>
@@ -64,37 +87,58 @@ export const Hero = () => {
             })}
           </div>
 
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 animate-fade-in delay-200">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon;
+              return (
+                <div
+                  key={benefit.title}
+                  className="group p-4 rounded-xl bg-card/60 border border-border/30 backdrop-blur-sm hover:border-primary/30 transition-all duration-300"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-sm md:text-base mb-1">{benefit.title}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in delay-300">
             <Button
               size="lg"
-              onClick={() => scrollToSection("contato")}
-              className="bg-gradient-neon hover:shadow-glow-intense transition-all text-lg px-8 h-14 glow-cyan"
+              onClick={() => setActiveSection('templates')}
+              className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan"
             >
-              QUERO MINHA BIO
+              VER TEMPLATES
             </Button>
             <Button
               size="lg"
               variant="outline"
-              onClick={() => scrollToSection("contato")}
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all text-lg px-8 h-14"
+              onClick={() => setActiveSection('contato')}
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all text-base md:text-lg px-8 h-12 md:h-14"
             >
               SITE EXCLUSIVO
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 md:gap-8 pt-8 animate-fade-in delay-400">
-            <div className="space-y-1">
-              <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
+          <div className="grid grid-cols-3 gap-4 md:gap-8 pt-4 animate-fade-in delay-400">
+            <div className="text-center space-y-1">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
               <div className="text-xs md:text-sm text-muted-foreground">Clientes Ativos</div>
             </div>
-            <div className="space-y-1">
-              <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-purple font-tech">98%</div>
+            <div className="text-center space-y-1">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient-purple font-tech">98%</div>
               <div className="text-xs md:text-sm text-muted-foreground">Satisfação</div>
             </div>
-            <div className="space-y-1">
-              <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-fire font-tech">24h</div>
+            <div className="text-center space-y-1">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient-fire font-tech">24h</div>
               <div className="text-xs md:text-sm text-muted-foreground">Entrega</div>
             </div>
           </div>
