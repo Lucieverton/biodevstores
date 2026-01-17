@@ -145,7 +145,7 @@
       .services-carousel-wrapper {
           width: 100%;
           position: relative;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
       }
 
       /* Dica Visual de Arrastar (Mãozinha) */
@@ -187,12 +187,13 @@
           scrollbar-width: none;
           padding: 0.5rem 0;
           cursor: grab;
+          scroll-behavior: smooth;
       }
       .services-carousel::-webkit-scrollbar { display: none; }
       .services-carousel.active { cursor: grabbing; }
 
       .service-item {
-          flex: 0 0 140px; /* Largura ideal para ver múltiplos itens */
+          flex: 0 0 140px;
           scroll-snap-align: center;
           background-color: var(--color-container-bg);
           border: 1px solid var(--color-primary);
@@ -201,11 +202,15 @@
           text-align: center;
           position: relative;
           overflow: hidden;
-          transition: transform 0.2s ease;
+          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
           box-shadow: 0 4px 6px rgba(0,0,0,0.3);
       }
 
-      /* Efeito de clique físico */
+      .service-item:hover {
+          border-color: var(--color-accent);
+          box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
+      }
+
       .service-item:active {
           transform: scale(0.96);
           border-color: var(--color-accent);
@@ -244,6 +249,35 @@
       .service-item .open-modal-btn:hover {
           background: var(--color-accent);
           color: #fff;
+      }
+
+      /* --- Indicadores de Paginação --- */
+      .carousel-dots {
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          margin-top: 0.75rem;
+      }
+
+      .carousel-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: rgba(176, 176, 176, 0.3);
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          padding: 0;
+      }
+
+      .carousel-dot.active {
+          background-color: var(--color-accent);
+          box-shadow: 0 0 8px var(--color-accent);
+          transform: scale(1.2);
+      }
+
+      .carousel-dot:hover:not(.active) {
+          background-color: rgba(176, 176, 176, 0.6);
       }
 
       /* --- Business Card (Perfil) --- */
@@ -445,6 +479,14 @@
               <h3>Performance</h3>
               <span class="open-modal-btn" data-service="Performance e Remap" data-img="img/servico-performance.jpg" data-description="Remap de ECU (Stage 1, 2, 3) e kits de performance.">Ver Detalhes</span>
             </div>
+          </div>
+
+          <!-- Indicadores de Paginação -->
+          <div class="carousel-dots" id="carouselDots">
+            <button class="carousel-dot active" data-index="0" aria-label="Serviço 1"></button>
+            <button class="carousel-dot" data-index="1" aria-label="Serviço 2"></button>
+            <button class="carousel-dot" data-index="2" aria-label="Serviço 3"></button>
+            <button class="carousel-dot" data-index="3" aria-label="Serviço 4"></button>
           </div>
         </div>
       </section>
@@ -660,6 +702,36 @@
           const walk = (x - startX) * 2;
           carousel.scrollLeft = scrollLeft - walk;
       });
+
+      // --- Lógica dos Indicadores de Paginação ---
+      const dots = document.querySelectorAll('.carousel-dot');
+      const items = document.querySelectorAll('.service-item');
+
+      // Atualiza o dot ativo baseado no scroll
+      const updateActiveDot = () => {
+          const scrollPos = carousel.scrollLeft;
+          const itemWidth = items[0].offsetWidth + 12; // width + gap
+          const activeIndex = Math.round(scrollPos / itemWidth);
+          
+          dots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === activeIndex);
+          });
+      };
+
+      // Click nos dots para navegar
+      dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+              const itemWidth = items[0].offsetWidth + 12;
+              carousel.scrollTo({
+                  left: i * itemWidth,
+                  behavior: 'smooth'
+              });
+              removeHint();
+          });
+      });
+
+      // Atualiza dots durante o scroll
+      carousel.addEventListener('scroll', updateActiveDot);
     </script>
   </body>
 </html>
