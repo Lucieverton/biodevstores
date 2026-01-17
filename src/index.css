@@ -4,55 +4,72 @@
 
 @import './styles/templates.css';
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Design System - DevStores Premium Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
+    /* Core Colors */
+    --background: 0 0% 2%;
     --foreground: 0 0% 90%;
 
-    --card: 0 0% 10%;
+    --card: 0 0% 6%;
     --card-foreground: 0 0% 90%;
 
-    --popover: 0 0% 10%;
+    --popover: 0 0% 6%;
     --popover-foreground: 0 0% 90%;
 
     --primary: 190 100% 50%;
-    --primary-foreground: 0 0% 4%;
+    --primary-foreground: 0 0% 2%;
 
     --secondary: 158 100% 50%;
-    --secondary-foreground: 0 0% 4%;
+    --secondary-foreground: 0 0% 2%;
 
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 280 100% 50%;
+    --accent: 280 100% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 340 100% 58%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
     --ring: 190 100% 50%;
 
     --radius: 0.75rem;
 
+    /* Neon Colors */
     --neon-cyan: 190 100% 50%;
     --neon-green: 158 100% 50%;
-    --neon-purple: 280 100% 50%;
+    --neon-purple: 280 100% 60%;
     --neon-red: 340 100% 58%;
+    --neon-yellow: 45 100% 50%;
     
+    /* Gradients */
     --gradient-neon: linear-gradient(90deg, hsl(var(--neon-cyan)), hsl(var(--neon-green)));
     --gradient-purple: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-cyan)));
+    --gradient-fire: linear-gradient(135deg, hsl(var(--neon-red)), hsl(var(--neon-yellow)));
     
-    --shadow-neon-cyan: 0 0 20px hsl(var(--neon-cyan) / 0.3);
-    --shadow-neon-green: 0 0 20px hsl(var(--neon-green) / 0.3);
-    --shadow-glow: 0 0 40px hsl(var(--neon-cyan) / 0.2);
+    /* Shadows */
+    --shadow-neon-cyan: 0 0 20px hsl(var(--neon-cyan) / 0.4);
+    --shadow-neon-green: 0 0 20px hsl(var(--neon-green) / 0.4);
+    --shadow-neon-purple: 0 0 20px hsl(var(--neon-purple) / 0.4);
+    --shadow-glow: 0 0 40px hsl(var(--neon-cyan) / 0.25);
+    --shadow-glow-intense: 0 0 60px hsl(var(--neon-cyan) / 0.4);
     
+    /* Layout */
+    --header-height: 80px;
+    --notification-bar-height: 40px;
+    --bottom-nav-height: 70px;
+    
+    /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Glass Effect */
+    --glass-bg: rgba(10, 10, 10, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -64,14 +81,67 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', 'Poppins', sans-serif;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-tech {
+    font-family: 'Orbitron', sans-serif;
   }
 }
 
+/* Text Effects */
 @layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-neon);
+  }
+
+  .text-gradient-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-purple);
+  }
+
+  .text-gradient-fire {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-fire);
+  }
+
+  /* Glow Effects */
+  .glow-cyan {
+    box-shadow: var(--shadow-neon-cyan);
+  }
+
+  .glow-green {
+    box-shadow: var(--shadow-neon-green);
+  }
+
+  .glow-purple {
+    box-shadow: var(--shadow-neon-purple);
+  }
+
+  .glow-intense {
+    box-shadow: var(--shadow-glow-intense);
+  }
+
+  /* Glass Effect */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* 3D Effects */
   .perspective-1000 {
     perspective: 1000px;
   }
@@ -80,6 +150,7 @@ All colors MUST be HSL.
     transform-style: preserve-3d;
   }
 
+  /* Animations */
   .animate-spin-slow {
     animation: spin 20s linear infinite;
   }
@@ -88,45 +159,129 @@ All colors MUST be HSL.
     animation: fadeIn 0.8s ease-out forwards;
   }
 
-  .delay-200 {
-    animation-delay: 0.2s;
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  .delay-400 {
-    animation-delay: 0.4s;
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
   }
 
-  .delay-1000 {
-    animation-delay: 1s;
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-600 { animation-delay: 0.6s; }
+  .delay-1000 { animation-delay: 1s; }
+
+  /* Ring Pulse for avatars */
+  .ring-pulse {
+    position: relative;
+  }
+
+  .ring-pulse::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid hsl(var(--neon-cyan));
+    animation: ringPulse 2s ease-out infinite;
+  }
+
+  /* Glitch Effect */
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch1 0.3s infinite;
+    color: hsl(var(--neon-cyan));
+    z-index: -1;
+  }
+
+  .glitch::after {
+    animation: glitch2 0.3s infinite;
+    color: hsl(var(--neon-purple));
+    z-index: -2;
   }
 }
 
+/* Keyframes */
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-cyan) / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(var(--neon-cyan) / 0.6); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+@keyframes glitch1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(60% 0 20% 0); transform: translate(-1px, 1px); }
+  80% { clip-path: inset(80% 0 0% 0); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(80% 0 0% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(40% 0 40% 0); transform: translate(1px, -1px); }
+  80% { clip-path: inset(20% 0 60% 0); transform: translate(-1px, 1px); }
+}
+
+/* Safe area for mobile bottom nav */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

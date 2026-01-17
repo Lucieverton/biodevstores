@@ -40,14 +40,19 @@ const faqs = [
 
 export const FAQSection = () => {
   return (
-    <section id="faq" className="py-24 px-4">
-      <div className="container mx-auto max-w-3xl">
+    <section id="faq" className="py-24 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-card/30 to-background" />
+      
+      <div className="container mx-auto max-w-3xl relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary">
+          <span className="text-sm font-tech text-primary uppercase tracking-wider">
+            Tire suas dúvidas
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gradient">
             Perguntas Frequentes
           </h2>
           <p className="text-lg text-muted-foreground">
-            Tire suas dúvidas sobre nossos serviços
+            Tudo que você precisa saber sobre nossos serviços
           </p>
         </div>
 
@@ -56,12 +61,12 @@ export const FAQSection = () => {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="bg-card rounded-lg border border-border px-6"
+              className="glass rounded-xl border border-border/50 px-6 data-[state=open]:glow-cyan transition-all"
             >
-              <AccordionTrigger className="text-left hover:text-primary">
+              <AccordionTrigger className="text-left hover:text-primary py-5 font-semibold">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
+              <AccordionContent className="text-muted-foreground pb-5">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
