@@ -14,6 +14,7 @@ const plans = [
       "Design Otimizado",
       "Botão WhatsApp",
       "Foto + Bio",
+      "3 Itens no Carrossel (com links)",
       "Hospedagem Inclusa",
       "Suporte Humano",
     ],
@@ -26,7 +27,7 @@ const plans = [
     color: "green",
     features: [
       "Tudo do Start +",
-      "Vitrine de Produtos (Carrossel)",
+      "6 Itens no Carrossel (com links)",
       "FAQ Interativo",
       "V-Card Inteligente",
       "Pixel de Rastreamento",
@@ -41,6 +42,7 @@ const plans = [
     color: "purple",
     features: [
       "Tudo do Profissional +",
+      "Carrossel Ilimitado (com links)",
       "Design 100% Personalizado",
       "Domínio Próprio Grátis",
       "Seções Ilimitadas",
