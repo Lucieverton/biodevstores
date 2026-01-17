@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
+import heroBgMobile from "@/assets/hero-bg-mobile.png";
 
 const trustBadges = [
   { icon: Shield, text: "Site Seguro" },
@@ -40,14 +41,12 @@ export const Hero = () => {
       id="hero"
       className="min-h-[calc(100vh-120px)] flex items-center pt-14 pb-24 lg:pb-8 px-4 relative overflow-hidden"
     >
-      {/* Animated Background - Mobile */}
-      <div className="absolute inset-0 lg:hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background" />
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/4 left-1/6 w-[500px] h-[500px] bg-neon-cyan rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/6 w-[400px] h-[400px] bg-neon-purple rounded-full blur-[100px] animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-neon-green rounded-full blur-[80px] opacity-50" />
-        </div>
+      {/* Hero Image Background - Mobile */}
+      <div 
+        className="absolute inset-0 lg:hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBgMobile})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/90" />
       </div>
       
       {/* Hero Image Background - Desktop */}
