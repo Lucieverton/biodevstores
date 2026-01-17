@@ -4,7 +4,8 @@
 
 .mini-phone {
   position: relative;
-  width: 220px;
+  width: 100%;
+  max-width: 220px;
   aspect-ratio: 9 / 19;
   background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
   border-radius: 28px;
@@ -91,22 +92,25 @@
 .carousel-3d-container {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 520px;
   margin: 0 auto;
-  perspective: 1000px;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .carousel-3d-item {
   position: absolute;
   width: 220px;
-  left: 50%;
-  top: 50%;
-  margin-left: -110px;
-  margin-top: -210px;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   opacity: 0;
   pointer-events: none;
+  transform: scale(0.5);
 }
 
 /* Active - Center */
@@ -120,54 +124,67 @@
 /* Previous - Left */
 .carousel-3d-item.prev {
   z-index: 5;
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: auto;
   cursor: pointer;
-  transform: translateX(-120%) scale(0.75);
-  filter: blur(2px) grayscale(50%);
+  transform: translateX(-130%) scale(0.8);
+  filter: blur(1px) grayscale(40%);
+}
+
+.carousel-3d-item.prev:hover {
+  opacity: 0.8;
+  filter: blur(0.5px) grayscale(20%);
 }
 
 /* Next - Right */
 .carousel-3d-item.next {
   z-index: 5;
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: auto;
   cursor: pointer;
-  transform: translateX(120%) scale(0.75);
-  filter: blur(2px) grayscale(50%);
+  transform: translateX(130%) scale(0.8);
+  filter: blur(1px) grayscale(40%);
+}
+
+.carousel-3d-item.next:hover {
+  opacity: 0.8;
+  filter: blur(0.5px) grayscale(20%);
 }
 
 /* Far Previous */
 .carousel-3d-item.far-prev {
   z-index: 2;
-  opacity: 0.2;
+  opacity: 0.3;
   pointer-events: none;
-  transform: translateX(-200%) scale(0.5);
-  filter: blur(3px) grayscale(70%);
+  transform: translateX(-220%) scale(0.6);
+  filter: blur(2px) grayscale(60%);
 }
 
 /* Far Next */
 .carousel-3d-item.far-next {
   z-index: 2;
-  opacity: 0.2;
+  opacity: 0.3;
   pointer-events: none;
-  transform: translateX(200%) scale(0.5);
-  filter: blur(3px) grayscale(70%);
+  transform: translateX(220%) scale(0.6);
+  filter: blur(2px) grayscale(60%);
 }
 
-/* Navigation arrows */
+/* ============================================
+   NAVIGATION ARROWS
+   ============================================ */
+
 .carousel-nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 30;
+  z-index: 50;
   pointer-events: auto;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: rgba(10, 10, 10, 0.9);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,25 +196,63 @@
 .carousel-nav-btn:hover {
   background: rgba(0, 255, 255, 0.2);
   border-color: hsl(190, 100%, 50%);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
   transform: translateY(-50%) scale(1.1);
 }
 
+.carousel-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 .carousel-nav-btn.prev {
-  left: calc(50% - 180px);
+  left: 10%;
 }
 
 .carousel-nav-btn.next {
-  right: calc(50% - 180px);
+  right: 10%;
 }
 
 /* ============================================
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 
+@media (max-width: 1024px) {
+  .carousel-3d-container {
+    height: 480px;
+  }
+  
+  .carousel-3d-item {
+    width: 200px;
+  }
+  
+  .carousel-3d-item.prev {
+    transform: translateX(-120%) scale(0.75);
+  }
+  
+  .carousel-3d-item.next {
+    transform: translateX(120%) scale(0.75);
+  }
+  
+  .carousel-3d-item.far-prev {
+    transform: translateX(-200%) scale(0.55);
+  }
+  
+  .carousel-3d-item.far-next {
+    transform: translateX(200%) scale(0.55);
+  }
+  
+  .carousel-nav-btn.prev {
+    left: 5%;
+  }
+  
+  .carousel-nav-btn.next {
+    right: 5%;
+  }
+}
+
 @media (max-width: 768px) {
   .mini-phone {
-    width: 180px;
+    max-width: 180px;
     border-radius: 24px;
     padding: 5px;
   }
@@ -217,18 +272,16 @@
 
   .carousel-3d-item {
     width: 180px;
-    margin-left: -90px;
-    margin-top: -180px;
   }
 
   .carousel-3d-item.prev {
-    transform: translateX(-110%) scale(0.65);
-    opacity: 0.4;
+    transform: translateX(-110%) scale(0.7);
+    opacity: 0.5;
   }
 
   .carousel-3d-item.next {
-    transform: translateX(110%) scale(0.65);
-    opacity: 0.4;
+    transform: translateX(110%) scale(0.7);
+    opacity: 0.5;
   }
 
   .carousel-3d-item.far-prev,
@@ -238,22 +291,22 @@
   }
 
   .carousel-nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 
   .carousel-nav-btn.prev {
-    left: 15px;
+    left: 2%;
   }
 
   .carousel-nav-btn.next {
-    right: 15px;
+    right: 2%;
   }
 }
 
 @media (max-width: 480px) {
   .mini-phone {
-    width: 160px;
+    max-width: 160px;
     border-radius: 22px;
     padding: 4px;
   }
@@ -274,18 +327,16 @@
 
   .carousel-3d-item {
     width: 160px;
-    margin-left: -80px;
-    margin-top: -160px;
   }
 
-  .carousel-3d-item.prev,
-  .carousel-3d-item.next {
-    opacity: 0.2;
-    transform: translateX(-100%) scale(0.5);
+  .carousel-3d-item.prev {
+    transform: translateX(-95%) scale(0.6);
+    opacity: 0.35;
   }
 
   .carousel-3d-item.next {
-    transform: translateX(100%) scale(0.5);
+    transform: translateX(95%) scale(0.6);
+    opacity: 0.35;
   }
 
   .carousel-3d-item.far-prev,
@@ -294,16 +345,16 @@
   }
 
   .carousel-nav-btn {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
 
   .carousel-nav-btn.prev {
-    left: 10px;
+    left: 4px;
   }
 
   .carousel-nav-btn.next {
-    right: 10px;
+    right: 4px;
   }
 }
 
