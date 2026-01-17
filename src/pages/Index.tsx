@@ -10,23 +10,51 @@ import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { SectionContainer } from "@/components/SectionContainer";
+import { ActiveSectionProvider } from "@/hooks/useActiveSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen pb-[70px] lg:pb-0">
-      <TopNotificationBar />
-      <Navbar />
-      <Hero />
-      <TemplatesCarousel />
-      <NichesSection />
-      <PricingSection />
-      <FAQSection />
-      <ExpertSection />
-      <ContactSection />
-      <Footer />
-      <MobileBottomNav />
-      <FloatingWhatsApp />
-    </div>
+    <ActiveSectionProvider>
+      <div className="min-h-screen bg-background overflow-hidden">
+        <TopNotificationBar />
+        <Navbar />
+        
+        <main className="relative pt-[calc(var(--notification-height)+var(--header-height))] pb-[var(--bottom-nav-height)] lg:pb-0">
+          <SectionContainer id="home">
+            <Hero />
+          </SectionContainer>
+
+          <SectionContainer id="templates">
+            <TemplatesCarousel />
+          </SectionContainer>
+
+          <SectionContainer id="nichos">
+            <NichesSection />
+          </SectionContainer>
+
+          <SectionContainer id="planos">
+            <PricingSection />
+          </SectionContainer>
+
+          <SectionContainer id="faq">
+            <FAQSection />
+          </SectionContainer>
+
+          <SectionContainer id="expert">
+            <ExpertSection />
+          </SectionContainer>
+
+          <SectionContainer id="contato">
+            <ContactSection />
+            <Footer />
+          </SectionContainer>
+        </main>
+
+        <MobileBottomNav />
+        <FloatingWhatsApp />
+      </div>
+    </ActiveSectionProvider>
   );
 };
 

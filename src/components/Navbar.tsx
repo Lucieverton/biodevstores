@@ -1,126 +1,83 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { SectionId, useActiveSection } from '@/hooks/useActiveSection';
+import { cn } from '@/lib/utils';
+
+const navLinks: { id: SectionId; label: string }[] = [
+  { id: 'templates', label: 'Showcase' },
+  { id: 'planos', label: 'Planos Bio' },
+  { id: 'faq', label: 'Dúvidas' },
+  { id: 'expert', label: 'Expert' },
+];
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { activeSection, setActiveSection } = useActiveSection();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   return (
-    <nav
-      className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-lg" : "bg-transparent"
-      }`}
+    <header
+      className={cn(
+        'fixed top-[var(--notification-height)] left-0 right-0 z-40 transition-all duration-300',
+        scrolled ? 'bg-card/90 backdrop-blur-xl shadow-lg' : 'bg-transparent'
+      )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo 3D */}
-          <button
-            onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-3 group"
-          >
-            <div className="relative w-12 h-12 perspective-1000">
-              <div className="w-full h-full relative preserve-3d animate-spin-slow">
-                <div className="absolute inset-0 bg-gradient-neon rounded-lg opacity-30" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-primary text-2xl font-bold font-tech">DS</span>
-                </div>
+      <div className="container mx-auto px-4 h-[var(--header-height)] flex items-center justify-between">
+        {/* Logo */}
+        <button
+          onClick={() => setActiveSection('home')}
+          className="flex items-center gap-3 group"
+        >
+          {/* 3D Rotating Logo */}
+          <div className="relative w-10 h-10 perspective-1000">
+            <div className="w-full h-full relative preserve-3d animate-spin-slow">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-cyan-400 rounded-lg opacity-40" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-primary text-lg font-bold font-tech">DS</span>
               </div>
             </div>
-            <span className="text-2xl font-bold text-gradient font-tech hidden sm:block">
-              DevStores
-            </span>
-          </button>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            <button
-              onClick={() => scrollToSection("templates")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Vitrine
-            </button>
-            <button
-              onClick={() => scrollToSection("planos")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Planos
-            </button>
-            <button
-              onClick={() => scrollToSection("faq")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Dúvidas
-            </button>
-            <button
-              onClick={() => scrollToSection("expert")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Expert
-            </button>
-            <Button
-              onClick={() => scrollToSection("contato")}
-              className="bg-gradient-neon hover:shadow-glow transition-all glow-cyan"
-            >
-              Começar Agora
-            </Button>
           </div>
+          <span className="text-xl font-bold text-gradient font-tech hidden sm:block">
+            DevStores
+          </span>
+        </button>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-foreground p-2"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+        {/* Desktop Navigation - Hidden on mobile */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => setActiveSection(link.id)}
+              className={cn(
+                'relative font-medium transition-colors duration-300 py-2',
+                activeSection === link.id
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {link.label}
+              {activeSection === link.id && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full" />
+              )}
+            </button>
+          ))}
+        </nav>
 
-        {/* Mobile Menu Fullscreen */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[120px] bg-background/98 backdrop-blur-xl z-40">
-            <div className="flex flex-col items-center justify-center h-full gap-8 -mt-20">
-              {[
-                { label: "Vitrine", section: "templates" },
-                { label: "Planos", section: "planos" },
-                { label: "Dúvidas", section: "faq" },
-                { label: "Expert", section: "expert" },
-              ].map((item, index) => (
-                <button
-                  key={item.section}
-                  onClick={() => scrollToSection(item.section)}
-                  className="text-2xl font-bold text-foreground hover:text-primary transition-colors animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {item.label}
-                </button>
-              ))}
-              <Button
-                onClick={() => scrollToSection("contato")}
-                size="lg"
-                className="bg-gradient-neon hover:shadow-glow transition-all mt-4 animate-fade-in delay-400"
-              >
-                Começar Agora
-              </Button>
-            </div>
-          </div>
-        )}
+        {/* Desktop CTA - Hidden on mobile */}
+        <button
+          onClick={() => setActiveSection('contato')}
+          className="hidden lg:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] hover:scale-105"
+        >
+          <i className="fas fa-bolt"></i>
+          Começar Agora
+        </button>
       </div>
-    </nav>
+    </header>
   );
 };

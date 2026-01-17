@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =====================================================
+   SECTION VISIBILITY SYSTEM
+   ===================================================== */
+
+.section-page {
+  min-height: calc(100vh - var(--notification-height) - var(--header-height) - var(--bottom-nav-height));
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .section-page {
+    min-height: calc(100vh - var(--notification-height) - var(--header-height));
+  }
+}
+
+.section-active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+  visibility: visible;
+  animation: fadeInSection 0.5s ease-out;
+}
+
+.section-hidden {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @import './styles/templates.css';
 
 /* Design System - DevStores Premium Theme */
