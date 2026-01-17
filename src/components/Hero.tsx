@@ -52,10 +52,10 @@ export const Hero = () => {
       
       {/* Hero Image Background - Desktop */}
       <div 
-        className="absolute inset-0 hidden lg:block bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 hidden lg:block bg-contain bg-right bg-no-repeat"
         style={{ backgroundImage: `url(${heroBgDesktop})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
       </div>
 
       {/* Content */}
@@ -67,10 +67,8 @@ export const Hero = () => {
               Mini-Sites Estratégicos
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-              <span className="text-foreground">Seu negócio merece uma</span>
-              <br />
+              <span className="text-foreground">Seu negócio merece uma </span>
               <span className="text-gradient">Presença Digital</span>
-              <br className="lg:hidden" />
               <span className="text-foreground"> de </span>
               <span className="text-gradient-purple">Elite</span>
             </h1>
