@@ -60,20 +60,21 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto relative z-10">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Main Content - Centered */}
-          <div className="text-center space-y-6 animate-fade-in">
+        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-8">
+          {/* Main Content - Centered on mobile, left on desktop */}
+          <div className="text-center lg:text-left space-y-6 animate-fade-in">
             <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
               Mini-Sites Estratégicos
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight">
               <span className="text-foreground">Seu negócio merece uma</span>
               <br />
               <span className="text-gradient">Presença Digital</span>
+              <br className="lg:hidden" />
               <span className="text-foreground"> de </span>
               <span className="text-gradient-purple">Elite</span>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
               De Bios profissionais a Sistemas com IA: criamos a tecnologia que{" "}
               <span className="text-primary font-semibold">vende por você</span>{" "}
               enquanto você dorme.
@@ -81,7 +82,7 @@ export const Hero = () => {
           </div>
 
           {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-3 animate-fade-in delay-100">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-3 animate-fade-in delay-100">
             {trustBadges.map((badge, index) => {
               const Icon = badge.icon;
               return (
@@ -97,7 +98,7 @@ export const Hero = () => {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 animate-fade-in delay-200">
+          <div className="grid grid-cols-2 gap-3 md:gap-4 animate-fade-in delay-200">
             {benefits.map((benefit) => {
               const Icon = benefit.icon;
               return (
@@ -118,7 +119,7 @@ export const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in delay-300">
+          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in delay-300">
             <Button
               size="lg"
               onClick={() => setActiveSection('templates')}
@@ -138,15 +139,15 @@ export const Hero = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 md:gap-8 pt-4 animate-fade-in delay-400">
-            <div className="text-center space-y-1">
+            <div className="text-center lg:text-left space-y-1">
               <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
               <div className="text-xs md:text-sm text-muted-foreground">Clientes Ativos</div>
             </div>
-            <div className="text-center space-y-1">
+            <div className="text-center lg:text-left space-y-1">
               <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient-purple font-tech">98%</div>
               <div className="text-xs md:text-sm text-muted-foreground">Satisfação</div>
             </div>
-            <div className="text-center space-y-1">
+            <div className="text-center lg:text-left space-y-1">
               <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient-fire font-tech">24h</div>
               <div className="text-xs md:text-sm text-muted-foreground">Entrega</div>
             </div>
