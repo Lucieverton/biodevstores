@@ -22,16 +22,16 @@ export const TemplatesCarousel = () => {
     if (normalizedDiff === 1) return 'next';
     if (normalizedDiff === -2) return 'far-prev';
     if (normalizedDiff === 2) return 'far-next';
-    return '';
+    return 'hidden';
   }, [activeIndex]);
 
-  const scrollPrev = () => {
+  const scrollPrev = useCallback(() => {
     setActiveIndex((prev) => (prev === 0 ? templates.length - 1 : prev - 1));
-  };
+  }, []);
 
-  const scrollNext = () => {
+  const scrollNext = useCallback(() => {
     setActiveIndex((prev) => (prev === templates.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
 
   const handleSelectTemplate = (templateId: number) => {
     localStorage.setItem('selectedTemplate', templateId.toString());
@@ -77,7 +77,7 @@ export const TemplatesCarousel = () => {
         swipeState.current.locked = false;
       }, 220);
     },
-    [scrollNext]
+    [scrollPrev, scrollNext]
   );
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
@@ -97,18 +97,13 @@ export const TemplatesCarousel = () => {
       e.preventDefault();
       scrollNext();
     }
-  }, []);
+  }, [scrollPrev, scrollNext]);
 
-  // Render only visible items for performance
-  const visibleTemplates = useMemo(() => {
-    return templates
-      .map((template, index) => {
-        const itemClass = getItemClass(index);
-        const isVisible = ['active', 'prev', 'next', 'far-prev', 'far-next'].includes(itemClass);
-        return { template, index, itemClass, isVisible };
-      })
-      .filter((t) => t.isVisible);
-  }, [activeIndex, getItemClass]);
+  // Handle click on carousel items - use the original index from templates array
+  const handleItemClick = useCallback((itemClass: string, originalIndex: number) => {
+    if (itemClass === 'active') return; // Already selected
+    setActiveIndex(originalIndex);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 px-4 relative overflow-hidden">
@@ -141,29 +136,36 @@ export const TemplatesCarousel = () => {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
         >
-          {visibleTemplates.map(({ template, index, itemClass }) => (
-            <div
-              key={template.id}
-              className={`carousel-3d-item ${itemClass}`}
-              onClick={() => setActiveIndex(index)}
-              role="button"
-              tabIndex={-1}
-              aria-label={`Selecionar template: ${template.name}`}
-            >
-              {/* Phone Mockup */}
-              <div className={`mini-phone ${itemClass === 'active' ? 'active' : ''}`}>
-                <div className="mini-phone-notch" />
-                <div className="mini-phone-screen">
-                  <iframe
-                    src={`/templates/${template.file}`}
-                    title={template.name}
-                    className={`template-iframe ${itemClass === 'active' ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                    loading="lazy"
-                  />
+          {templates.map((template, index) => {
+            const itemClass = getItemClass(index);
+            
+            // Don't render hidden items
+            if (itemClass === 'hidden') return null;
+            
+            return (
+              <div
+                key={template.id}
+                className={`carousel-3d-item ${itemClass}`}
+                onClick={() => handleItemClick(itemClass, index)}
+                role="button"
+                tabIndex={-1}
+                aria-label={`Selecionar template: ${template.name}`}
+              >
+                {/* Phone Mockup */}
+                <div className={`mini-phone ${itemClass === 'active' ? 'active' : ''}`}>
+                  <div className="mini-phone-notch" />
+                  <div className="mini-phone-screen">
+                    <iframe
+                      src={`/templates/${template.file}`}
+                      title={template.name}
+                      className={`template-iframe ${itemClass === 'active' ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Navigation Buttons */}
           <button
