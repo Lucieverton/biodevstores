@@ -52,6 +52,7 @@ export default {
           green: "hsl(var(--neon-green))",
           purple: "hsl(var(--neon-purple))",
           red: "hsl(var(--neon-red))",
+          yellow: "hsl(var(--neon-yellow))",
         },
       },
       backgroundImage: {

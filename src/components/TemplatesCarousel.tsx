@@ -1,49 +1,56 @@
-import { useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { templates } from '@/config/templates';
 
 export const TemplatesCarousel = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    loop: true, 
-    align: 'start',
-    skipSnaps: false,
-    slidesToScroll: 1
-  });
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    if (!emblaApi) return;
+  const getItemClass = (index: number) => {
+    const diff = index - activeIndex;
+    const total = templates.length;
+    
+    // Handle wrapping for loop effect
+    let normalizedDiff = diff;
+    if (diff > total / 2) normalizedDiff = diff - total;
+    if (diff < -total / 2) normalizedDiff = diff + total;
 
-    const onSelect = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-    };
+    if (normalizedDiff === 0) return 'active';
+    if (normalizedDiff === -1) return 'prev';
+    if (normalizedDiff === 1) return 'next';
+    if (normalizedDiff === -2) return 'far-prev';
+    if (normalizedDiff === 2) return 'far-next';
+    return '';
+  };
 
-    emblaApi.on('select', onSelect);
-    onSelect();
+  const scrollPrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? templates.length - 1 : prev - 1));
+  };
 
-    return () => {
-      emblaApi.off('select', onSelect);
-    };
-  }, [emblaApi]);
-
-  const scrollPrev = () => emblaApi?.scrollPrev();
-  const scrollNext = () => emblaApi?.scrollNext();
+  const scrollNext = () => {
+    setActiveIndex((prev) => (prev === templates.length - 1 ? 0 : prev + 1));
+  };
 
   const handleSelectTemplate = (templateId: number) => {
     localStorage.setItem('selectedTemplate', templateId.toString());
-    const contactSection = document.getElementById('contact');
+    const contactSection = document.getElementById('contato');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const activeTemplate = templates[activeIndex];
+
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-secondary/10">
-      <div className="container mx-auto max-w-6xl">
+    <section id="templates" className="py-20 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
+      
+      <div className="container mx-auto relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+          <span className="text-sm font-tech text-primary uppercase tracking-wider mb-4 block">
+            Templates Premium
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
             Escolha seu Template
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -51,96 +58,89 @@ export const TemplatesCarousel = () => {
           </p>
         </div>
 
-        <div className="relative">
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-8">
-              {templates.map((template, index) => (
-                <div
-                  key={template.id}
-                  className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-4"
-                >
-                  <div className="transition-all duration-300">
-                    {/* Phone Mockup */}
-                    <div className="mini-phone mx-auto mb-6">
-                      <div className="mini-phone-notch" />
-                      <div className="mini-phone-screen">
-                        <iframe
-                          src={`/templates/${template.file}`}
-                          title={template.name}
-                          className="template-iframe pointer-events-auto"
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Template Info */}
-                    <div className="text-center space-y-3">
-                      <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-2">
-                        {template.category}
-                      </div>
-                      <h3 className="text-xl font-bold">{template.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {template.description}
-                      </p>
-                      <div className="flex flex-wrap justify-center gap-2 mb-4">
-                        {template.features.map((feature, i) => (
-                          <span
-                            key={i}
-                            className="text-xs px-2 py-1 bg-secondary/50 rounded-full"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                      <Button
-                        variant="default"
-                        size="sm"
-                        onClick={() => handleSelectTemplate(template.id)}
-                        className="w-full max-w-xs"
-                      >
-                        Escolher Template
-                      </Button>
-                    </div>
-                  </div>
+        {/* 3D Carousel */}
+        <div className="carousel-3d-container">
+          {templates.map((template, index) => (
+            <div
+              key={template.id}
+              className={`carousel-3d-item ${getItemClass(index)}`}
+            >
+              {/* Phone Mockup */}
+              <div className={`mini-phone ${getItemClass(index) === 'active' ? 'active' : ''}`}>
+                <div className="mini-phone-notch" />
+                <div className="mini-phone-screen">
+                  <iframe
+                    src={`/templates/${template.file}`}
+                    title={template.name}
+                    className={`template-iframe ${getItemClass(index) === 'active' ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                    loading="lazy"
+                  />
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
 
           {/* Navigation Buttons */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 top-1/3 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-background transition-colors"
+            className="carousel-nav-btn prev"
             aria-label="Template anterior"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-0 top-1/3 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-background transition-colors"
+            className="carousel-nav-btn next"
             aria-label="Próximo template"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center mt-12">
+        {/* Active Template Info */}
+        <div className="text-center mt-8 space-y-4 animate-fade-in">
+          <div className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
+            {activeTemplate.category}
+          </div>
+          <h3 className="text-2xl font-bold">{activeTemplate.name}</h3>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            {activeTemplate.description}
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {activeTemplate.features.map((feature, i) => (
+              <span
+                key={i}
+                className="text-xs px-3 py-1.5 bg-secondary/20 text-secondary rounded-full"
+              >
+                {feature}
+              </span>
+            ))}
+          </div>
           <Button
             size="lg"
-            onClick={() => {
-              const contactSection = document.getElementById('contact');
-              if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className="bg-gradient-primary hover:opacity-90 transition-opacity"
+            onClick={() => handleSelectTemplate(activeTemplate.id)}
+            className="bg-gradient-neon hover:shadow-glow-intense transition-all mt-4 glow-cyan"
           >
-            Solicitar Personalização
+            Escolher Este Template
           </Button>
         </div>
-      </div>
 
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-2 mt-8">
+          {templates.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === activeIndex 
+                  ? 'w-8 bg-primary' 
+                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+              }`}
+              aria-label={`Ir para template ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
