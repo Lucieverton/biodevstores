@@ -12,15 +12,18 @@ export const SectionContainer = ({ id, children, className }: SectionContainerPr
   const { activeSection } = useActiveSection();
   const isActive = activeSection === id;
 
+  // Only render content if active to improve performance
+  if (!isActive) {
+    return null;
+  }
+
   return (
     <section
       id={id}
       className={cn(
-        'section-page transition-all duration-500 ease-in-out',
-        isActive ? 'section-active' : 'section-hidden',
+        'section-page section-active',
         className
       )}
-      aria-hidden={!isActive}
     >
       {children}
     </section>
