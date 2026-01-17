@@ -37,7 +37,7 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-[calc(100vh-120px)] flex items-center pt-4 pb-24 lg:pb-8 px-4 relative overflow-hidden"
+      className="min-h-[calc(100vh-120px)] flex items-center pt-14 pb-24 lg:pb-8 px-4 relative overflow-hidden"
     >
       {/* Animated Background */}
       <div className="absolute inset-0">

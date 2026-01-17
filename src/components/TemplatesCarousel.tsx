@@ -110,7 +110,7 @@ export const TemplatesCarousel = () => {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
       
-      <div className="container mx-auto relative z-10">
+      <div className="container mx-auto relative z-10 carousel-section">
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-sm font-tech text-primary uppercase tracking-wider mb-4 block animate-fade-in">
@@ -167,18 +167,29 @@ export const TemplatesCarousel = () => {
             );
           })}
 
-          {/* Navigation Buttons */}
+        </div>
+
+        {/* Navigation Buttons - Outside the pointer events container */}
+        <div className="carousel-nav-wrapper">
           <button
-            onClick={scrollPrev}
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollPrev();
+            }}
             className="carousel-nav-btn prev"
             aria-label="Template anterior"
+            type="button"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
-            onClick={scrollNext}
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollNext();
+            }}
             className="carousel-nav-btn next"
             aria-label="Próximo template"
+            type="button"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
