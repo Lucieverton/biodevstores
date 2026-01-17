@@ -1,50 +1,79 @@
 import { Store, Tag, HelpCircle, User, Zap } from 'lucide-react';
+import { SectionId, useActiveSection } from '@/hooks/useActiveSection';
+import { cn } from '@/lib/utils';
+
+const navItems: { id: SectionId; icon: React.ElementType; label: string }[] = [
+  { id: 'templates', icon: Store, label: 'Vitrine' },
+  { id: 'planos', icon: Tag, label: 'Planos' },
+  { id: 'home', icon: Zap, label: 'Início' }, // CTA central
+  { id: 'faq', icon: HelpCircle, label: 'FAQ' },
+  { id: 'expert', icon: User, label: 'Expert' },
+];
 
 export const MobileBottomNav = () => {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const navItems = [
-    { icon: Store, label: 'Vitrine', section: 'templates' },
-    { icon: Tag, label: 'Planos', section: 'planos' },
-    { icon: null, label: 'CTA', section: 'contato' }, // Central CTA
-    { icon: HelpCircle, label: 'FAQ', section: 'faq' },
-    { icon: User, label: 'Expert', section: 'expert' },
-  ];
+  const { activeSection, setActiveSection } = useActiveSection();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden glass border-t border-border/50">
-      <div className="grid grid-cols-5 h-[70px] items-end pb-2 px-2 safe-area-pb">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
+      {/* Background with blur */}
+      <div className="absolute inset-0 bg-card/95 backdrop-blur-xl border-t border-border/50" />
+      
+      {/* Navigation items */}
+      <div className="relative grid grid-cols-5 items-end h-[70px] px-2 safe-area-pb">
         {navItems.map((item, index) => {
-          // Central CTA button
-          if (index === 2) {
+          const Icon = item.icon;
+          const isCenter = index === 2;
+          const isActive = activeSection === item.id;
+
+          if (isCenter) {
             return (
               <button
-                key={item.label}
-                onClick={() => scrollToSection(item.section)}
-                className="flex flex-col items-center justify-center -mt-6"
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className="flex flex-col items-center justify-center -mt-6 group"
               >
-                <div className="w-14 h-14 rounded-full bg-gradient-neon flex items-center justify-center shadow-glow animate-pulse-glow">
-                  <Zap className="w-6 h-6 text-primary-foreground" />
+                <div className={cn(
+                  "w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300",
+                  "bg-gradient-to-br from-primary via-cyan-400 to-primary",
+                  isActive 
+                    ? "shadow-[0_0_30px_rgba(0,255,255,0.6)] scale-110" 
+                    : "shadow-[0_0_20px_rgba(0,255,255,0.4)] group-hover:scale-105"
+                )}>
+                  <Icon className="w-6 h-6 text-primary-foreground" />
                 </div>
-                <span className="text-[10px] mt-1 text-primary font-medium">Começar</span>
+                <span className={cn(
+                  "text-[10px] mt-1 font-medium transition-colors",
+                  isActive ? "text-primary" : "text-muted-foreground"
+                )}>
+                  {item.label}
+                </span>
               </button>
             );
           }
 
-          const Icon = item.icon!;
           return (
             <button
-              key={item.label}
-              onClick={() => scrollToSection(item.section)}
-              className="flex flex-col items-center justify-center gap-1 py-2 text-muted-foreground hover:text-primary transition-colors"
+              key={item.id}
+              onClick={() => setActiveSection(item.id)}
+              className="flex flex-col items-center justify-center py-2 group relative"
             >
-              <Icon className="w-5 h-5" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <div className={cn(
+                "p-2 rounded-xl transition-all duration-300",
+                isActive 
+                  ? "bg-primary/20 text-primary" 
+                  : "text-muted-foreground group-hover:text-foreground"
+              )}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <span className={cn(
+                "text-[10px] mt-0.5 font-medium transition-colors",
+                isActive ? "text-primary" : "text-muted-foreground"
+              )}>
+                {item.label}
+              </span>
+              {isActive && (
+                <div className="absolute bottom-1 w-1 h-1 rounded-full bg-primary" />
+              )}
             </button>
           );
         })}
