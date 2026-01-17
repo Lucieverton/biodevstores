@@ -494,7 +494,7 @@
                 <circle cx="32" cy="32" r="8" fill="#D90429"/>
               </svg>
               <h3>Preventiva</h3>
-              <span class="open-modal-btn" data-service="Manutenção Preventiva" data-img="/templates/img/servico-oleo.jpg" data-description="Troca de óleo e filtros com produtos sintéticos.">Ver Detalhes</span>
+              <span class="open-modal-btn" data-service="Manutenção Preventiva" data-img="/templates/img/servico-oleo.jpg?v=2" data-description="Troca de óleo e filtros com produtos sintéticos.">Ver Detalhes</span>
             </div>
 
             <div class="service-item">
@@ -664,12 +664,28 @@
       document.querySelectorAll('.open-modal-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
               e.preventDefault();
-              // O alvo pode ser o span ou o pai (se o clique propagar),
-              // então garantimos pegar os dados do elemento certo
               const target = e.currentTarget;
-              document.getElementById('modal-title').textContent = target.dataset.service;
-              document.getElementById('modal-img').src = target.dataset.img;
-              document.getElementById('modal-description').textContent = target.dataset.description;
+              const modalTitle = document.getElementById('modal-title');
+              const modalImg = document.getElementById('modal-img');
+              const modalDesc = document.getElementById('modal-description');
+
+              const imgSrc = target.dataset.img;
+
+              modalTitle.textContent = target.dataset.service;
+              modalDesc.textContent = target.dataset.description;
+
+              // Reset + carrega imagem (com fallback caso o caminho absoluto falhe no iframe)
+              modalImg.style.display = 'block';
+              modalImg.dataset.retry = '0';
+              modalImg.onerror = () => {
+                  if (modalImg.dataset.retry === '1') return;
+                  modalImg.dataset.retry = '1';
+                  if (imgSrc && imgSrc.startsWith('/templates/')) {
+                      modalImg.src = imgSrc.replace('/templates/', '');
+                  }
+              };
+              modalImg.src = imgSrc;
+
               modalOverlay.classList.add('active');
           });
       });
