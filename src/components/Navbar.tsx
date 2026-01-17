@@ -43,7 +43,7 @@ export const Navbar = () => {
               </div>
             </div>
           </div>
-          <span className="text-xl font-bold text-gradient font-tech hidden sm:block">
+          <span className="text-lg sm:text-xl font-bold text-gradient font-tech">
             DevStores
           </span>
         </button>
