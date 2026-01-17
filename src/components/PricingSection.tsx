@@ -50,7 +50,7 @@ const plans = [
     features: [
       "Tudo do plano PRO +",
       "Links/seções ilimitados",
-      "Até 10 imagens na vitrine",
+      "Até 20 imagens na vitrine",
       "FAQs ilimitados",
       "Design 100% personalizado",
       "Integração com ferramentas externas",
