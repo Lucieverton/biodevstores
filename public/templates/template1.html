@@ -1,842 +1,672 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AutoTech Solutions | Peças e Manutenção</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        /* [CORREÇÃO] Força a ocultação da barra de rolagem no documento */
-        body::-webkit-scrollbar,
-        html::-webkit-scrollbar {
-            display: none;
-            width: 0;
-            height: 0;
-        }
-        html, body {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
-    
-        /* --- Configurações Globais (Cores Automotivas) --- */
-        :root {
-            --color-bg: #111; 
-            --color-container-bg: #2c2c2e; /* Cinza Metálico Escovado */
-            --color-primary: #B0B0B0; /* Prata Metálico (Bordas) */
-            --color-secondary: #F5F5F5; /* Branco/Prata Claro (Texto/Placa) */
-            --color-accent: #D90429; /* Vermelho "Racing" (Detalhes) */
-            --color-text: #E0E0E0; /* Texto claro */
-            --color-plate-text: #1a1a1a; /* Texto escuro da placa */
-        }
+      /* --- Reset & Base --- */
+      body::-webkit-scrollbar, html::-webkit-scrollbar { display: none; width: 0; height: 0; }
+      html, body { scrollbar-width: none; -ms-overflow-style: none; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            font-size: 16px; /* Define uma base consistente para 'rem' */
-        }
+      /* --- Configurações Globais --- */
+      :root {
+          --color-bg: #111;
+          --color-container-bg: #2c2c2e;
+          --color-primary: #B0B0B0; /* Prata */
+          --color-secondary: #F5F5F5;
+          --color-accent: #D90429; /* Vermelho */
+          --color-text: #E0E0E0;
+          --color-plate-text: #1a1a1a;
+      }
 
-        body {
-            font-family: 'Exo 2', sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            /* [CORREÇÃO] Padding removido para evitar overflow horizontal */
-            padding: 0;
-            min-height: 100%;
-            overflow-y: auto;
-        }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { font-size: 16px; }
 
-        /* --- Contêiner Principal --- */
-        .container {
-            max-width: 194px; /* Dimensão exata do mockup */
-            width: 100%;
-            margin: 0 auto;
-            background-color: var(--color-container-bg);
-            border: 2px solid var(--color-primary);
-            border-radius: 10px;
-            /* [CORREÇÃO] Padding vertical ajustado */
-            padding: 0.5rem 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5),
-                        0 0 10px var(--color-primary),
-                        0 0 20px rgba(176, 176, 176, 0.4), 
-                        inset 0 0 5px rgba(176, 176, 176, 0.5);
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-        
-        .header, .artist-profile, .faq {
-            /* [CORREÇÃO] Padding interno para o conteúdo */
-            padding: 0 0.75rem;
-        }
+      body {
+          font-family: 'Exo 2', sans-serif;
+          background-color: var(--color-bg);
+          color: var(--color-text);
+          padding: 0;
+          min-height: 100%;
+          overflow-y: auto;
+      }
 
-        /* --- Cabeçalho --- */
-        .header {
-            text-align: center;
-            border-bottom: 1px solid rgba(176, 176, 176, 0.3);
-            padding-bottom: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
+      /* --- Contêiner Principal (Mobile) --- */
+      .container {
+          max-width: 375px; /* Tamanho padrão de celular */
+          width: 100%;
+          margin: 0 auto;
+          background-color: var(--color-container-bg);
+          border: 2px solid var(--color-primary);
+          border-radius: 10px;
+          padding: 0.5rem 0;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5),
+                      0 0 10px var(--color-primary),
+                      0 0 20px rgba(176, 176, 176, 0.4),
+                      inset 0 0 5px rgba(176, 176, 176, 0.5);
+          margin-bottom: 1rem;
+          overflow: hidden;
+          position: relative;
+      }
 
-        .logo-img {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 0.5rem;
-            object-fit: contain;
-            filter: drop-shadow(0 0 4px var(--color-accent));
-        }
+      .header, .business-card-section, .faq, .section-title-wrapper { padding: 0 0.75rem; }
 
-        @keyframes pulse-glow {
-            0%, 100% { text-shadow: 0 0 4px var(--color-accent), 0 0 8px var(--color-accent); }
-            50% { text-shadow: 0 0 8px var(--color-accent), 0 0 12px rgba(217, 4, 41, 0.8), 0 0 16px var(--color-accent); }
-        }
+      /* --- Cabeçalho --- */
+      .header {
+          text-align: center;
+          border-bottom: 1px solid rgba(176, 176, 176, 0.3);
+          padding-bottom: 0.75rem;
+          margin-bottom: 0.75rem;
+      }
 
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 1.3rem; 
-            font-weight: 700;
-            color: var(--color-secondary);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
-            animation: pulse-glow 3s infinite alternate ease-in-out;
-        }
-        
-        .header .subtitle {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.7rem; 
-            color: var(--color-text);
-            margin-top: 0.3rem;
-            opacity: 0.8;
-            font-weight: 300;
-        }
+      .logo-img {
+          width: 60px; height: 60px;
+          margin: 0 auto 0.5rem;
+          object-fit: contain;
+          filter: drop-shadow(0 0 4px var(--color-accent));
+          border-radius: 50%; /* Se a logo for quadrada, deixa redonda */
+      }
 
-        .btn-schedule {
-            display: inline-block;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            padding: 6px 12px;
-            font-size: 0.7rem;
-            border: 1px solid var(--color-primary);
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--color-secondary);
-            font-weight: 600;
-            background-color: rgba(176, 176, 176, 0.1);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 0 5px var(--color-primary);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-        }
+      @keyframes pulse-glow {
+          0%, 100% { text-shadow: 0 0 4px var(--color-accent); }
+          50% { text-shadow: 0 0 12px rgba(217, 4, 41, 0.8); }
+      }
 
-        .btn-schedule:hover {
-            background-color: var(--color-accent);
-            border-color: var(--color-accent);
-            color: var(--color-secondary);
-            box-shadow: 0 2px 8px rgba(217, 4, 41, 0.5), 0 0 10px var(--color-accent);
-            transform: translateY(-2px);
-        }
+      .header h1 {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--color-secondary);
+          text-transform: uppercase;
+          margin-bottom: 0.3rem;
+          animation: pulse-glow 3s infinite alternate ease-in-out;
+      }
 
-        /* --- EFEITO PLACA DE CARRO --- */
-        .section-title-wrapper {
-            text-align: center;
-            margin-bottom: 0.75rem;
-            padding: 0 0.5rem;
-        }
+      .header .subtitle {
+          font-size: 0.75rem;
+          color: var(--color-text);
+          margin-top: 0.3rem;
+          opacity: 0.8;
+          font-weight: 300;
+      }
 
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 1rem;
-            padding: 4px 6px;
-            font-weight: 400;
-            color: var(--color-plate-text);
-            background-color: var(--color-secondary);
-            border: 1px solid #111;
-            border-radius: 4px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: inline-block;
-            text-shadow: 0.5px 0.5px 0px #aaa;
-            box-shadow: 0 2px 3px rgba(0,0,0,0.4), 
-                        inset 0 1px 1px rgba(255,255,255,0.8),
-                        inset 0 -1px 1px rgba(0,0,0,0.3);
-            margin-bottom: 0; 
-            transition: all 0.3s ease;
-        }
-        
-        /* --- Carrossel de Serviços --- */
-        .services-carousel-wrapper {
-            width: 100%;
-            position: relative;
-            margin-bottom: 1rem;
-        }
+      .btn-schedule {
+          display: inline-block;
+          padding: 10px 14px;
+          font-size: 0.8rem;
+          border: 1px solid var(--color-accent);
+          border-radius: 4px;
+          text-decoration: none;
+          color: var(--color-secondary);
+          font-weight: 700;
+          background: linear-gradient(135deg, rgba(217, 4, 41, 0.8), rgba(150, 0, 20, 0.9));
+          box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-top: 0.6rem;
+          cursor: pointer;
+          width: 100%;
+      }
 
-        .services-carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .services-carousel::-webkit-scrollbar { display: none; }
-        .services-carousel.dragging { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+      .btn-schedule:hover {
+          filter: brightness(1.2);
+          box-shadow: 0 0 10px var(--color-accent);
+          transform: translateY(-1px);
+      }
 
-        .services-carousel .service-item {
-            /* [CORREÇÃO] Ajuste de flex-basis para caber na tela */
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-            scroll-snap-stop: always;
-            margin-left: 0.5rem;
-            background-color: var(--color-bg);
-            border: 1px solid var(--color-primary);
-            border-radius: 6px;
-            padding: 0.5rem 0.3rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5), 0 0 5px rgba(176, 176, 176, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            width: auto;
-            cursor: grab;
-        }
-        
-        .services-carousel.dragging .service-item { cursor: grabbing; }
+      /* --- Títulos --- */
+      .section-title-wrapper { text-align: center; margin-bottom: 0.75rem; }
 
-        .services-carousel .service-item:first-child {
-            /* [CORREÇÃO] Alinha com o padding do container */
-            margin-left: 0.75rem; 
-        }
-        .services-carousel .service-item:last-child {
-            margin-right: 0.75rem;
-        }
+      .section-title {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 1.1rem;
+          padding: 4px 8px;
+          font-weight: 400;
+          color: var(--color-plate-text);
+          background-color: var(--color-secondary);
+          border: 1px solid #111;
+          border-radius: 4px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          display: inline-block;
+          box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+      }
 
-        .service-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: url('img/hex-pattern.svg'); 
-            background-size: cover;
-            opacity: 0.05;
-            z-index: 0;
-        }
+      /* --- CARROSSEL MELHORADO --- */
+      .services-carousel-wrapper {
+          width: 100%;
+          position: relative;
+          margin-bottom: 1.5rem;
+      }
 
-        .service-item:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 10px var(--color-accent), inset 0 0 5px var(--color-primary);
-        }
+      /* Dica Visual de Arrastar (Mãozinha) */
+      .drag-hint {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          opacity: 0.8;
+          transition: opacity 0.3s ease;
+      }
+      .drag-hint.hidden { opacity: 0; }
 
-        .service-item .icon {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            width: 35px;
-            height: 35px;
-            margin-bottom: 0.3rem;
-            object-fit: contain;
-            filter: drop-shadow(0 0 3px var(--color-accent));
-            pointer-events: none;
-        }
-        
-        .service-item h3 {
-            font-family: 'Orbitron', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-            color: var(--color-secondary);
-            text-transform: uppercase;
-            pointer-events: none;
-        }
-        
-        .service-item .open-modal-btn {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.65rem;
-            color: var(--color-primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .service-item .open-modal-btn:hover {
-            color: var(--color-accent);
-            text-decoration: underline;
-        }
+      .hand-icon {
+          width: 35px; height: 35px;
+          fill: #fff;
+          filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
+          animation: swipe-anim 2s infinite;
+      }
 
-        /* --- Seção de Artista (Mecânico) --- */
-        .artist-profile {
-            text-align: center;
-            margin-bottom: 1rem;
-            border-top: 1px solid rgba(176, 176, 176, 0.3);
-            padding-top: 0.75rem;
-        }
+      @keyframes swipe-anim {
+          0% { transform: translateX(10px) rotate(10deg); opacity: 0; }
+          20% { opacity: 1; }
+          50% { transform: translateX(-10px) rotate(-10deg); opacity: 1; }
+          80% { opacity: 0; }
+          100% { opacity: 0; }
+      }
 
-        .profile-pic {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid var(--color-accent);
-            box-shadow: 0 0 8px var(--color-accent), inset 0 0 5px rgba(217, 4, 41, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 0.5rem;
-            background-color: rgba(217, 4, 41, 0.1);
-            overflow: hidden;
-        }
+      .services-carousel {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          padding: 0.5rem 0;
+          cursor: grab;
+      }
+      .services-carousel::-webkit-scrollbar { display: none; }
+      .services-carousel.active { cursor: grabbing; }
 
-        .profile-pic .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+      .service-item {
+          flex: 0 0 140px; /* Largura ideal para ver múltiplos itens */
+          scroll-snap-align: center;
+          background-color: var(--color-container-bg);
+          border: 1px solid var(--color-primary);
+          border-radius: 8px;
+          padding: 1rem 0.5rem;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.2s ease;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      }
 
-        .artist-profile h2 {
-            font-family: 'Orbitron', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-            color: var(--color-primary);
-            text-transform: uppercase;
-        }
-        .artist-profile .artist-role {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.65rem;
-            color: var(--color-secondary);
-            opacity: 0.7;
-            margin-bottom: 0.3rem;
-            font-weight: 300;
-        }
+      /* Efeito de clique físico */
+      .service-item:active {
+          transform: scale(0.96);
+          border-color: var(--color-accent);
+      }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
+      .service-item:first-child { margin-left: 0.75rem; }
+      .service-item:last-child { margin-right: 0.75rem; }
 
-        .social-links a {
-            color: var(--color-text);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.2rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
+      .service-item .icon {
+          width: 40px; height: 40px;
+          margin-bottom: 0.5rem;
+          object-fit: contain;
+          filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));
+      }
 
-        .social-links a:hover {
-            color: var(--color-accent);
-            transform: translateY(-2px);
-        }
+      .service-item h3 {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 0.85rem;
+          color: var(--color-secondary);
+          margin-bottom: 0.4rem;
+      }
 
-        .social-links .icon {
-            width: 1rem;
-            height: 1rem;
-            fill: currentColor;
-            filter: drop-shadow(0 0 2px rgba(217, 4, 41, 0.5));
-        }
-        
-        .social-links span {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
+      .service-item .open-modal-btn {
+          display: inline-block;
+          font-size: 0.65rem;
+          color: var(--color-accent);
+          cursor: pointer;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 4px 8px;
+          border: 1px solid rgba(217, 4, 41, 0.3);
+          border-radius: 4px;
+          transition: all 0.3s;
+      }
+      .service-item .open-modal-btn:hover {
+          background: var(--color-accent);
+          color: #fff;
+      }
 
-        /* --- Seção de FAQ (Dúvidas) --- */
-        .faq {
-            width: 100%;
-        }
-        
-        .faq-item {
-            margin-bottom: 0.3rem;
-        }
+      /* --- Business Card (Perfil) --- */
+      .business-card-section { margin-bottom: 1.5rem; }
 
-        .question {
-            width: 100%;
-            background-color: var(--color-bg);
-            border: 1px solid var(--color-primary);
-            border-radius: 6px;
-            padding: 0.4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            text-align: left;
-            color: var(--color-secondary);
-            font-family: 'Exo 2', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.65rem;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 0 4px rgba(176, 176, 176, 0.4);
-            transition: all 0.3s ease;
-        }
+      .business-card {
+          background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+          border: 1px solid rgba(176, 176, 176, 0.2);
+          border-left: 3px solid var(--color-accent);
+          border-radius: 8px;
+          padding: 1rem 0.5rem;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+      }
 
-        .question:hover {
-            background-color: rgba(176, 176, 176, 0.08);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.5), 0 0 8px var(--color-accent);
-        }
+      .business-card::before {
+          content: '';
+          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+          background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+          pointer-events: none;
+      }
 
-        .question .arrow {
-            font-size: 1rem;
-            font-weight: 700;
-            transition: transform 0.3s ease;
-            color: var(--color-primary);
-        }
+      .card-header { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 0.5rem; z-index: 2; }
 
-        .answer {
-            max-height: 0;
-            overflow: hidden;
-            background-color: rgba(176, 176, 176, 0.05);
-            border-radius: 0 0 6px 6px;
-            padding: 0 0.4rem;
-            transition: all 0.4s ease-out;
-            color: var(--color-text);
-            opacity: 0.9;
-            border: 1px solid transparent;
-            border-top: 0;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.6rem;
-            line-height: 1.4;
-            text-align: justify;
-            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
-        }
-        
-        .faq-item.active .question {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.5), 0 0 10px var(--color-accent);
-        }
-        
-        .faq-item.active .answer {
-            max-height: 10rem;
-            padding: 0.4rem;
-            border-color: var(--color-primary);
-        }
+      .card-avatar {
+          width: 70px; height: 70px;
+          border-radius: 50%;
+          border: 2px solid var(--color-secondary);
+          padding: 2px;
+          background: linear-gradient(180deg, var(--color-accent), #111);
+          box-shadow: 0 0 10px rgba(0,0,0,0.8);
+          margin-bottom: 0.5rem;
+      }
+      .card-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #000; }
 
-        .faq-item.active .arrow {
-            transform: rotate(90deg);
-            color: var(--color-accent);
-        }
-        
-        /* --- Estilos do Modal (Pop-up) --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            /* [CORREÇÃO] Alinha o modal ao topo, não ao centro */
-            align-items: flex-start;
-            /* [CORREÇÃO] Adiciona padding para o modal não colar no topo */
-            padding-top: 1rem;
-            z-index: 1000;
-            padding: 0.5rem;
-            animation: fadeIn 0.3s forwards;
-        }
-        
-        .modal-overlay.active { display: flex; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn {
-            from { transform: translateY(-25px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+      .card-info h2 {
+          font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--color-secondary);
+          text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;
+      }
+      .card-info .role {
+          font-size: 0.65rem; color: var(--color-accent); font-weight: 700;
+          text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem;
+      }
 
-        .modal {
-            background-color: var(--color-container-bg);
-            border: 2px solid var(--color-primary);
-            border-radius: 10px;
-            padding: 0.75rem;
-            box-shadow: 0 0 15px var(--color-accent), inset 0 0 5px var(--color-primary);
-            max-width: 90%;
-            width: 100%;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideIn 0.4s forwards;
-            
-            /* [CORREÇÃO] Adiciona as regras para ocultar a barra de rolagem DO MODAL */
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
-        /* [CORREÇÃO] Oculta a barra de rolagem DO MODAL no WebKit */
-        .modal::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-secondary);
-            cursor: pointer;
-            line-height: 1;
-            transition: color 0.3s ease;
-        }
-        
-        .modal-close:hover { color: var(--color-accent); }
-        
-        .modal-img {
-            width: 100%;
-            /* [CORREÇÃO] 'height: 8rem;' REMOVIDO para a imagem se auto-ajustar */
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            border: 1px solid var(--color-primary);
-            box-shadow: 0 0 5px rgba(176, 176, 176, 0.5);
-        }
-        
-        .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--color-accent);
-            margin-bottom: 0.4rem;
-            text-align: center;
-            text-shadow: 0 0 4px var(--color-accent);
-            text-transform: uppercase;
-        }
-        
-        .modal-description {
-            /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.7rem;
-            color: var(--color-text);
-            opacity: 0.9;
-            line-height: 1.5;
-            text-align: justify;
-            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
-        }
+      .contact-grid { width: 100%; display: grid; gap: 0.5rem; position: relative; z-index: 2; }
 
-        /* --- Estilos do Lightbox (Tela Cheia) --- */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s forwards;
-        }
-        
-        .lightbox-overlay.active { display: flex; }
-        
-        .lightbox-overlay img {
-            max-width: 95vw;
-            max-height: 95vh;
-            object-fit: contain;
-            border: 1px solid var(--color-primary);
-            border-radius: 3px;
-            box-shadow: 0 0 20px var(--color-accent);
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-secondary);
-            cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 2001;
-        }
-        .lightbox-close:hover { color: var(--color-accent); }
-        
-        /* Media query mantida para larguras extremas */
-        @media (max-width: 200px) {
-            body {
-                padding: 0.5rem 0.25rem;
-            }
-            .container {
-                padding-top: 0.75rem;
-            }
-            .header, .artist-profile, .faq, .section-title-wrapper {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-            .services-carousel .service-item:first-child { margin-left: 0.5rem; }
-            .services-carousel .service-item:last-child { margin-right: 0.5rem; }
-            .question { padding: 0.3rem; }
-            .lightbox-close { top: 0.3rem; right: 0.5rem; font-size: 1.2rem; }
-        }
+      .contact-item {
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 4px; padding: 8px;
+          text-decoration: none; transition: all 0.3s ease;
+      }
+      .contact-item:hover { background: rgba(217, 4, 41, 0.1); border-color: var(--color-accent); }
+
+      .contact-item .icon-box { margin-right: 8px; color: var(--color-primary); display: flex; }
+      .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
+      .contact-item span { font-size: 0.75rem; color: var(--color-text); }
+
+      /* --- FAQ --- */
+      .faq-item { margin-bottom: 0.3rem; }
+      .question {
+          width: 100%; background: var(--color-bg); border: 1px solid var(--color-primary);
+          border-radius: 6px; padding: 0.8rem; display: flex; justify-content: space-between;
+          align-items: center; text-align: left; color: var(--color-secondary);
+          font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      }
+      .answer {
+          max-height: 0; overflow: hidden; background: rgba(176,176,176,0.05);
+          padding: 0 0.8rem; transition: all 0.4s ease-out; font-size: 0.7rem;
+          color: var(--color-text); text-align: justify;
+      }
+      .faq-item.active .answer { max-height: 10rem; padding: 0.8rem; border-top: 1px solid transparent; }
+      .faq-item.active .arrow { transform: rotate(90deg); color: var(--color-accent); }
+
+      /* --- MODAIS --- */
+      .modal-overlay {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background-color: rgba(0, 0, 0, 0.9);
+          display: none; justify-content: center; align-items: flex-start;
+          padding-top: 2rem; z-index: 1000; padding: 1rem;
+          animation: fadeIn 0.3s forwards; backdrop-filter: blur(2px);
+      }
+      .modal-overlay.active { display: flex; }
+
+      .modal {
+          background-color: var(--color-container-bg);
+          border: 2px solid var(--color-primary);
+          border-radius: 10px; padding: 1rem;
+          box-shadow: 0 0 15px var(--color-accent);
+          width: 100%; max-height: 90vh; overflow-y: auto;
+          animation: slideIn 0.4s forwards; position: relative;
+      }
+      .modal-close {
+          position: absolute; top: 0.5rem; right: 0.5rem;
+          font-size: 1.5rem; font-weight: 700; color: var(--color-secondary);
+          cursor: pointer; line-height: 1;
+      }
+
+      /* --- Form Agendamento --- */
+      .schedule-form-container { text-align: left; }
+      .form-group { margin-bottom: 0.8rem; }
+
+      .form-label {
+          display: block; font-size: 0.7rem; color: var(--color-primary);
+          margin-bottom: 0.3rem; text-transform: uppercase; font-weight: 600;
+      }
+
+      .form-input, .form-select {
+          width: 100%; background: #111; border: 1px solid #444; color: #fff;
+          padding: 10px; border-radius: 4px; font-size: 0.8rem; outline: none;
+          transition: border-color 0.3s;
+      }
+      .form-input:focus, .form-select:focus { border-color: var(--color-accent); }
+
+      .btn-submit {
+          width: 100%; background: var(--color-accent); color: white; border: none;
+          padding: 12px; border-radius: 4px; font-weight: 700; text-transform: uppercase;
+          font-size: 0.8rem; cursor: pointer; margin-top: 0.5rem;
+          display: flex; justify-content: center; align-items: center; gap: 5px;
+      }
+
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes slideIn { from { transform: translateY(-25px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <header class="header">
-            <img src="img/autotech-logo.jpg" alt="AutoTech Solutions Logo" class="logo-img"> 
-            <h1>AutoTech Solutions</h1>
-            <p class="subtitle">Peças e Manutenção de Alta Performance.</p>
-            <a href="#" class="btn-schedule">Agendar Revisão</a>
-        </header>
+      <header class="header">
+        <img src="img/autotech-logo.jpg" alt="Logo" class="logo-img" />
 
-        <section class="services">
-            <div class="section-title-wrapper">
-                <h2 class="section-title">Nossos Serviços</h2>
-            </div>
+        <h1>AutoTech Solutions</h1>
+        <p class="subtitle">Peças e Manutenção de Alta Performance.</p>
 
-            <div class="services-carousel-wrapper">
-                <div class="services-carousel">
-                    <div class="service-item">
-                        <img class="icon" src="img/icon-oleo.jpg" alt="Ícone Troca de Óleo">
-                        <h3>Manutenção Preventiva</h3>
-                        <a class="open-modal-btn" 
-                           data-service="Manutenção Preventiva"
-                           data-img="img/servico-oleo.jpg" 
-                           data-description="Serviço completo de troca de óleo e filtros (ar, óleo, combustível) utilizando apenas produtos sintéticos de alta performance. Garantimos a saúde do seu motor com o melhor do mercado.">
-                           Ver Detalhes
-                        </a>
-                    </div>
-                    
-                    <div class="service-item">
-                        <img class="icon" src="img/icon-freio.jpg" alt="Ícone Freios">
-                        <h3>Freios & Suspensão</h3>
-                        <a class="open-modal-btn"
-                           data-service="Freios e Suspensão"
-                           data-img="img/servico-freios.jpg" 
-                           data-description="Upgrade e manutenção de sistemas de freios (discos, pastilhas de cerâmica) e suspensão (molas esportivas, coilovers). Tenha total controle e segurança, seja na rua ou na pista.">
-                           Ver Detalhes
-                        </a>
-                    </div>
+        <button id="btn-schedule-trigger" class="btn-schedule">Agendar Revisão</button>
+      </header>
 
-                    <div class="service-item">
-                        <img class="icon" src="img/icon-scan.jpg" alt="Ícone Diagnóstico">
-                        <h3>Diagnóstico Eletrônico</h3>
-                        <a class="open-modal-btn"
-                           data-service="Diagnóstico Eletrônico"
-                           data-img="img/servico-scan.jpg" 
-                           data-description="Equipamentos de scanner de última geração para diagnóstico preciso de injeção eletrônica, ABS, airbags e mais. Encontramos o problema na raiz com tecnologia de ponta.">
-                           Ver Detalhes
-                        </a>
-                    </div>
-                    
-                    <div class="service-item">
-                        <img class="icon" src="img/icon-performance.jpg" alt="Ícone Performance">
-                        <h3>Performance (Remap)</h3>
-                        <a class="open-modal-btn"
-                           data-service="Performance e Remap"
-                           data-img="img/servico-performance.jpg" 
-                           data-description="Extraia o máximo do seu motor. Oferecemos serviços de Remap de ECU (Stage 1, 2, 3), instalação de downpipe, intake e kits de performance completos para ganho real de potência.">
-                           Ver Detalhes
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="artist-profile">
-            <div class="profile-pic">
-                <img src="img/mec-ricardo.jpg" alt="Foto do Mecânico Ricardo" class="profile-img">
-            </div>
-            <h2>Ricardo Mendes</h2>
-            <p class="artist-role">Mecânico Chefe & Especialista em Performance</p>
-            <div class="social-links">
-                <a href="#">
-                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
-                    <span>@autotech</span>
-                </a>
-                <a href="#">
-                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14h-7c-1.38 0-2.5-1.12-2.5-2.5v-3c0-1.38 1.12-2.5 2.5-2.5h7c1.38 0 2.5 1.12 2.5 2.5v3c0 1.38-1.12 2.5-2.5 2.5zm0-8h-7c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5z"/></svg>
-                    <span>(XX) 9XXXX-XXXX</span>
-                </a>
-            </div>
-        </section>
-
-        <section class="faq">
-            <div class="section-title-wrapper">
-                <h2 class="section-title">Dúvidas Frequentes</h2>
-            </div>
-
-            <div class="faq-item">
-                <button class="question">
-                    <span>1. Preciso agendar para troca de óleo?</span>
-                    <span class="arrow">&rsaquo;</span>
-                </button>
-                <div class="answer">
-                    <p>Recomendamos o agendamento para garantir seu horário e um serviço mais rápido. No entanto, aceitamos encaixes para serviços rápidos como troca de óleo, conforme disponibilidade.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="question">
-                    <span>2. Vocês trabalham com todas as marcas?</span>
-                    <span class="arrow">&rsaquo;</span>
-                </button>
-                <div class="answer">
-                    <p>Sim, atendemos a maioria das marcas nacionais e importadas. Somos especializados em veículos do grupo VAG (VW/Audi) e BMW, mas temos expertise para atender seu carro. Consulte-nos!</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="question">
-                    <span>3. Qual a garantia das peças e serviços?</span>
-                    <span class="arrow">&rsaquo;</span>
-                </button>
-                <div class="answer">
-                    <p>Nossos serviços de mão de obra têm garantia de 90 dias. As peças possuem garantia que varia de 90 dias (componentes elétricos) a 1 ano (peças de performance), conforme o fabricante.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="question">
-                    <span>4. Vocês fazem preparação para Track Day?</span>
-                    <span class="arrow">&rsaquo;</span>
-                </button>
-                <div class="answer">
-                    <p>Com certeza! Essa é uma das nossas especialidades. Fazemos desde o "básico" (fluido de freio de alta performance e pastilhas) até projetos completos de suspensão, alívio de peso e remap de ECU focado para pistas.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <div id="modal-overlay" class="modal-overlay">
-        <div id="modal" class="modal">
-            <span id="modal-close" class="modal-close">&times;</span>
-            <img id="modal-img" src="" alt="Imagem do Serviço" class="modal-img">
-            <h2 id="modal-title" class="modal-title"></h2>
-            <p id="modal-description" class="modal-description"></p>
+      <section class="services">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">Nossos Serviços</h2>
         </div>
+
+        <div class="services-carousel-wrapper">
+          <div class="drag-hint" id="dragHint">
+            <svg class="hand-icon" viewBox="0 0 24 24">
+              <path
+                d="M23 5.5l-2.9-2.9c-.8-.8-2.1-.8-2.9 0L12.5 7.3c-.6-.3-1.3-.4-1.9-.2-1.3.3-2.3 1.3-2.5 2.6L7.3 17l-4.7-2c-.5-.2-1.1-.1-1.5.3-.5.4-.6 1.1-.3 1.7l3.6 7.4c.5 1 1.5 1.6 2.6 1.6H19c1.7 0 3-1.3 3-3V8.4c0-.5-.2-1-.6-1.4L23 5.5z"
+              />
+            </svg>
+            <span
+              style="font-size: 0.6rem; color: #ccc; margin-top:5px; text-transform: uppercase; letter-spacing: 1px;"
+              >Deslize</span
+            >
+          </div>
+
+          <div class="services-carousel" id="carouselTrack">
+            <div class="service-item">
+              <img class="icon" src="img/icon-oleo.jpg" alt="Óleo" />
+              <h3>Preventiva</h3>
+              <span
+                class="open-modal-btn"
+                data-service="Manutenção Preventiva"
+                data-img="img/servico-oleo.jpg"
+                data-description="Troca de óleo e filtros com produtos sintéticos."
+                >Ver Detalhes</span
+              >
+            </div>
+
+            <div class="service-item">
+              <img class="icon" src="img/icon-freio.jpg" alt="Freios" />
+              <h3>Freios</h3>
+              <span
+                class="open-modal-btn"
+                data-service="Freios e Suspensão"
+                data-img="img/servico-freios.jpg"
+                data-description="Manutenção de discos, pastilhas de cerâmica e suspensão."
+                >Ver Detalhes</span
+              >
+            </div>
+
+            <div class="service-item">
+              <img class="icon" src="img/icon-scan.jpg" alt="Scan" />
+              <h3>Diagnóstico</h3>
+              <span
+                class="open-modal-btn"
+                data-service="Diagnóstico Eletrônico"
+                data-img="img/servico-scan.jpg"
+                data-description="Scanner de última geração para injeção e eletrônica."
+                >Ver Detalhes</span
+              >
+            </div>
+
+            <div class="service-item">
+              <img class="icon" src="img/icon-performance.jpg" alt="Remap" />
+              <h3>Performance</h3>
+              <span
+                class="open-modal-btn"
+                data-service="Performance e Remap"
+                data-img="img/servico-performance.jpg"
+                data-description="Remap de ECU (Stage 1, 2, 3) e kits de performance."
+                >Ver Detalhes</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="business-card-section">
+        <div class="business-card">
+          <div class="card-header">
+            <div class="card-avatar">
+              <img src="img/mec-ricardo.jpg" alt="Ricardo Mendes" class="profile-img" />
+            </div>
+            <div class="card-info">
+              <h2>Ricardo Mendes</h2>
+              <div class="role">Mecânico Chefe & Performance</div>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <a href="https://wa.me/558299801009" target="_blank" class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14h-7c-1.38 0-2.5-1.12-2.5-2.5v-3c0-1.38 1.12-2.5 2.5-2.5h7c1.38 0 2.5 1.12 2.5 2.5v3c0 1.38-1.12 2.5-2.5 2.5zm0-8h-7c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5z"
+                  />
+                </svg>
+              </div>
+              <span>(82) 99801-0009</span>
+            </a>
+            <a href="#" class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"
+                  />
+                </svg>
+              </div>
+              <span>@autotech.br</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">Dúvidas</h2>
+        </div>
+        <div class="faq-item">
+          <button class="question"><span>1. Precisa agendar?</span><span class="arrow">&rsaquo;</span></button>
+          <div class="answer"><p>Recomendamos agendar, mas aceitamos encaixes para troca de óleo rápida.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="question"><span>2. Fazem performance?</span><span class="arrow">&rsaquo;</span></button>
+          <div class="answer"><p>Sim! Especialistas em Remap Stage 1, 2 e 3, e preparação para Track Day.</p></div>
+        </div>
+      </section>
     </div>
-    
-    <div id="lightbox-overlay" class="lightbox-overlay">
-        <span id="lightbox-close" class="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="" alt="Arte em tela cheia">
+
+    <div id="modal-overlay" class="modal-overlay">
+      <div class="modal">
+        <span id="modal-close" class="modal-close">&times;</span>
+        <img
+          id="modal-img"
+          src=""
+          alt="Serviço"
+          style="width:100%; border-radius:4px; border:1px solid #444; margin-bottom:10px;"
+        />
+        <h2
+          id="modal-title"
+          style="font-family:'Orbitron'; color:var(--color-accent); font-size:1rem; margin-bottom:5px;"
+        ></h2>
+        <p id="modal-description" style="font-size:0.75rem; color:#ccc;"></p>
+      </div>
     </div>
-    
+
+    <div id="schedule-overlay" class="modal-overlay">
+      <div class="modal">
+        <span id="schedule-close" class="modal-close">&times;</span>
+        <h2
+          style="font-family:'Orbitron'; color:var(--color-secondary); font-size:1.1rem; margin-bottom:15px; text-align:center;"
+        >
+          <span style="color:var(--color-accent)">Agendar</span> Serviço
+        </h2>
+
+        <form id="schedule-form" class="schedule-form-container">
+          <div class="form-group">
+            <label class="form-label">Seu Nome</label>
+            <input type="text" id="client-name" class="form-input" placeholder="Ex: Ricardo" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">WhatsApp</label>
+            <input type="tel" id="client-phone" class="form-input" placeholder="(XX) 9XXXX-XXXX" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Serviço</label>
+            <select id="client-service" class="form-select">
+              <option value="Revisão Geral">Revisão Geral</option>
+              <option value="Troca de Óleo">Troca de Óleo</option>
+              <option value="Freios e Suspensão">Freios e Suspensão</option>
+              <option value="Remap / Performance">Remap / Performance</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-submit">Solicitar via WhatsApp &rsaquo;</button>
+        </form>
+      </div>
+    </div>
+
     <script>
-        // --- Script do FAQ (Sanfona) ---
-        const faqButtons = document.querySelectorAll('.question');
+      // --- FAQ Script ---
+      document.querySelectorAll('.question').forEach(btn => {
+          btn.addEventListener('click', () => {
+              const item = btn.parentElement;
+              item.classList.toggle('active');
+          });
+      });
 
-        faqButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                document.querySelectorAll('.faq-item.active').forEach(item => {
-                    if (item !== faqItem) {
-                        item.classList.remove('active');
-                    }
-                });
-                faqItem.classList.toggle('active');
-            });
-        });
-        
-        // --- Script do Modal de Informações (Clique Simples) ---
-        const modalButtons = document.querySelectorAll('.open-modal-btn');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const modalCloseBtn = document.getElementById('modal-close');
-        
-        const modalImg = document.getElementById('modal-img');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
+      // --- Modal Detalhes ---
+      const modalOverlay = document.getElementById('modal-overlay');
+      const modalClose = document.getElementById('modal-close');
 
-        function openModal(event) {
-            event.preventDefault(); 
-            const serviceTitle = event.currentTarget.dataset.service;
-            const serviceImg = event.currentTarget.dataset.img;
-            const serviceDesc = event.currentTarget.dataset.description;
-            
-            modalTitle.textContent = serviceTitle;
-            modalImg.src = serviceImg;
-            modalDescription.textContent = serviceDesc;
-            
-            modalOverlay.classList.add('active');
-        }
+      document.querySelectorAll('.open-modal-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              // O alvo pode ser o span ou o pai (se o clique propagar),
+              // então garantimos pegar os dados do elemento certo
+              const target = e.currentTarget;
+              document.getElementById('modal-title').textContent = target.dataset.service;
+              document.getElementById('modal-img').src = target.dataset.img;
+              document.getElementById('modal-description').textContent = target.dataset.description;
+              modalOverlay.classList.add('active');
+          });
+      });
+      modalClose.addEventListener('click', () => modalOverlay.classList.remove('active'));
 
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-        }
+      // --- Modal Agendamento ---
+      const scheduleBtn = document.getElementById('btn-schedule-trigger');
+      const scheduleOverlay = document.getElementById('schedule-overlay');
+      const scheduleClose = document.getElementById('schedule-close');
+      const scheduleForm = document.getElementById('schedule-form');
 
-        modalButtons.forEach(button => {
-            button.addEventListener('click', openModal);
-        });
-        
-        modalCloseBtn.addEventListener('click', closeModal);
-        
-        modalOverlay.addEventListener('click', (event) => {
-            if (event.target === modalOverlay) {
-                closeModal();
-            }
-        });
+      scheduleBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          scheduleOverlay.classList.add('active');
+      });
 
-        // --- Script de Arrastar (Drag) para o Carrossel ---
-        const carousel = document.querySelector('.services-carousel');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+      scheduleClose.addEventListener('click', () => scheduleOverlay.classList.remove('active'));
 
-        carousel.addEventListener('mousedown', (e) => {
-            e.preventDefault(); 
-            isDown = true;
-            carousel.classList.add('dragging');
-            startX = e.pageX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
-        });
-        carousel.addEventListener('mouseleave', () => {
-            isDown = false;
-            carousel.classList.remove('dragging');
-        });
-        carousel.addEventListener('mouseup', () => {
-            isDown = false;
-            carousel.classList.remove('dragging');
-        });
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 2;
-            carousel.scrollLeft = scrollLeft - walk;
-        });
-        
-        // --- Script do Lightbox (Duplo Clique) ---
-        const serviceItems = document.querySelectorAll('.service-item');
-        const lightboxOverlay = document.getElementById('lightbox-overlay');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
+      // Enviar para WhatsApp
+      scheduleForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('client-name').value;
+          const phone = document.getElementById('client-phone').value;
+          const service = document.getElementById('client-service').value;
 
-        function openLightbox(e) {
-            const link = e.currentTarget.querySelector('.open-modal-btn');
-            if (link) {
-                const imgUrl = link.dataset.img;
-                lightboxImg.src = imgUrl;
-                lightboxOverlay.classList.add('active');
-            }
-        }
+          // --- SEU NÚMERO DE WHATSAPP ---
+          const whatsappNumber = "558299801009";
 
-        function closeLightbox() {
-            lightboxOverlay.classList.remove('active');
-            lightboxImg.src = "";
-        }
+          const text = `*NOVO AGENDAMENTO*\n\n👤 *Cliente:* ${name}\n📱 *Tel:* ${phone}\n🔧 *Serviço:* ${service}\n\nGostaria de verificar disponibilidade.`;
 
-        serviceItems.forEach(item => {
-            item.addEventListener('dblclick', openLightbox);
-        });
+          const link = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(text)}`;
+          window.open(link, '_blank');
+          scheduleOverlay.classList.remove('active');
+      });
 
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightboxOverlay.addEventListener('click', (e) => {
-            if (e.target === lightboxOverlay) {
-                closeLightbox();
-            }
-        });
+      // Fechar ao clicar fora
+      [modalOverlay, scheduleOverlay].forEach(overlay => {
+          overlay.addEventListener('click', (e) => {
+              if(e.target === overlay) overlay.classList.remove('active');
+          });
+      });
+
+      // --- Lógica do Carrossel Melhorado ---
+      const carousel = document.getElementById('carouselTrack');
+      const hint = document.getElementById('dragHint');
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      // Função para esconder a mãozinha
+      const removeHint = () => {
+          if(hint && !hint.classList.contains('hidden')) {
+              hint.classList.add('hidden');
+              setTimeout(() => hint.style.display = 'none', 500);
+          }
+      }
+
+      carousel.addEventListener('mousedown', (e) => {
+          isDown = true;
+          carousel.classList.add('active');
+          startX = e.pageX - carousel.offsetLeft;
+          scrollLeft = carousel.scrollLeft;
+          removeHint();
+      });
+
+      carousel.addEventListener('touchstart', removeHint); // Touch mobile
+
+      carousel.addEventListener('mouseleave', () => {
+          isDown = false;
+          carousel.classList.remove('active');
+      });
+
+      carousel.addEventListener('mouseup', () => {
+          isDown = false;
+          carousel.classList.remove('active');
+      });
+
+      carousel.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - carousel.offsetLeft;
+          const walk = (x - startX) * 2;
+          carousel.scrollLeft = scrollLeft - walk;
+      });
     </script>
-</body>
+  </body>
 </html>
