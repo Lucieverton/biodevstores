@@ -18,11 +18,11 @@ export const templates: Template[] = [
   },
   {
     id: 2,
-    name: 'Encanto Nail Designer',
+    name: 'Encanto Personalizado',
     file: 'template2.html',
-    category: 'Beleza',
-    description: 'Template delicado com cores suaves, ideal para salões e profissionais de beleza.',
-    features: ['Rosa e lilás', 'Design elegante', 'Animações suaves']
+    category: 'Papelaria',
+    description: 'Template delicado com cores suaves, ideal para papelarias, personalizados e artesanato.',
+    features: ['Rosa e lilás', 'Design criativo', 'Estilo artesanal']
   },
   {
     id: 3,
