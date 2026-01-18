@@ -718,10 +718,7 @@
 
     <div class="container">
         <header class="header">
-            <svg class="logo-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="48" fill="#800080"/>
-                <text x="50" y="58" text-anchor="middle" fill="#FFE6F2" font-family="Arial" font-size="32" font-weight="bold">EP</text>
-            </svg>
+            <img class="logo-img" src="/templates/img/encanto-logo.jpg?v=1" alt="Encanto Personalizado Logo" onerror="this.onerror=null; this.src='img/encanto-logo.jpg?v=1';">
             <h1>Encanto Personalizado</h1>
             <p class="subtitle">Papelaria & Mimos Criativos</p>
             <a href="#" class="btn-schedule" id="open-order-modal">Solicitar Orçamento</a>
@@ -745,7 +742,7 @@
                         <h3>Convites & Cartões</h3>
                         <a class="open-modal-btn" 
                            data-service="Convites & Cartões"
-                           data-img="img/servico-convites.jpg" 
+                           data-img="/templates/img/servico-convites.jpg?v=1" 
                            data-description="Designs exclusivos para convites de casamento, aniversário e cartões comemorativos. Totalmente personalizado para o seu evento.">
                            Ver Detalhes
                         </a>
@@ -761,7 +758,7 @@
                         <h3>Topos de Bolo</h3>
                         <a class="open-modal-btn"
                            data-service="Topos de Bolo"
-                           data-img="img/servico-topos-bolo.jpg" 
+                           data-img="/templates/img/servico-topos-bolo.jpg?v=1" 
                            data-description="Topos de bolo personalizados em papelaria (shaker, 3D, camadas) para tornar sua festa inesquecível.">
                            Ver Detalhes
                         </a>
@@ -778,7 +775,7 @@
                         <h3>Mimos & Cadernos</h3>
                         <a class="open-modal-btn"
                            data-service="Mimos & Cadernos"
-                           data-img="img/servico-mimos.jpg" 
+                           data-img="/templates/img/servico-mimos.jpg?v=1" 
                            data-description="Cadernos, agendas, tags, caixas personalizadas e uma variedade de mimos para presentes ou organização.">
                            Ver Detalhes
                         </a>
@@ -942,10 +939,19 @@
             const serviceDesc = event.currentTarget.dataset.description;
             
             modalTitle.textContent = serviceTitle;
+            
+            // Reset + carrega imagem (com fallback caso o caminho absoluto falhe no iframe)
+            modalImg.dataset.retry = '0';
+            modalImg.onerror = () => {
+                if (modalImg.dataset.retry === '1') return;
+                modalImg.dataset.retry = '1';
+                if (serviceImg && serviceImg.startsWith('/templates/')) {
+                    modalImg.src = serviceImg.replace('/templates/', '');
+                }
+            };
             modalImg.src = serviceImg;
             
             // [MUDANÇA] Usar innerHTML para renderizar a lista de preços, se houver
-            // Se for só texto, funciona igual. Se for HTML (como sua lista), ele renderiza.
             modalDescription.innerHTML = serviceDesc; 
             
             modalOverlay.classList.add('active');
@@ -1047,6 +1053,14 @@
             const link = e.currentTarget.querySelector('.open-modal-btn');
             if (link) {
                 const imgUrl = link.dataset.img;
+                lightboxImg.dataset.retry = '0';
+                lightboxImg.onerror = () => {
+                    if (lightboxImg.dataset.retry === '1') return;
+                    lightboxImg.dataset.retry = '1';
+                    if (imgUrl && imgUrl.startsWith('/templates/')) {
+                        lightboxImg.src = imgUrl.replace('/templates/', '');
+                    }
+                };
                 lightboxImg.src = imgUrl;
                 lightboxOverlay.classList.add('active');
             }
