@@ -2,12 +2,13 @@ import { useMemo, useRef, useState, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { templates } from '@/config/templates';
-import { useActiveSection } from '@/hooks/useActiveSection';
 import sectionBg from "@/assets/section-bg.png";
+import { TemplateSelectionModal } from './modals/TemplateSelectionModal';
 
 export const TemplatesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { setActiveSection } = useActiveSection();
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [selectedTemplateData, setSelectedTemplateData] = useState({ name: '', category: '' });
 
   const getItemClass = useCallback((index: number) => {
     const diff = index - activeIndex;
@@ -34,9 +35,9 @@ export const TemplatesCarousel = () => {
     setActiveIndex((prev) => (prev === templates.length - 1 ? 0 : prev + 1));
   }, []);
 
-  const handleSelectTemplate = (templateId: number) => {
-    localStorage.setItem('selectedTemplate', templateId.toString());
-    setActiveSection('contato');
+  const handleSelectTemplate = (template: typeof templates[0]) => {
+    setSelectedTemplateData({ name: template.name, category: template.category });
+    setShowTemplateModal(true);
   };
 
   const activeTemplate = templates[activeIndex];
@@ -221,7 +222,7 @@ export const TemplatesCarousel = () => {
           </div>
           <Button
             size="lg"
-            onClick={() => handleSelectTemplate(activeTemplate.id)}
+            onClick={() => handleSelectTemplate(activeTemplate)}
             className="bg-gradient-to-r from-primary to-cyan-400 hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] transition-all mt-4"
           >
             Escolher Este Template
@@ -244,6 +245,13 @@ export const TemplatesCarousel = () => {
           ))}
         </div>
       </div>
+
+      <TemplateSelectionModal
+        isOpen={showTemplateModal}
+        onClose={() => setShowTemplateModal(false)}
+        templateName={selectedTemplateData.name}
+        templateCategory={selectedTemplateData.category}
+      />
     </div>
   );
 };
