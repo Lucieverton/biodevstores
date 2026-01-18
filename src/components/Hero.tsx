@@ -75,13 +75,14 @@ export const Hero = () => {
 
       {/* Hero Image Background - Mobile */}
       <div 
-        className={`absolute inset-0 lg:hidden bg-contain bg-[center_top] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 lg:hidden bg-cover bg-[center_top] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ 
           backgroundImage: `url(${heroBgMobile})`,
+          backgroundColor: 'hsl(var(--background))',
           willChange: 'opacity'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
       </div>
       
       {/* Hero Image Background - Desktop */}
