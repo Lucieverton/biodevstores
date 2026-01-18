@@ -66,29 +66,25 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-[calc(100vh-120px)] flex items-center pt-14 pb-24 lg:pb-8 px-4 relative overflow-hidden"
+      className="min-h-screen lg:min-h-[calc(100vh-120px)] flex items-start lg:items-center pt-14 pb-8 lg:pb-8 px-4 relative overflow-hidden"
     >
       {/* Loading skeleton */}
       {!imagesLoaded && (
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile - Corpo Completo */}
+      {/* Hero Image Background - Mobile - Full Cover */}
       <div 
         className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
-        style={{ backgroundColor: 'hsl(var(--background))' }}
+        style={{ 
+          backgroundImage: `url(${heroBgMobile})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundColor: 'hsl(var(--background))'
+        }}
       >
-        <div 
-          className="absolute inset-0 bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${heroBgMobile})`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center 60px'
-          }}
-        />
-        
-        {/* Overlay gradient - Sutil para legibilidade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/70" />
+        {/* Overlay gradient - Para legibilidade sobre a imagem */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80" />
       </div>
       
       {/* Hero Image Background - Desktop */}
@@ -105,7 +101,7 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto relative z-10">
-        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-8 pt-32 lg:pt-0">
+        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-6 pt-24 lg:pt-0">
           {/* Main Content - Centered on mobile, left on desktop */}
           <div className="text-center lg:text-left space-y-6 animate-fade-in">
             <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
@@ -147,7 +143,7 @@ export const Hero = () => {
               return (
                 <div
                   key={benefit.title}
-                  className="group p-4 rounded-xl bg-card/60 border border-border/30 backdrop-blur-sm hover:border-primary/30 transition-all duration-300"
+                  className="group p-4 rounded-xl bg-card/40 border border-border/20 backdrop-blur-md hover:border-primary/30 transition-all duration-300"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-5 h-5 text-primary" />
