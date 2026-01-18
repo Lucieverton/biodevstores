@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SectionId, useActiveSection } from '@/hooks/useActiveSection';
 import { cn } from '@/lib/utils';
+import { StartModal } from '@/components/modals/StartModal';
 
 const navLinks: { id: SectionId; label: string }[] = [
   { id: 'templates', label: 'Showcase' },
@@ -11,6 +12,7 @@ const navLinks: { id: SectionId; label: string }[] = [
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [showStartModal, setShowStartModal] = useState(false);
   const { activeSection, setActiveSection } = useActiveSection();
 
   useEffect(() => {
@@ -71,13 +73,16 @@ export const Navbar = () => {
 
         {/* Desktop CTA - Hidden on mobile */}
         <button
-          onClick={() => setActiveSection('contato')}
+          onClick={() => setShowStartModal(true)}
           className="hidden lg:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] hover:scale-105"
         >
           <i className="fas fa-bolt"></i>
           Começar Agora
         </button>
       </div>
+
+      {/* Start Modal */}
+      <StartModal isOpen={showStartModal} onClose={() => setShowStartModal(false)} />
     </header>
   );
 };
