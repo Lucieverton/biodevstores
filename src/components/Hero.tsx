@@ -101,7 +101,7 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto relative z-10">
-        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-8">
+        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-8 pt-32 lg:pt-0">
           {/* Main Content - Centered on mobile, left on desktop */}
           <div className="text-center lg:text-left space-y-6 animate-fade-in">
             <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
