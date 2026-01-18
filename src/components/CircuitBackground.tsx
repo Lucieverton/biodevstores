@@ -92,7 +92,7 @@ export const CircuitBackground = () => {
   // Handle resize
   useEffect(() => {
     const updateDimensions = () => {
-      const height = 120; // notification + header height
+      const height = 80; // apenas altura do header (sem notification bar)
       const width = window.innerWidth;
       setDimensions({ width, height });
       initializeCircuit(width, height);
