@@ -73,15 +73,15 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile - Fixed */}
+      {/* Hero Image Background - Mobile - Fixed Effect */}
       <div 
-        className={`fixed inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ 
           backgroundImage: `url(${heroBgMobile})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundColor: 'hsl(var(--background))',
-          zIndex: -1
+          backgroundAttachment: 'fixed',
+          backgroundColor: 'hsl(var(--background))'
         }}
       >
         {/* Overlay gradient - Para legibilidade sobre a imagem */}
