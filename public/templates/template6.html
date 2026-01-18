@@ -35,13 +35,12 @@
             color: #fff;
             font-family: var(--main-font);
             min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 40px;
+            padding: 0;
             /* Grid gaming background */
             background: 
                 linear-gradient(135deg, rgba(10,10,15,0.98) 0%, rgba(15,15,25,0.95) 100%),
-                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,212,255,0.03) 50px, rgba(0,212,255,0.03) 51px),
-                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,70,85,0.03) 50px, rgba(255,70,85,0.03) 51px);
+                repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,212,255,0.03) 40px, rgba(0,212,255,0.03) 41px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,70,85,0.03) 40px, rgba(255,70,85,0.03) 41px);
             background-color: var(--bg-color);
             background-attachment: fixed;
         }
@@ -70,8 +69,10 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 420px;
+            max-width: 375px;
             margin: 0 auto;
+            padding: 0.75rem;
+            padding-bottom: 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -80,18 +81,18 @@
         /* --- PROFILE HEADER --- */
         .profile-container {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             width: 100%;
         }
         
         .avatar-ring {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 15px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
             position: relative;
             border-radius: 50%;
             background: conic-gradient(from 0deg, var(--neon-val), var(--neon-pink), var(--neon-lol), var(--neon-green), var(--neon-val));
-            padding: 4px;
+            padding: 3px;
             animation: ring-spin 4s linear infinite;
         }
         @keyframes ring-spin {
@@ -107,17 +108,17 @@
             align-items: center;
             justify-content: center;
             font-family: var(--title-font);
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             font-weight: 900;
             color: var(--neon-val);
-            text-shadow: 0 0 20px var(--neon-val);
+            text-shadow: 0 0 15px var(--neon-val);
         }
 
         h1 { 
             font-family: var(--title-font); 
-            font-size: 1.8rem; 
+            font-size: 1.3rem; 
             text-transform: uppercase; 
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             background: linear-gradient(90deg, #fff 0%, var(--neon-lol) 50%, #fff 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -132,18 +133,18 @@
         .badges { 
             display: flex; 
             justify-content: center; 
-            gap: 8px; 
-            margin-top: 12px; 
+            gap: 5px; 
+            margin-top: 8px; 
             flex-wrap: wrap;
-            padding: 0 10px;
+            padding: 0 5px;
         }
         .badge { 
-            padding: 5px 12px; 
-            border-radius: 20px; 
+            padding: 3px 8px; 
+            border-radius: 15px; 
             font-weight: 600; 
-            font-size: 0.7rem; 
+            font-size: 0.55rem; 
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -153,24 +154,24 @@
         .b-ps5 { color: var(--neon-ps5); border: 1px solid var(--neon-ps5); background: rgba(45, 66, 255, 0.15); }
 
         .bio-text { 
-            margin-top: 12px; 
+            margin-top: 8px; 
             color: #888; 
-            font-size: 0.95rem;
+            font-size: 0.75rem;
         }
 
         /* --- STATS --- */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 8px;
+            margin-bottom: 16px;
             width: 100%;
         }
         .stat-item {
             text-align: center;
-            padding: 14px 8px;
+            padding: 10px 5px;
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
@@ -184,25 +185,25 @@
         }
         .stat-number {
             font-family: var(--title-font);
-            font-size: 1.4rem;
+            font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 10px var(--neon-lol);
+            text-shadow: 0 0 8px var(--neon-lol);
         }
         .stat-label {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: #666;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
         /* --- MUSIC PLAYER --- */
         .music-section {
             width: 100%;
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 24px;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
             border: 1px solid rgba(255,0,255,0.2);
             position: relative;
             overflow: hidden;
@@ -211,56 +212,56 @@
             content: '';
             position: absolute;
             top: 0; left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
             background: linear-gradient(180deg, var(--neon-pink), var(--neon-orange));
         }
         .music-title { 
             font-family: var(--title-font); 
-            font-size: 0.85rem; 
-            margin-bottom: 14px; 
+            font-size: 0.7rem; 
+            margin-bottom: 10px; 
             display: flex; 
             align-items: center; 
-            gap: 10px;
+            gap: 8px;
             color: var(--neon-pink);
-            padding-left: 10px;
+            padding-left: 8px;
         }
         .music-icon {
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
-        .music-options { display: flex; flex-direction: column; gap: 8px; }
+        .music-options { display: flex; flex-direction: column; gap: 6px; }
         .track {
             background: rgba(255,255,255,0.03); 
-            padding: 12px 14px; 
-            border-radius: 10px; 
+            padding: 8px 10px; 
+            border-radius: 8px; 
             cursor: pointer;
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             transition: all 0.3s ease;
             border: 1px solid transparent;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
         .track:hover { 
             background: rgba(255, 0, 255, 0.1); 
-            transform: translateX(5px);
+            transform: translateX(3px);
             border-color: rgba(255,0,255,0.3);
         }
         .track.playing { 
             background: linear-gradient(90deg, var(--neon-pink), var(--neon-orange)); 
             color: #000; 
             font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255,0,255,0.3);
+            box-shadow: 0 3px 15px rgba(255,0,255,0.3);
         }
-        .track-icon { font-size: 1.1rem; }
+        .track-icon { font-size: 0.9rem; }
         .equalizer {
             display: flex;
             gap: 2px;
             align-items: flex-end;
-            height: 16px;
+            height: 12px;
         }
         .equalizer span {
-            width: 3px;
+            width: 2px;
             background: #000;
             border-radius: 1px;
             animation: eq 0.4s infinite ease-in-out alternate;
@@ -278,15 +279,15 @@
         .links-grid {
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 12px; 
+            gap: 8px; 
             width: 100%;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
         .link-card {
             background: var(--card-bg); 
             border: 1px solid rgba(255,255,255,0.08);
-            padding: 20px 12px; 
-            border-radius: 16px; 
+            padding: 12px 8px; 
+            border-radius: 12px; 
             text-align: center; 
             text-decoration: none; 
             color: #fff;
@@ -298,7 +299,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 2px;
             background: linear-gradient(135deg, transparent 40%, var(--neon-lol) 50%, transparent 60%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -309,63 +310,63 @@
         }
         .link-card:hover::after { opacity: 1; }
         .link-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         
         .link-icon-svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 10px;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 6px;
         }
         .link-title { 
             display: block; 
             font-weight: 700; 
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             font-family: var(--title-font);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
         }
-        .link-sub { font-size: 0.75rem; color: #666; }
+        .link-sub { font-size: 0.55rem; color: #666; }
 
         /* --- FAQ GAMER --- */
         .faq-section {
             width: 100%;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
         .faq-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-left: 5px;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-left: 3px;
         }
         .faq-header-icon {
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
             background: linear-gradient(135deg, var(--neon-green), var(--neon-lol));
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
         }
         .faq-header h2 {
             font-family: var(--title-font);
-            font-size: 1rem;
+            font-size: 0.75rem;
             color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(57,255,20,0.5);
+            text-shadow: 0 0 8px rgba(57,255,20,0.5);
         }
         .faq-header span {
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             color: #666;
             font-weight: normal;
         }
 
         .faq-item {
             background: var(--card-bg);
-            border-radius: 14px;
-            margin-bottom: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
             border: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
             transition: all 0.3s ease;
@@ -375,14 +376,14 @@
         }
         .faq-item.active {
             border-color: var(--neon-green);
-            box-shadow: 0 0 20px rgba(57,255,20,0.15);
+            box-shadow: 0 0 15px rgba(57,255,20,0.15);
         }
 
         .faq-question {
-            padding: 16px 18px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -391,15 +392,15 @@
         }
 
         .faq-icon {
-            width: 42px;
-            height: 42px;
-            min-width: 42px;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
             background: rgba(57,255,20,0.1);
-            border-radius: 12px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
             border: 1px solid rgba(57,255,20,0.2);
         }
 
@@ -408,18 +409,18 @@
         }
         .faq-text h3 {
             font-family: var(--title-font);
-            font-size: 0.85rem;
+            font-size: 0.65rem;
             color: #fff;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .faq-text p {
-            font-size: 0.75rem;
+            font-size: 0.55rem;
             color: #666;
         }
 
         .faq-toggle {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             background: rgba(255,255,255,0.05);
             border-radius: 50%;
             display: flex;
@@ -428,8 +429,8 @@
             transition: all 0.3s;
         }
         .faq-toggle svg {
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
             stroke: var(--neon-green);
             transition: transform 0.3s;
         }
@@ -448,28 +449,28 @@
             background: rgba(57,255,20,0.03);
         }
         .faq-item.active .faq-answer {
-            max-height: 400px;
-            padding: 0 18px 18px;
+            max-height: 350px;
+            padding: 0 12px 12px;
         }
         .faq-answer-content {
-            padding-top: 10px;
+            padding-top: 8px;
             border-top: 1px solid rgba(57,255,20,0.1);
         }
         .faq-answer-content p {
-            font-size: 0.85rem;
+            font-size: 0.65rem;
             color: #aaa;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .faq-answer-content ul {
             list-style: none;
-            margin-top: 10px;
+            margin-top: 6px;
         }
         .faq-answer-content li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            font-size: 0.85rem;
+            gap: 6px;
+            padding: 5px 0;
+            font-size: 0.65rem;
             color: #ccc;
             border-bottom: 1px solid rgba(255,255,255,0.03);
         }
@@ -479,57 +480,58 @@
         .faq-answer-content li span.label {
             color: var(--neon-green);
             font-weight: 600;
-            min-width: 80px;
+            min-width: 60px;
+            font-size: 0.6rem;
         }
 
         /* --- SCHEDULE --- */
         .schedule-section {
             width: 100%;
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 24px;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
             border: 1px solid rgba(245,255,0,0.15);
         }
         .schedule-title {
             font-family: var(--title-font);
             color: var(--neon-yellow);
-            text-shadow: 0 0 10px rgba(245,255,0,0.4);
-            margin-bottom: 14px;
-            font-size: 0.85rem;
+            text-shadow: 0 0 8px rgba(245,255,0,0.4);
+            margin-bottom: 10px;
+            font-size: 0.7rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .schedule-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         .schedule-item {
             background: rgba(245,255,0,0.05);
-            padding: 14px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             text-align: center;
             border: 1px solid rgba(245,255,0,0.1);
         }
         .schedule-day {
             font-weight: 700;
             color: var(--neon-yellow);
-            font-size: 0.75rem;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+            font-size: 0.55rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
         }
         .schedule-time {
             font-family: var(--title-font);
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #fff;
         }
 
         /* Footer */
         footer { 
-            padding-top: 20px;
-            font-size: 0.8rem; 
+            padding-top: 14px;
+            font-size: 0.6rem; 
             color: #333;
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.03);
@@ -541,19 +543,36 @@
         }
 
         /* Responsivo */
-        @media (max-width: 380px) {
-            body { padding: 15px; }
-            h1 { font-size: 1.5rem; letter-spacing: 2px; }
-            .avatar-ring { width: 100px; height: 100px; }
-            .avatar { font-size: 1.8rem; }
-            .badge { font-size: 0.6rem; padding: 4px 10px; }
-            .stat-number { font-size: 1.2rem; }
-            .links-grid { gap: 10px; }
-            .link-card { padding: 16px 10px; }
-            .link-icon-svg { width: 40px; height: 40px; }
-            .link-title { font-size: 0.7rem; }
-            .faq-icon { width: 36px; height: 36px; min-width: 36px; }
-            .faq-text h3 { font-size: 0.8rem; }
+        @media (max-width: 360px) {
+            .container { padding: 0.5rem; }
+            .avatar-ring { width: 65px; height: 65px; }
+            .avatar { font-size: 1.3rem; }
+            h1 { font-size: 1.1rem; letter-spacing: 1px; }
+            .badges { gap: 3px; }
+            .badge { font-size: 0.5rem; padding: 2px 6px; }
+            .stats-bar { gap: 5px; }
+            .stat-number { font-size: 0.85rem; }
+            .stat-label { font-size: 0.5rem; }
+            .music-section { padding: 10px; }
+            .track { padding: 6px 8px; font-size: 0.6rem; }
+            .links-grid { gap: 6px; }
+            .link-card { padding: 10px 6px; border-radius: 10px; }
+            .link-icon-svg { width: 24px; height: 24px; margin-bottom: 4px; }
+            .link-title { font-size: 0.55rem; }
+            .link-sub { font-size: 0.5rem; }
+            .faq-question { padding: 8px 10px; gap: 8px; }
+            .faq-icon { width: 24px; height: 24px; min-width: 24px; font-size: 0.75rem; }
+            .faq-text h3 { font-size: 0.6rem; }
+            .faq-text p { font-size: 0.5rem; }
+            .schedule-section { padding: 10px; }
+            .schedule-item { padding: 8px; }
+            .schedule-day { font-size: 0.5rem; }
+            .schedule-time { font-size: 0.7rem; }
+        }
+
+        @media (max-width: 300px) {
+            .links-grid { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
