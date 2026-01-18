@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { StartModal } from "@/components/modals/StartModal";
+import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
 import heroBgMobile from "@/assets/hero-bg-mobile.png";
 
@@ -35,6 +38,8 @@ const benefits = [
 
 export const Hero = () => {
   const { setActiveSection } = useActiveSection();
+  const [showStartModal, setShowStartModal] = useState(false);
+  const [showExclusiveModal, setShowExclusiveModal] = useState(false);
 
   return (
     <section
@@ -119,20 +124,31 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in delay-300">
             <Button
               size="lg"
-              onClick={() => setActiveSection('templates')}
+              onClick={() => setShowStartModal(true)}
               className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan"
+            >
+              COMEÇAR AGORA
+            </Button>
+            <Button
+              size="lg"
+              onClick={() => setActiveSection('templates')}
+              className="bg-primary hover:bg-primary/90 transition-all text-base md:text-lg px-8 h-12 md:h-14"
             >
               VER TEMPLATES
             </Button>
             <Button
               size="lg"
               variant="outline"
-              onClick={() => setActiveSection('contato')}
+              onClick={() => setShowExclusiveModal(true)}
               className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all text-base md:text-lg px-8 h-12 md:h-14"
             >
               SITE EXCLUSIVO
             </Button>
           </div>
+
+          {/* Modals */}
+          <StartModal isOpen={showStartModal} onClose={() => setShowStartModal(false)} />
+          <ExclusiveProjectModal isOpen={showExclusiveModal} onClose={() => setShowExclusiveModal(false)} />
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 md:gap-8 pt-4 animate-fade-in delay-400">
