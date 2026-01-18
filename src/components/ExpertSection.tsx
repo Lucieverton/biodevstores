@@ -90,7 +90,7 @@ export const ExpertSection = () => {
                 Desenvolvimento personalizado com suporte dedicado e tecnologias premium.
               </p>
               <Button 
-                className="w-full bg-gradient-gold hover:opacity-90 text-background font-semibold group"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold group"
                 onClick={() => setShowExclusiveModal(true)}
               >
                 <Crown className="w-4 h-4 mr-2" />
