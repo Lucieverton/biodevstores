@@ -3,6 +3,7 @@ import { Code, Brain, Server, Sparkles, Crown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExclusiveProjectModal } from '@/components/modals/ExclusiveProjectModal';
 import sectionBg from "@/assets/section-bg.png";
+import profileExpert from "@/assets/profile-expert.png";
 
 const techStack = [
   { name: 'React', icon: Code },
@@ -39,11 +40,11 @@ export const ExpertSection = () => {
         <div className="flex flex-col items-center gap-8">
           {/* Profile Card */}
           <div className="relative">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-purple p-1 ring-pulse">
-              <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
-                <span className="text-4xl md:text-5xl font-bold text-gradient-purple font-tech">L</span>
-              </div>
-            </div>
+            <img 
+              src={profileExpert} 
+              alt="Lucieverton - Founder & Tech Lead" 
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover"
+            />
           </div>
 
           {/* Typewriter Title */}
