@@ -31,7 +31,9 @@ interface PaymentCalculation {
 }
 
 const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): PaymentCalculation => {
-  const yearlyBase = monthlyPrice * 12;
+  // Guard against undefined monthlyPrice
+  const price = monthlyPrice || 0;
+  const yearlyBase = price * 12;
 
   switch (paymentMethod) {
     case 'pix-1ano': {
@@ -46,7 +48,7 @@ const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): Pay
       };
     }
     case 'pix-2anos': {
-      const base = monthlyPrice * 24;
+      const base = price * 24;
       const total = base * 0.75;
       return {
         total,
@@ -58,7 +60,7 @@ const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): Pay
       };
     }
     case 'pix-3anos': {
-      const base = monthlyPrice * 36;
+      const base = price * 36;
       const total = base * 0.7;
       return {
         total,
@@ -83,9 +85,9 @@ const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): Pay
     }
     case 'mensal': {
       return {
-        total: monthlyPrice,
-        displayValue: `R$ ${monthlyPrice}/mês`,
-        originalValue: monthlyPrice,
+        total: price,
+        displayValue: `R$ ${price}/mês`,
+        originalValue: price,
         savings: 0,
         savingsPercent: 0,
         description: 'Cobrança mensal recorrente'
@@ -95,7 +97,7 @@ const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): Pay
       const total = yearlyBase;
       return {
         total,
-        displayValue: `12x R$ ${monthlyPrice.toFixed(0)}`,
+        displayValue: `12x R$ ${price.toFixed(0)}`,
         originalValue: yearlyBase,
         savings: 0,
         savingsPercent: 0,
@@ -104,9 +106,9 @@ const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): Pay
     }
     default:
       return {
-        total: monthlyPrice,
-        displayValue: `R$ ${monthlyPrice}`,
-        originalValue: monthlyPrice,
+        total: price,
+        displayValue: `R$ ${price}`,
+        originalValue: price,
         savings: 0,
         savingsPercent: 0,
         description: ''
