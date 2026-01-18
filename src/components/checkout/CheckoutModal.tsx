@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,61 +10,160 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Lock, MessageCircle } from "lucide-react";
+import { Lock, MessageCircle, Smartphone, Percent, CreditCard, User, Building, Briefcase, Phone, Tag, Receipt, Sparkles } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/config/contact";
 
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   planName: string;
-  planPrice: string;
+  monthlyPrice: number;
   isAnnual: boolean;
 }
 
+interface PaymentCalculation {
+  total: number;
+  displayValue: string;
+  originalValue: number;
+  savings: number;
+  savingsPercent: number;
+  description: string;
+}
+
+const calculatePaymentValue = (monthlyPrice: number, paymentMethod: string): PaymentCalculation => {
+  const yearlyBase = monthlyPrice * 12;
+
+  switch (paymentMethod) {
+    case 'pix-1ano': {
+      const total = yearlyBase * 0.8;
+      return {
+        total,
+        displayValue: `R$ ${total.toFixed(0)}`,
+        originalValue: yearlyBase,
+        savings: yearlyBase - total,
+        savingsPercent: 20,
+        description: 'Pagamento único à vista'
+      };
+    }
+    case 'pix-2anos': {
+      const base = monthlyPrice * 24;
+      const total = base * 0.75;
+      return {
+        total,
+        displayValue: `R$ ${total.toFixed(0)}`,
+        originalValue: base,
+        savings: base - total,
+        savingsPercent: 25,
+        description: 'Pagamento único à vista (2 anos)'
+      };
+    }
+    case 'pix-3anos': {
+      const base = monthlyPrice * 36;
+      const total = base * 0.7;
+      return {
+        total,
+        displayValue: `R$ ${total.toFixed(0)}`,
+        originalValue: base,
+        savings: base - total,
+        savingsPercent: 30,
+        description: 'Pagamento único à vista (3 anos)'
+      };
+    }
+    case 'hibrido': {
+      const total = yearlyBase;
+      const half = total / 2;
+      return {
+        total,
+        displayValue: `R$ ${half.toFixed(0)} + R$ ${half.toFixed(0)}`,
+        originalValue: yearlyBase,
+        savings: 0,
+        savingsPercent: 0,
+        description: '50% agora + 50% na entrega'
+      };
+    }
+    case 'mensal': {
+      return {
+        total: monthlyPrice,
+        displayValue: `R$ ${monthlyPrice}/mês`,
+        originalValue: monthlyPrice,
+        savings: 0,
+        savingsPercent: 0,
+        description: 'Cobrança mensal recorrente'
+      };
+    }
+    case 'parcelado': {
+      const total = yearlyBase;
+      return {
+        total,
+        displayValue: `12x R$ ${monthlyPrice.toFixed(0)}`,
+        originalValue: yearlyBase,
+        savings: 0,
+        savingsPercent: 0,
+        description: `Total: R$ ${total.toFixed(0)}`
+      };
+    }
+    default:
+      return {
+        total: monthlyPrice,
+        displayValue: `R$ ${monthlyPrice}`,
+        originalValue: monthlyPrice,
+        savings: 0,
+        savingsPercent: 0,
+        description: ''
+      };
+  }
+};
+
 const paymentOptions = [
-  // Pagamentos via PIX
-  { 
-    value: 'pix-1ano', 
-    label: 'À Vista (1 ano)', 
-    description: '20% OFF', 
-    group: 'pix',
-    groupLabel: '📌 Pagamento via PIX'
+  // Via PIX
+  {
+    value: 'pix-1ano',
+    icon: Smartphone,
+    title: 'À Vista (1 Ano)',
+    subtitle: 'Pagamento único via PIX',
+    discount: 20,
+    group: 'pix'
   },
-  { 
-    value: 'pix-2anos', 
-    label: 'À Vista (2 anos)', 
-    description: '25% OFF', 
-    group: 'pix',
-    groupLabel: '📌 Pagamento via PIX'
+  {
+    value: 'pix-2anos',
+    icon: Smartphone,
+    title: 'À Vista (2 Anos)',
+    subtitle: 'Pagamento único via PIX',
+    discount: 25,
+    group: 'pix'
   },
-  { 
-    value: 'pix-3anos', 
-    label: 'À Vista (3 anos)', 
-    description: '30% OFF', 
-    group: 'pix',
-    groupLabel: '📌 Pagamento via PIX'
+  {
+    value: 'pix-3anos',
+    icon: Smartphone,
+    title: 'À Vista (3 Anos)',
+    subtitle: 'Pagamento único via PIX',
+    discount: 30,
+    group: 'pix'
   },
-  { 
-    value: 'hibrido', 
-    label: 'Híbrido (50% + 50%)', 
-    description: '50% início, 50% entrega', 
-    group: 'pix',
-    groupLabel: '📌 Pagamento via PIX'
+  {
+    value: 'hibrido',
+    icon: Percent,
+    title: 'Híbrido',
+    subtitle: '50% início + 50% entrega',
+    discount: 0,
+    group: 'pix'
   },
-  // Pagamentos via InfinitePlay
-  { 
-    value: 'mensal', 
-    label: 'Assinatura Mensal', 
-    description: 'Recorrente', 
-    group: 'infiniteplay',
-    groupLabel: '💳 Pagamento via InfinitePlay'
+  // Via InfinitePlay
+  {
+    value: 'mensal',
+    icon: CreditCard,
+    title: 'Assinatura Mensal',
+    subtitle: 'Cobrança recorrente automática',
+    discount: 0,
+    group: 'infiniteplay'
   },
-  { 
-    value: 'parcelado', 
-    label: 'Parcelado em até 12x', 
-    description: 'Link de pagamento', 
-    group: 'infiniteplay',
-    groupLabel: '💳 Pagamento via InfinitePlay'
+  {
+    value: 'parcelado',
+    icon: CreditCard,
+    title: 'Parcelado 12x',
+    subtitle: 'Link de pagamento no cartão',
+    discount: 0,
+    group: 'infiniteplay'
   },
 ];
 
@@ -72,7 +171,7 @@ export const CheckoutModal = ({
   isOpen,
   onClose,
   planName,
-  planPrice,
+  monthlyPrice,
   isAnnual,
 }: CheckoutModalProps) => {
   const [formData, setFormData] = useState({
@@ -83,6 +182,19 @@ export const CheckoutModal = ({
     paymentMethod: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const selectedPaymentOption = useMemo(() => 
+    paymentOptions.find(p => p.value === formData.paymentMethod),
+    [formData.paymentMethod]
+  );
+
+  const paymentCalculation = useMemo(() => 
+    formData.paymentMethod ? calculatePaymentValue(monthlyPrice, formData.paymentMethod) : null,
+    [monthlyPrice, formData.paymentMethod]
+  );
+
+  const pixOptions = paymentOptions.filter(p => p.group === 'pix');
+  const infiniteplayOptions = paymentOptions.filter(p => p.group === 'infiniteplay');
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -116,23 +228,21 @@ export const CheckoutModal = ({
   };
 
   const handleSubmit = () => {
-    if (!validateForm()) return;
+    if (!validateForm() || !paymentCalculation || !selectedPaymentOption) return;
 
-    const selectedPayment = paymentOptions.find(p => p.value === formData.paymentMethod);
-    const paymentType = selectedPayment?.group === 'pix' ? 'Via PIX' : 'Via InfinitePlay';
-    const periodo = isAnnual ? "Anual" : "Mensal";
+    const paymentType = selectedPaymentOption.group === 'pix' ? 'Via PIX' : 'Via InfinitePlay';
     
     const message = encodeURIComponent(
       `Olá! Me chamo *${formData.nome.trim()}* da empresa *${formData.empresa.trim()}*.
 
-📋 *PLANO SELECIONADO:*
+📋 *RESUMO DO PEDIDO:*
 🎯 *Plano:* ${planName}
-📅 *Período:* ${periodo}
-💰 *Valor Base:* ${planPrice}
+💳 *Pagamento:* ${selectedPaymentOption.title}
+🏷️ *Método:* ${paymentType}
 
-💳 *FORMA DE PAGAMENTO:*
-📌 *Método:* ${selectedPayment?.label}
-🏷️ *Tipo:* ${paymentType}
+💰 *VALORES:*
+${paymentCalculation.savings > 0 ? `📊 *Original:* R$ ${paymentCalculation.originalValue.toFixed(0)}\n✨ *Desconto:* ${paymentCalculation.savingsPercent}% (-R$ ${paymentCalculation.savings.toFixed(0)})\n` : ''}💵 *Total:* ${paymentCalculation.displayValue}
+📝 ${paymentCalculation.description}
 
 🏢 *Ramo:* ${formData.ramo.trim()}
 📱 *WhatsApp:* ${formData.whatsapp.trim()}
@@ -143,7 +253,6 @@ Quero finalizar a contratação!`
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
     window.open(whatsappUrl, "_blank");
     
-    // Reset form and close modal
     setFormData({ nome: "", empresa: "", ramo: "", whatsapp: "", paymentMethod: "" });
     setErrors({});
     onClose();
@@ -156,161 +265,190 @@ Quero finalizar a contratação!`
     }
   };
 
-  // Group payment options
-  const pixOptions = paymentOptions.filter(p => p.group === 'pix');
-  const infiniteplayOptions = paymentOptions.filter(p => p.group === 'infiniteplay');
+  const formatWhatsApp = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 2) return numbers;
+    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+  };
+
+  const handleWhatsAppChange = (value: string) => {
+    const formatted = formatWhatsApp(value);
+    handleChange("whatsapp", formatted);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-card border-2 border-primary/50 max-w-md mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-card border-2 border-primary/50 max-w-lg mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gradient font-tech flex items-center gap-2">
             <Lock className="w-5 h-5 text-primary" />
             Contratar Plano {planName}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Preencha seus dados para prosseguir com a contratação segura.
+            Preencha seus dados e escolha a forma de pagamento.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-4">
-          {/* Nome Completo */}
-          <div className="space-y-2">
-            <Label htmlFor="nome" className="text-foreground">
-              Nome Completo *
-            </Label>
-            <Input
-              id="nome"
-              placeholder="Seu nome completo"
-              value={formData.nome}
-              onChange={(e) => handleChange("nome", e.target.value)}
-              maxLength={100}
-              className={`bg-background border-border focus:border-primary ${
-                errors.nome ? "border-red-500" : ""
-              }`}
-            />
-            {errors.nome && (
-              <span className="text-red-500 text-xs">{errors.nome}</span>
-            )}
-          </div>
-
-          {/* Nome da Empresa */}
-          <div className="space-y-2">
-            <Label htmlFor="empresa" className="text-foreground">
-              Nome da Empresa/Marca *
-            </Label>
-            <Input
-              id="empresa"
-              placeholder="Para a logo do seu site"
-              value={formData.empresa}
-              onChange={(e) => handleChange("empresa", e.target.value)}
-              maxLength={100}
-              className={`bg-background border-border focus:border-primary ${
-                errors.empresa ? "border-red-500" : ""
-              }`}
-            />
-            {errors.empresa && (
-              <span className="text-red-500 text-xs">{errors.empresa}</span>
-            )}
-          </div>
-
-          {/* Ramo de Atuação */}
-          <div className="space-y-2">
-            <Label htmlFor="ramo" className="text-foreground">
-              Ramo de Atuação *
-            </Label>
-            <Input
-              id="ramo"
-              placeholder="Ex: Advogado, Delivery, Influencer"
-              value={formData.ramo}
-              onChange={(e) => handleChange("ramo", e.target.value)}
-              maxLength={100}
-              className={`bg-background border-border focus:border-primary ${
-                errors.ramo ? "border-red-500" : ""
-              }`}
-            />
-            {errors.ramo && (
-              <span className="text-red-500 text-xs">{errors.ramo}</span>
-            )}
-          </div>
-
-          {/* WhatsApp */}
-          <div className="space-y-2">
-            <Label htmlFor="whatsapp" className="text-foreground">
-              WhatsApp com DDD *
-            </Label>
-            <Input
-              id="whatsapp"
-              placeholder="(11) 99999-9999"
-              value={formData.whatsapp}
-              onChange={(e) => handleChange("whatsapp", e.target.value)}
-              className={`bg-background border-border focus:border-primary ${
-                errors.whatsapp ? "border-red-500" : ""
-              }`}
-            />
-            {errors.whatsapp && (
-              <span className="text-red-500 text-xs">{errors.whatsapp}</span>
-            )}
-          </div>
-
-          {/* Payment Method Selection */}
-          <div className="space-y-3">
-            <Label className="text-foreground font-semibold">
-              💳 Forma de Pagamento *
-            </Label>
+        <div className="space-y-5 mt-4">
+          {/* Dados do Cliente */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <User className="w-4 h-4 text-primary" />
+              Seus Dados
+            </h3>
             
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="nome" className="text-xs text-muted-foreground flex items-center gap-1">
+                  <User className="w-3 h-3" /> Nome Completo *
+                </Label>
+                <Input
+                  id="nome"
+                  placeholder="João Silva"
+                  value={formData.nome}
+                  onChange={(e) => handleChange("nome", e.target.value)}
+                  maxLength={100}
+                  className={`bg-background border-border focus:border-primary h-10 ${errors.nome ? "border-red-500" : ""}`}
+                />
+                {errors.nome && <span className="text-red-500 text-xs">{errors.nome}</span>}
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="empresa" className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Building className="w-3 h-3" /> Empresa/Marca *
+                </Label>
+                <Input
+                  id="empresa"
+                  placeholder="Minha Empresa"
+                  value={formData.empresa}
+                  onChange={(e) => handleChange("empresa", e.target.value)}
+                  maxLength={100}
+                  className={`bg-background border-border focus:border-primary h-10 ${errors.empresa ? "border-red-500" : ""}`}
+                />
+                {errors.empresa && <span className="text-red-500 text-xs">{errors.empresa}</span>}
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="ramo" className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Briefcase className="w-3 h-3" /> Ramo de Atuação *
+                </Label>
+                <Input
+                  id="ramo"
+                  placeholder="Ex: Advogado, Delivery"
+                  value={formData.ramo}
+                  onChange={(e) => handleChange("ramo", e.target.value)}
+                  maxLength={100}
+                  className={`bg-background border-border focus:border-primary h-10 ${errors.ramo ? "border-red-500" : ""}`}
+                />
+                {errors.ramo && <span className="text-red-500 text-xs">{errors.ramo}</span>}
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="whatsapp" className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Phone className="w-3 h-3" /> WhatsApp *
+                </Label>
+                <Input
+                  id="whatsapp"
+                  placeholder="(82) 99999-9999"
+                  value={formData.whatsapp}
+                  onChange={(e) => handleWhatsAppChange(e.target.value)}
+                  maxLength={16}
+                  className={`bg-background border-border focus:border-primary h-10 ${errors.whatsapp ? "border-red-500" : ""}`}
+                />
+                {errors.whatsapp && <span className="text-red-500 text-xs">{errors.whatsapp}</span>}
+              </div>
+            </div>
+          </div>
+
+          {/* Formas de Pagamento */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <CreditCard className="w-4 h-4 text-primary" />
+              Forma de Pagamento
+            </h3>
+
             <RadioGroup
               value={formData.paymentMethod}
               onValueChange={(value) => handleChange("paymentMethod", value)}
-              className="space-y-3"
+              className="space-y-4"
             >
               {/* PIX Options */}
               <div className="space-y-2">
-                <p className="text-sm font-semibold text-emerald-400 flex items-center gap-2">
-                  📌 Pagamento via PIX
+                <p className="text-xs font-semibold text-emerald-400 flex items-center gap-2 px-1">
+                  <Smartphone className="w-3 h-3" /> VIA PIX
                 </p>
-                <div className="space-y-2 pl-2">
-                  {pixOptions.map((option) => (
-                    <div key={option.value} className="relative">
-                      <RadioGroupItem
-                        value={option.value}
-                        id={`payment-${option.value}`}
-                        className="peer sr-only"
-                      />
-                      <Label
-                        htmlFor={`payment-${option.value}`}
-                        className="flex items-center justify-between p-3 rounded-lg border-2 border-border bg-background cursor-pointer transition-all hover:border-emerald-500/50 peer-data-[state=checked]:border-emerald-500 peer-data-[state=checked]:bg-emerald-500/10"
-                      >
-                        <span className="font-medium text-sm">{option.label}</span>
-                        <span className="text-xs text-emerald-400 font-semibold">{option.description}</span>
-                      </Label>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-2 gap-2">
+                  {pixOptions.map((option) => {
+                    const calc = calculatePaymentValue(monthlyPrice, option.value);
+                    return (
+                      <div key={option.value} className="relative">
+                        <RadioGroupItem
+                          value={option.value}
+                          id={`payment-${option.value}`}
+                          className="peer sr-only"
+                        />
+                        <Label
+                          htmlFor={`payment-${option.value}`}
+                          className="flex flex-col p-3 rounded-xl border-2 border-border bg-background cursor-pointer transition-all hover:border-emerald-500/50 peer-data-[state=checked]:border-emerald-500 peer-data-[state=checked]:bg-emerald-500/10 h-full"
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <option.icon className="w-4 h-4 text-emerald-400" />
+                            {option.discount > 0 && (
+                              <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full">
+                                {option.discount}% OFF
+                              </span>
+                            )}
+                          </div>
+                          <span className="font-semibold text-sm text-foreground">{option.title}</span>
+                          <span className="text-[10px] text-muted-foreground mb-2">{option.subtitle}</span>
+                          <div className="mt-auto pt-2 border-t border-border/50">
+                            <span className="text-base font-bold text-emerald-400">{calc.displayValue}</span>
+                            {calc.savings > 0 && (
+                              <p className="text-[10px] text-muted-foreground">
+                                Economia: R$ {calc.savings.toFixed(0)}
+                              </p>
+                            )}
+                          </div>
+                        </Label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
               {/* InfinitePlay Options */}
               <div className="space-y-2">
-                <p className="text-sm font-semibold text-primary flex items-center gap-2">
-                  💳 Pagamento via InfinitePlay
+                <p className="text-xs font-semibold text-primary flex items-center gap-2 px-1">
+                  <CreditCard className="w-3 h-3" /> VIA INFINITEPLAY
                 </p>
-                <div className="space-y-2 pl-2">
-                  {infiniteplayOptions.map((option) => (
-                    <div key={option.value} className="relative">
-                      <RadioGroupItem
-                        value={option.value}
-                        id={`payment-${option.value}`}
-                        className="peer sr-only"
-                      />
-                      <Label
-                        htmlFor={`payment-${option.value}`}
-                        className="flex items-center justify-between p-3 rounded-lg border-2 border-border bg-background cursor-pointer transition-all hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10"
-                      >
-                        <span className="font-medium text-sm">{option.label}</span>
-                        <span className="text-xs text-primary font-semibold">{option.description}</span>
-                      </Label>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-2 gap-2">
+                  {infiniteplayOptions.map((option) => {
+                    const calc = calculatePaymentValue(monthlyPrice, option.value);
+                    return (
+                      <div key={option.value} className="relative">
+                        <RadioGroupItem
+                          value={option.value}
+                          id={`payment-${option.value}`}
+                          className="peer sr-only"
+                        />
+                        <Label
+                          htmlFor={`payment-${option.value}`}
+                          className="flex flex-col p-3 rounded-xl border-2 border-border bg-background cursor-pointer transition-all hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 h-full"
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <option.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="font-semibold text-sm text-foreground">{option.title}</span>
+                          <span className="text-[10px] text-muted-foreground mb-2">{option.subtitle}</span>
+                          <div className="mt-auto pt-2 border-t border-border/50">
+                            <span className="text-base font-bold text-primary">{calc.displayValue}</span>
+                            <p className="text-[10px] text-muted-foreground">{calc.description}</p>
+                          </div>
+                        </Label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </RadioGroup>
@@ -320,14 +458,65 @@ Quero finalizar a contratação!`
             )}
           </div>
 
-          {/* Price Display */}
-          <div className="p-4 bg-primary/10 rounded-xl border border-primary/30 text-center">
-            <p className="text-sm text-muted-foreground">Valor base selecionado:</p>
-            <p className="text-2xl font-bold text-gradient">{planPrice}</p>
-            <p className="text-xs text-muted-foreground">
-              {isAnnual ? "Pagamento anual com 20% OFF" : "Pagamento mensal"}
-            </p>
-          </div>
+          {/* Order Summary */}
+          {paymentCalculation && selectedPaymentOption && (
+            <div className="p-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl border border-primary/30 space-y-3">
+              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Receipt className="w-4 h-4 text-primary" />
+                Resumo do Pedido
+              </div>
+              
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Plano</span>
+                  <span className="font-medium">{planName}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Pagamento</span>
+                  <span className="font-medium">{selectedPaymentOption.title}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Método</span>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                    selectedPaymentOption.group === 'pix' 
+                      ? 'bg-emerald-500/20 text-emerald-400' 
+                      : 'bg-primary/20 text-primary'
+                  }`}>
+                    {selectedPaymentOption.group === 'pix' ? 'Via PIX' : 'Via InfinitePlay'}
+                  </span>
+                </div>
+                
+                {paymentCalculation.savings > 0 && (
+                  <>
+                    <div className="border-t border-border/50 pt-2 mt-2" />
+                    <div className="flex justify-between items-center text-muted-foreground">
+                      <span>Valor Original</span>
+                      <span className="line-through">R$ {paymentCalculation.originalValue.toFixed(0)}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-emerald-400">
+                      <span className="flex items-center gap-1">
+                        <Tag className="w-3 h-3" /> Desconto {paymentCalculation.savingsPercent}%
+                      </span>
+                      <span>-R$ {paymentCalculation.savings.toFixed(0)}</span>
+                    </div>
+                  </>
+                )}
+                
+                <div className="border-t border-primary/30 pt-2 mt-2" />
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-foreground">Total</span>
+                  <span className="text-xl font-bold text-gradient">{paymentCalculation.displayValue}</span>
+                </div>
+                
+                {paymentCalculation.savings > 0 && (
+                  <div className="flex items-center justify-center gap-1 text-xs text-emerald-400 bg-emerald-500/10 rounded-lg py-1.5">
+                    <Sparkles className="w-3 h-3" />
+                    Você economiza R$ {paymentCalculation.savings.toFixed(0)}!
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Submit Button */}
           <Button
