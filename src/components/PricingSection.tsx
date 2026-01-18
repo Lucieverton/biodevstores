@@ -88,9 +88,9 @@ const paymentMethods = [
 
 export const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<{
+const [selectedPlan, setSelectedPlan] = useState<{
     name: string;
-    price: string;
+    monthlyPrice: number;
   } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -114,10 +114,9 @@ export const PricingSection = () => {
   };
 
   const handleContractClick = (planName: string, monthlyPrice: number) => {
-    const priceInfo = calculatePrice(monthlyPrice);
     setSelectedPlan({
       name: planName,
-      price: priceInfo.priceString,
+      monthlyPrice: monthlyPrice,
     });
     setIsModalOpen(true);
   };
@@ -309,7 +308,7 @@ export const PricingSection = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           planName={selectedPlan.name}
-          planPrice={selectedPlan.price}
+          monthlyPrice={selectedPlan.monthlyPrice}
           isAnnual={isAnnual}
         />
       )}
