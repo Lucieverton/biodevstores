@@ -9,6 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* Esconder barra de rolagem em todos os navegadores */
+        body::-webkit-scrollbar, 
+        html::-webkit-scrollbar { 
+            display: none; 
+            width: 0; 
+            height: 0; 
+        }
+
         :root {
             --bg-color: #0a0a0f;
             --neon-val: #ff4655;
@@ -28,6 +36,8 @@
         html, body {
             width: 100%;
             overflow-x: hidden;
+            scrollbar-width: none;      /* Firefox */
+            -ms-overflow-style: none;   /* IE/Edge */
         }
 
         body {
