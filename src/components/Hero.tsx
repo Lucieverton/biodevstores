@@ -74,27 +74,30 @@ export const Hero = () => {
       )}
 
       {/* Hero Image Background - Mobile - Dual Layer Strategy */}
-      <div className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div 
+        className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ backgroundColor: 'hsl(var(--background))' }}
+      >
         {/* Layer 1: FILL (cover) - Preenche 100% sem buracos pretos */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ 
             backgroundImage: `url(${heroBgMobile})`,
-            filter: 'blur(8px) brightness(0.4)',
-            transform: 'scale(1.1)',
+            filter: 'blur(4px) brightness(0.6)',
+            transform: 'scale(1.2)',
           }}
         />
         
         {/* Layer 2: MAIN (contain) - Mostra imagem inteira com braços/objetos visíveis */}
         <div 
-          className="absolute inset-0 bg-contain bg-[center_top] bg-no-repeat"
+          className="absolute inset-0 bg-contain bg-[center_20%] bg-no-repeat"
           style={{ 
             backgroundImage: `url(${heroBgMobile})`,
           }}
         />
         
-        {/* Overlay gradient - Sutil para não esconder os objetos nas mãos */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80" />
+        {/* Overlay gradient - Transição suave entre layers */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background/70" />
       </div>
       
       {/* Hero Image Background - Desktop */}
