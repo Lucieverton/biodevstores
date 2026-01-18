@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 
 export type SectionId = 'home' | 'templates' | 'nichos' | 'planos' | 'faq' | 'expert' | 'contato';
 
 interface ActiveSectionContextType {
   activeSection: SectionId;
   setActiveSection: (section: SectionId) => void;
+  isTransitioning: boolean;
   goToNext: () => void;
   goToPrev: () => void;
 }
@@ -15,27 +16,46 @@ const ActiveSectionContext = createContext<ActiveSectionContextType | undefined>
 
 export const ActiveSectionProvider = ({ children }: { children: ReactNode }) => {
   const [activeSection, setActiveSectionState] = useState<SectionId>('home');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Force scroll to top on initial load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const setActiveSection = useCallback((section: SectionId) => {
-    setActiveSectionState(section);
-  }, []);
+    if (section === activeSection || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    // After animation starts, change section
+    setTimeout(() => {
+      setActiveSectionState(section);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      
+      // Fade out delay
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 150);
+    }, 350);
+  }, [activeSection, isTransitioning]);
 
   const goToNext = useCallback(() => {
     const currentIndex = sectionOrder.indexOf(activeSection);
     if (currentIndex < sectionOrder.length - 1) {
-      setActiveSectionState(sectionOrder[currentIndex + 1]);
+      setActiveSection(sectionOrder[currentIndex + 1]);
     }
-  }, [activeSection]);
+  }, [activeSection, setActiveSection]);
 
   const goToPrev = useCallback(() => {
     const currentIndex = sectionOrder.indexOf(activeSection);
     if (currentIndex > 0) {
-      setActiveSectionState(sectionOrder[currentIndex - 1]);
+      setActiveSection(sectionOrder[currentIndex - 1]);
     }
-  }, [activeSection]);
+  }, [activeSection, setActiveSection]);
 
   return (
-    <ActiveSectionContext.Provider value={{ activeSection, setActiveSection, goToNext, goToPrev }}>
+    <ActiveSectionContext.Provider value={{ activeSection, setActiveSection, isTransitioning, goToNext, goToPrev }}>
       {children}
     </ActiveSectionContext.Provider>
   );
