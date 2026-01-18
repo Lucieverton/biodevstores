@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import sectionBg from "@/assets/section-bg.png";
 
 const faqs = [
   {
@@ -41,7 +42,11 @@ const faqs = [
 export const FAQSection = () => {
   return (
     <section id="faq" className="py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-card/30 to-background" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sectionBg})` }}
+      />
+      <div className="absolute inset-0 bg-background/70" />
       
       <div className="container mx-auto max-w-3xl relative z-10">
         <div className="text-center space-y-4 mb-16">

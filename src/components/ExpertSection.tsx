@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Code, Brain, Server, Sparkles, Crown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExclusiveProjectModal } from '@/components/modals/ExclusiveProjectModal';
+import sectionBg from "@/assets/section-bg.png";
 
 const techStack = [
   { name: 'React', icon: Code },
@@ -16,7 +17,11 @@ export const ExpertSection = () => {
   return (
     <section id="expert" className="py-24 px-4 relative overflow-hidden">
       {/* Background Effect */}
-      <div className="absolute inset-0 bg-gradient-to-t from-card via-background to-card" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sectionBg})` }}
+      />
+      <div className="absolute inset-0 bg-background/70" />
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/20 rounded-full blur-3xl" />
       </div>

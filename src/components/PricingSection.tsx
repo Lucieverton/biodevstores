@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Check, CreditCard, Percent, Smartphone, Lock } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
+import sectionBg from "@/assets/section-bg.png";
 
 const plans = [
   {
@@ -155,7 +156,11 @@ export const PricingSection = () => {
 
   return (
     <section id="planos" className="py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sectionBg})` }}
+      />
+      <div className="absolute inset-0 bg-background/70" />
 
       <div className="container mx-auto relative z-10">
         {/* Header */}
