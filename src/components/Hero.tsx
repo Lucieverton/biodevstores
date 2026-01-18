@@ -73,18 +73,22 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile - Single Layer Clean */}
+      {/* Hero Image Background - Mobile - Corpo Completo */}
       <div 
         className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ backgroundColor: 'hsl(var(--background))' }}
       >
         <div 
-          className="absolute inset-0 bg-cover bg-[center_60%] bg-no-repeat"
-          style={{ backgroundImage: `url(${heroBgMobile})` }}
+          className="absolute inset-0 bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${heroBgMobile})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center 60px'
+          }}
         />
         
         {/* Overlay gradient - Sutil para legibilidade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/70" />
       </div>
       
       {/* Hero Image Background - Desktop */}
