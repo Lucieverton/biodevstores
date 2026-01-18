@@ -1,6 +1,7 @@
 import { Store, Tag, HelpCircle, User, Zap } from 'lucide-react';
 import { SectionId, useActiveSection } from '@/hooks/useActiveSection';
 import { cn } from '@/lib/utils';
+import { CircuitBackgroundMobile } from './CircuitBackgroundMobile';
 
 const navItems: { id: SectionId; icon: React.ElementType; label: string }[] = [
   { id: 'templates', icon: Store, label: 'Vitrine' },
@@ -15,8 +16,9 @@ export const MobileBottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
-      {/* Background with blur */}
-      <div className="absolute inset-0 bg-card/95 backdrop-blur-xl border-t border-border/50" />
+      {/* Background with blur and circuit effect */}
+      <div className="absolute inset-0 bg-card/90 backdrop-blur-xl border-t border-border/50" />
+      <CircuitBackgroundMobile />
       
       {/* Navigation items */}
       <div className="relative grid grid-cols-5 items-end h-[70px] px-2 safe-area-pb">
