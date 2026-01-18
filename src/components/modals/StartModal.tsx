@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { getWhatsAppUrl, validateWhatsApp } from '@/config/contact';
-import { Link2, Globe, Send, User, Building2, Briefcase, Phone } from 'lucide-react';
+import { Link2, Globe, Send, User, Building2, Briefcase, Phone, Wallet } from 'lucide-react';
 
 interface StartModalProps {
   isOpen: boolean;
@@ -14,11 +15,20 @@ interface StartModalProps {
 
 interface FormData {
   projectType: 'link-bio' | 'site-profissional';
+  budget: string;
   name: string;
   company: string;
   industry: string;
   whatsapp: string;
 }
+
+const budgetOptions = [
+  { value: '1000', label: 'R$ 1.000' },
+  { value: '2000', label: 'R$ 2.000' },
+  { value: '3000', label: 'R$ 3.000' },
+  { value: '5000', label: 'Até R$ 5.000' },
+  { value: '10000', label: 'Até R$ 10.000' },
+];
 
 interface FormErrors {
   name?: string;
@@ -30,15 +40,16 @@ interface FormErrors {
 export const StartModal = ({ isOpen, onClose }: StartModalProps) => {
   const [formData, setFormData] = useState<FormData>({
     projectType: 'link-bio',
+    budget: '',
     name: '',
     company: '',
     industry: '',
     whatsapp: '',
   });
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<FormErrors & { budget?: string }>({});
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const newErrors: FormErrors & { budget?: string } = {};
     
     if (!formData.name.trim()) {
       newErrors.name = 'Nome é obrigatório';
@@ -64,6 +75,11 @@ export const StartModal = ({ isOpen, onClose }: StartModalProps) => {
       newErrors.whatsapp = 'WhatsApp inválido';
     }
 
+    // Budget is required only for site-profissional
+    if (formData.projectType === 'site-profissional' && !formData.budget) {
+      newErrors.budget = 'Selecione a faixa de investimento';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -77,9 +93,19 @@ export const StartModal = ({ isOpen, onClose }: StartModalProps) => {
       ? '🔗 Link na Bio' 
       : '🌐 Site Profissional';
 
-    const message = `Olá! Me chamo *${formData.name.trim()}* da empresa *${formData.company.trim()}*.
+    const budgetLabel = formData.projectType === 'site-profissional' && formData.budget
+      ? budgetOptions.find(b => b.value === formData.budget)?.label || formData.budget
+      : null;
 
-📌 *Interesse:* ${projectTypeLabel}
+    let message = `Olá! Me chamo *${formData.name.trim()}* da empresa *${formData.company.trim()}*.
+
+📌 *Interesse:* ${projectTypeLabel}`;
+
+    if (budgetLabel) {
+      message += `\n💰 *Faixa de Investimento:* ${budgetLabel}`;
+    }
+
+    message += `
 🏢 *Ramo:* ${formData.industry.trim()}
 📱 *WhatsApp:* ${formData.whatsapp.trim()}
 
@@ -91,6 +117,7 @@ Gostaria de mais informações sobre como começar!`;
     // Reset form
     setFormData({
       projectType: 'link-bio',
+      budget: '',
       name: '',
       company: '',
       industry: '',
@@ -102,8 +129,12 @@ Gostaria de mais informações sobre como começar!`;
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    if (errors[field as keyof FormErrors]) {
+    if (errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
+    // Reset budget when switching to link-bio
+    if (field === 'projectType' && value === 'link-bio') {
+      setFormData(prev => ({ ...prev, budget: '' }));
     }
   };
 
@@ -158,6 +189,32 @@ Gostaria de mais informações sobre como começar!`;
               </div>
             </RadioGroup>
           </div>
+
+          {/* Budget Selection - Only for Site Profissional */}
+          {formData.projectType === 'site-profissional' && (
+            <div className="space-y-2 animate-fade-in">
+              <Label className="flex items-center gap-2 text-sm">
+                <Wallet className="w-4 h-4 text-muted-foreground" />
+                Faixa de Investimento
+              </Label>
+              <Select
+                value={formData.budget}
+                onValueChange={(value) => handleChange('budget', value)}
+              >
+                <SelectTrigger className={errors.budget ? 'border-destructive' : ''}>
+                  <SelectValue placeholder="Selecione o valor disponível" />
+                </SelectTrigger>
+                <SelectContent>
+                  {budgetOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.budget && <p className="text-xs text-destructive">{errors.budget}</p>}
+            </div>
+          )}
 
           {/* Form Fields */}
           <div className="space-y-4">
