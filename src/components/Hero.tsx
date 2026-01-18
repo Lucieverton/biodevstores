@@ -4,7 +4,7 @@ import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from 
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
-import heroBgMobile from "@/assets/hero-bg-mobile.png";
+import heroBgMobile from "@/assets/hero-bg-mobile-new.png";
 
 const trustBadges = [
   { icon: Shield, text: "Site Seguro" },
@@ -73,16 +73,16 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile */}
+      {/* Hero Image Background - Mobile - Nova imagem 9:16 otimizada */}
       <div 
-        className={`absolute inset-0 lg:hidden bg-cover bg-[center_top] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 lg:hidden bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ 
           backgroundImage: `url(${heroBgMobile})`,
           backgroundColor: 'hsl(var(--background))',
           willChange: 'opacity'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90" />
       </div>
       
       {/* Hero Image Background - Desktop */}
