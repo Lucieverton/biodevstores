@@ -494,6 +494,111 @@
             font-size: 0.6rem;
         }
 
+        /* --- LOJA DE AFILIADOS --- */
+        .shop-section {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .shop-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-left: 3px;
+        }
+
+        .shop-header-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-val));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .shop-header h2 {
+            font-family: var(--title-font);
+            font-size: 0.75rem;
+            color: var(--neon-orange);
+            text-shadow: 0 0 8px rgba(255,107,0,0.5);
+        }
+
+        .shop-header span {
+            font-size: 0.6rem;
+            color: #666;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .shop-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px 12px 12px;
+            text-align: center;
+            border: 1px solid rgba(255,107,0,0.15);
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-item::before {
+            content: 'LINK AFILIADO';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-val));
+            font-size: 0.4rem;
+            padding: 2px;
+            font-family: var(--title-font);
+            letter-spacing: 1px;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-orange);
+            box-shadow: 0 8px 20px rgba(255,107,0,0.2);
+        }
+
+        .shop-icon {
+            font-size: 2rem;
+            margin: 4px 0;
+            filter: drop-shadow(0 0 8px rgba(255,107,0,0.5));
+        }
+
+        .shop-name {
+            font-family: var(--title-font);
+            font-size: 0.65rem;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+
+        .shop-desc {
+            font-size: 0.55rem;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .shop-price {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-val));
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: var(--title-font);
+            font-size: 0.6rem;
+            color: #000;
+            font-weight: 700;
+        }
+
         /* --- SCHEDULE --- */
         .schedule-section {
             width: 100%;
@@ -603,41 +708,7 @@
         <p class="bio-text">Lives diárias às 19h | FPS & Rage 🔥</p>
     </div>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">25K</div>
-            <div class="stat-label">Seguidores</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">1.2K</div>
-            <div class="stat-label">Subs</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">Lives</div>
-        </div>
-    </div>
-
-    <section class="music-section">
-        <div class="music-title">
-            <span class="music-icon">🎧</span> PLAYLIST DA LIVE
-        </div>
-        <div class="music-options">
-            <div class="track" onclick="selectTrack(this)">
-                <span>1. MTG - Automotivo Gamer</span>
-                <span class="track-icon">▶</span>
-            </div>
-            <div class="track" onclick="selectTrack(this)">
-                <span>2. Ritmo de Clutch</span>
-                <span class="track-icon">▶</span>
-            </div>
-            <div class="track" onclick="selectTrack(this)">
-                <span>3. Mega Funk do Kael</span>
-                <span class="track-icon">▶</span>
-            </div>
-        </div>
-    </section>
-
+    <!-- LINKS SOCIAIS - CTA PRINCIPAL -->
     <div class="links-grid">
         <a href="#" class="link-card">
             <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none">
@@ -676,6 +747,65 @@
             <span class="link-title">INSTAGRAM</span>
             <span class="link-sub">Bastidores</span>
         </a>
+    </div>
+
+    <!-- LOJA DE AFILIADOS -->
+    <section class="shop-section">
+        <div class="shop-header">
+            <div class="shop-header-icon">🛒</div>
+            <div>
+                <h2>MINHA LOJA</h2>
+                <span>Setup que eu uso e recomendo</span>
+            </div>
+        </div>
+        
+        <div class="shop-grid">
+            <a href="#" class="shop-item">
+                <div class="shop-icon">🎧</div>
+                <div class="shop-name">HEADSET GAMER</div>
+                <div class="shop-desc">HyperX Cloud II Pro</div>
+                <div class="shop-price">R$ 449,90</div>
+            </a>
+            <a href="#" class="shop-item">
+                <div class="shop-icon">🎮</div>
+                <div class="shop-name">CONTROLE PC/PS5</div>
+                <div class="shop-desc">DualSense Wireless</div>
+                <div class="shop-price">R$ 399,90</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- HORÁRIOS DAS LIVES -->
+    <section class="schedule-section">
+        <div class="schedule-title">
+            <span>📅</span> HORÁRIOS DAS LIVES
+        </div>
+        <div class="schedule-grid">
+            <div class="schedule-item">
+                <div class="schedule-day">SEG - SEX</div>
+                <div class="schedule-time">19h - 23h</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-day">SÁB - DOM</div>
+                <div class="schedule-time">15h - 00h</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">25K</div>
+            <div class="stat-label">Seguidores</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">1.2K</div>
+            <div class="stat-label">Subs</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Lives</div>
+        </div>
     </div>
 
     <!-- FAQ GAMER -->
@@ -768,18 +898,23 @@
         </div>
     </section>
 
-    <section class="schedule-section">
-        <div class="schedule-title">
-            <span>📅</span> HORÁRIOS DAS LIVES
+    <!-- PLAYLIST DA LIVE -->
+    <section class="music-section">
+        <div class="music-title">
+            <span class="music-icon">🎧</span> PLAYLIST DA LIVE
         </div>
-        <div class="schedule-grid">
-            <div class="schedule-item">
-                <div class="schedule-day">SEG - SEX</div>
-                <div class="schedule-time">19h - 23h</div>
+        <div class="music-options">
+            <div class="track" onclick="selectTrack(this)">
+                <span>1. MTG - Automotivo Gamer</span>
+                <span class="track-icon">▶</span>
             </div>
-            <div class="schedule-item">
-                <div class="schedule-day">SÁB - DOM</div>
-                <div class="schedule-time">15h - 00h</div>
+            <div class="track" onclick="selectTrack(this)">
+                <span>2. Ritmo de Clutch</span>
+                <span class="track-icon">▶</span>
+            </div>
+            <div class="track" onclick="selectTrack(this)">
+                <span>3. Mega Funk do Kael</span>
+                <span class="track-icon">▶</span>
             </div>
         </div>
     </section>
