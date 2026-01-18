@@ -1,5 +1,4 @@
-import { Navbar } from "@/components/Navbar";
-import { TopNotificationBar } from "@/components/TopNotificationBar";
+import { HeaderWrapper } from "@/components/HeaderWrapper";
 import { Hero } from "@/components/Hero";
 import { TemplatesCarousel } from "@/components/TemplatesCarousel";
 import { NichesSection } from "@/components/NichesSection";
@@ -17,8 +16,7 @@ const Index = () => {
   return (
     <ActiveSectionProvider>
       <div className="min-h-screen bg-background overflow-hidden">
-        <TopNotificationBar />
-        <Navbar />
+        <HeaderWrapper />
         
         <main className="relative pt-[calc(var(--notification-height)+var(--header-height))] pb-[var(--bottom-nav-height)] lg:pb-0">
           <SectionContainer id="home">
