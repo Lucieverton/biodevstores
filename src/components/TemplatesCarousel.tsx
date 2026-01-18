@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { templates } from '@/config/templates';
 import sectionBg from "@/assets/section-bg.png";
@@ -9,6 +9,31 @@ export const TemplatesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [selectedTemplateData, setSelectedTemplateData] = useState({ name: '', category: '' });
+  const [loadedIframes, setLoadedIframes] = useState<Set<number>>(new Set());
+  const [bgLoaded, setBgLoaded] = useState(false);
+
+  // Preload background image
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setBgLoaded(true);
+    img.src = sectionBg;
+  }, []);
+
+  // Get visible template indices (only load active + neighbors)
+  const visibleIndices = useMemo(() => {
+    const total = templates.length;
+    const indices = new Set<number>();
+    
+    // Add active and 2 neighbors on each side
+    for (let i = -2; i <= 2; i++) {
+      let idx = activeIndex + i;
+      if (idx < 0) idx = total + idx;
+      if (idx >= total) idx = idx - total;
+      indices.add(idx);
+    }
+    
+    return indices;
+  }, [activeIndex]);
 
   const getItemClass = useCallback((index: number) => {
     const diff = index - activeIndex;
@@ -39,6 +64,10 @@ export const TemplatesCarousel = () => {
     setSelectedTemplateData({ name: template.name, category: template.category });
     setShowTemplateModal(true);
   };
+
+  const handleIframeLoad = useCallback((index: number) => {
+    setLoadedIframes(prev => new Set(prev).add(index));
+  }, []);
 
   const activeTemplate = templates[activeIndex];
 
@@ -111,9 +140,13 @@ export const TemplatesCarousel = () => {
     <div className="min-h-screen flex flex-col justify-center py-12 px-4 relative overflow-hidden">
       {/* Background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${sectionBg})` }}
+        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${bgLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ 
+          backgroundImage: `url(${sectionBg})`,
+          willChange: 'opacity'
+        }}
       />
+      {!bgLoaded && <div className="absolute inset-0 bg-background" />}
       <div className="absolute inset-0 bg-background/70" />
       
       <div className="container mx-auto relative z-10 carousel-section">
@@ -147,6 +180,10 @@ export const TemplatesCarousel = () => {
             
             // Don't render hidden items
             if (itemClass === 'hidden') return null;
+
+            // Check if this iframe should be loaded
+            const shouldLoadIframe = visibleIndices.has(index);
+            const isLoaded = loadedIframes.has(index);
             
             return (
               <div
@@ -161,12 +198,31 @@ export const TemplatesCarousel = () => {
                 <div className={`mini-phone ${itemClass === 'active' ? 'active' : ''}`}>
                   <div className="mini-phone-notch" />
                   <div className="mini-phone-screen">
-                    <iframe
-                      src={`/templates/${template.file}`}
-                      title={template.name}
-                      className={`template-iframe ${itemClass === 'active' ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                      loading="lazy"
-                    />
+                    {/* Loading indicator */}
+                    {shouldLoadIframe && !isLoaded && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
+                        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                      </div>
+                    )}
+                    
+                    {/* Only load iframe if visible */}
+                    {shouldLoadIframe && (
+                      <iframe
+                        src={`/templates/${template.file}`}
+                        title={template.name}
+                        className={`template-iframe ${itemClass === 'active' ? 'pointer-events-auto' : 'pointer-events-none'} ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        loading="lazy"
+                        onLoad={() => handleIframeLoad(index)}
+                        style={{ transition: 'opacity 0.3s ease' }}
+                      />
+                    )}
+                    
+                    {/* Placeholder for non-visible items */}
+                    {!shouldLoadIframe && (
+                      <div className="w-full h-full bg-muted/20 flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground">{template.name}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -38,26 +38,59 @@ const benefits = [
 export const Hero = () => {
   const { setActiveSection } = useActiveSection();
   const [showExclusiveModal, setShowExclusiveModal] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload images
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imageUrls = [heroBgDesktop, heroBgMobile];
+      
+      await Promise.all(
+        imageUrls.map(
+          (src) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = resolve;
+              img.onerror = resolve; // Don't block on error
+              img.src = src;
+            })
+        )
+      );
+      
+      setImagesLoaded(true);
+    };
+
+    preloadImages();
+  }, []);
 
   return (
     <section
       id="hero"
       className="min-h-[calc(100vh-120px)] flex items-center pt-14 pb-24 lg:pb-8 px-4 relative overflow-hidden"
     >
+      {/* Loading skeleton */}
+      {!imagesLoaded && (
+        <div className="absolute inset-0 bg-background animate-pulse" />
+      )}
+
       {/* Hero Image Background - Mobile */}
       <div 
-        className="absolute inset-0 lg:hidden bg-contain bg-[center_top] bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBgMobile})` }}
+        className={`absolute inset-0 lg:hidden bg-contain bg-[center_top] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ 
+          backgroundImage: `url(${heroBgMobile})`,
+          willChange: 'opacity'
+        }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/95" />
       </div>
       
       {/* Hero Image Background - Desktop */}
       <div 
-        className="absolute inset-0 hidden lg:block bg-cover bg-center bg-no-repeat"
+        className={`absolute inset-0 hidden lg:block bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ 
           backgroundImage: `url(${heroBgDesktop})`,
-          backgroundColor: 'hsl(var(--background))'
+          backgroundColor: 'hsl(var(--background))',
+          willChange: 'opacity'
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Code, Brain, Server, Sparkles, Crown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExclusiveProjectModal } from '@/components/modals/ExclusiveProjectModal';
@@ -14,14 +14,42 @@ const techStack = [
 
 export const ExpertSection = () => {
   const [showExclusiveModal, setShowExclusiveModal] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload images
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imageUrls = [sectionBg, profileExpert];
+      
+      await Promise.all(
+        imageUrls.map(
+          (src) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = resolve;
+              img.onerror = resolve;
+              img.src = src;
+            })
+        )
+      );
+      
+      setImagesLoaded(true);
+    };
+
+    preloadImages();
+  }, []);
 
   return (
     <section id="expert" className="py-24 px-4 relative overflow-hidden">
       {/* Background Effect */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${sectionBg})` }}
+        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ 
+          backgroundImage: `url(${sectionBg})`,
+          willChange: 'opacity'
+        }}
       />
+      {!imagesLoaded && <div className="absolute inset-0 bg-background" />}
       <div className="absolute inset-0 bg-background/70" />
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/20 rounded-full blur-3xl" />
@@ -43,8 +71,13 @@ export const ExpertSection = () => {
             <img 
               src={profileExpert} 
               alt="Lucieverton - Founder & Tech Lead" 
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover"
+              className={`w-32 h-32 md:w-40 md:h-40 rounded-full object-cover transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+              loading="lazy"
+              decoding="async"
             />
+            {!imagesLoaded && (
+              <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 rounded-full bg-muted animate-pulse" />
+            )}
           </div>
 
           {/* Typewriter Title */}

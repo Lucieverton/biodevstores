@@ -18,8 +18,16 @@
     <meta name="twitter:description" content="Transforme sua presença digital com sites modernos e profissionais" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
+    <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Preload critical hero images -->
+    <link rel="preload" as="image" href="/src/assets/hero-bg-desktop.png" media="(min-width: 1024px)">
+    <link rel="preload" as="image" href="/src/assets/hero-bg-mobile.png" media="(max-width: 1023px)">
+    
+    <!-- Fonts with display=swap for faster rendering -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </head>
