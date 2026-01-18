@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { templates } from '@/config/templates';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import sectionBg from "@/assets/section-bg.png";
 
 export const TemplatesCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -108,7 +109,11 @@ export const TemplatesCarousel = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 px-4 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sectionBg})` }}
+      />
+      <div className="absolute inset-0 bg-background/70" />
       
       <div className="container mx-auto relative z-10 carousel-section">
         {/* Header */}
