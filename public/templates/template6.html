@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kael_X | Streamer Bio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --neon-val: #ff4655; /* Vermelho Valorant */
+            --neon-lol: #00b3cc; /* Azul LoL */
+            --neon-ps5: #2d42ff; /* Azul PS5 */
+            --neon-green: #39ff14; /* Verde Terminal */
+            --neon-pink: #ff00ff; /* Rosa Funk */
+            --neon-yellow: #f5ff00; /* Amarelo Destaque */
+            --card-bg: rgba(20, 20, 25, 0.9);
+            --main-font: 'Rajdhani', sans-serif;
+            --title-font: 'Orbitron', sans-serif;
+            --code-font: 'VT323', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: #fff;
+            font-family: var(--main-font);
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            /* Fundo Gamer com gradiente CSS (sem imagem externa) */
+            background: 
+                linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(10,10,15,0.9) 50%, rgba(5,5,5,0.95) 100%),
+                linear-gradient(0deg, transparent 24%, rgba(255,70,85,0.03) 25%, rgba(255,70,85,0.03) 26%, transparent 27%),
+                linear-gradient(90deg, transparent 24%, rgba(0,179,204,0.03) 25%, rgba(0,179,204,0.03) 26%, transparent 27%);
+            background-color: var(--bg-color);
+            background-size: 100% 100%, 60px 60px, 60px 60px;
+            background-attachment: fixed;
+        }
+
+        /* Grid animado de fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,70,85,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0,179,204,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(45,66,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Wrapper para z-index */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* --- HEADER DO INFLUENCIADOR --- */
+        .profile-container {
+            text-align: center; margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-val);
+            object-fit: cover;
+            box-shadow: 0 0 25px var(--neon-val), inset 0 0 20px rgba(255,70,85,0.3);
+            animation: pulse-border 2s infinite;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        @keyframes pulse-border { 
+            0% { box-shadow: 0 0 15px var(--neon-val), inset 0 0 20px rgba(255,70,85,0.3); } 
+            50% { box-shadow: 0 0 35px var(--neon-val), inset 0 0 25px rgba(255,70,85,0.5); } 
+            100% { box-shadow: 0 0 15px var(--neon-val), inset 0 0 20px rgba(255,70,85,0.3); } 
+        }
+
+        /* Avatar placeholder com iniciais */
+        .avatar-placeholder {
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-val);
+            box-shadow: 0 0 25px var(--neon-val);
+            animation: pulse-border 2s infinite;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--title-font);
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-val);
+            text-shadow: 0 0 10px var(--neon-val);
+        }
+
+        h1 { 
+            font-family: var(--title-font); 
+            font-size: 2.4rem; 
+            margin-top: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-val);
+        }
+
+        .badges { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+        .badge { 
+            padding: 6px 14px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: 0.75rem; 
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .badge:hover { transform: scale(1.05); }
+        .b-val { color: var(--neon-val); border-color: var(--neon-val); background: rgba(255, 70, 85, 0.15); }
+        .b-lol { color: var(--neon-lol); border-color: var(--neon-lol); background: rgba(0, 179, 204, 0.15); }
+        .b-ps5 { color: var(--neon-ps5); border-color: var(--neon-ps5); background: rgba(45, 66, 255, 0.15); }
+
+        .bio-text { margin-top: 12px; color: #aaa; font-size: 1rem; }
+
+        /* --- STATS RÁPIDOS --- */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .stat-number {
+            font-family: var(--title-font);
+            font-size: 1.5rem;
+            color: var(--neon-lol);
+            text-shadow: 0 0 8px var(--neon-lol);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- PLAYER DE FUNK (MÚSICA) --- */
+        .music-section {
+            width: 100%; max-width: 500px;
+            background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(42,42,42,0.9) 100%);
+            border-radius: 12px;
+            padding: 18px; margin-bottom: 30px;
+            border-left: 4px solid var(--neon-pink);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(255,0,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .music-title { 
+            font-family: var(--title-font); 
+            font-size: 1rem; 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+        .music-options { display: flex; flex-direction: column; gap: 8px; }
+        .track {
+            background: rgba(255,255,255,0.05); 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            cursor: pointer;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .track:hover { 
+            background: rgba(255, 0, 255, 0.15); 
+            transform: translateX(8px);
+            border-color: var(--neon-pink);
+        }
+        .track.playing { 
+            background: linear-gradient(90deg, var(--neon-pink), #ff66ff); 
+            color: #000; 
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255,0,255,0.4);
+        }
+        .track-icon { font-size: 1.3rem; }
+
+        /* Equalizer animado */
+        .equalizer {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 18px;
+        }
+        .equalizer span {
+            width: 3px;
+            background: #000;
+            animation: eq 0.5s infinite ease-in-out alternate;
+        }
+        .equalizer span:nth-child(1) { height: 100%; animation-delay: 0s; }
+        .equalizer span:nth-child(2) { height: 60%; animation-delay: 0.1s; }
+        .equalizer span:nth-child(3) { height: 80%; animation-delay: 0.2s; }
+        .equalizer span:nth-child(4) { height: 40%; animation-delay: 0.3s; }
+        @keyframes eq {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0.3); }
+        }
+
+        /* --- SETUP 3D (FAQ INTERATIVO) --- */
+        .setup-container {
+            width: 100%; max-width: 500px;
+            perspective: 800px;
+            margin-bottom: 40px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .setup-title {
+            font-family: var(--title-font);
+            margin-bottom: 15px;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .setup-title::before { content: '//'; opacity: 0.5; }
+
+        .pc-monitor {
+            width: 100%; height: 240px;
+            background: #000;
+            border: 10px solid #222;
+            border-bottom-width: 28px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 
+                0 0 40px rgba(57, 255, 20, 0.15),
+                inset 0 0 30px rgba(0,0,0,0.8);
+            position: relative;
+            transform: rotateX(5deg);
+            overflow: hidden;
+            margin-bottom: -15px; z-index: 10;
+        }
+
+        /* LED indicador no monitor */
+        .pc-monitor::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: led-blink 2s infinite;
+        }
+        @keyframes led-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .screen-content {
+            padding: 15px;
+            font-family: var(--code-font);
+            color: var(--neon-green);
+            font-size: 1.15rem;
+            height: 100%;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000 90%);
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 3px);
+            overflow-y: auto;
+            /* Efeito CRT */
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .screen-content::-webkit-scrollbar { width: 6px; }
+        .screen-content::-webkit-scrollbar-track { background: #111; }
+        .screen-content::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 3px; }
+
+        .file-folder {
+            cursor: pointer; 
+            padding: 8px 10px; 
+            margin-bottom: 6px; 
+            border: 1px dashed transparent; 
+            display: block;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .file-folder:hover { 
+            border-color: var(--neon-green); 
+            background: rgba(57, 255, 20, 0.1); 
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .folder-icon { margin-right: 8px; }
+
+        .typing-effect::after { content: '▋'; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .back-btn {
+            margin-top: 15px; 
+            color: var(--neon-val); 
+            border: 1px solid var(--neon-val); 
+            background: transparent;
+            font-family: var(--code-font); 
+            padding: 8px 15px; 
+            cursor: pointer; 
+            display: none; 
+            width: 100%;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--neon-val);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-val);
+        }
+
+        /* TECLADO 3D ANIMADO */
+        .pc-keyboard {
+            width: 90%; height: 95px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+            transform: rotateX(50deg);
+            border-radius: 0 0 12px 12px;
+            border-bottom: 6px solid #000;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .key {
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 3px; 
+            position: relative; 
+            transition: all 0.1s ease;
+            border-bottom: 2px solid #111;
+        }
+        .key.active {
+            background: linear-gradient(180deg, #fff 0%, var(--neon-lol) 100%);
+            transform: translateY(2px);
+            box-shadow: 0 0 15px var(--neon-lol);
+            border-bottom-width: 0;
+        }
+
+        /* --- PRODUTOS E LINKS --- */
+        .links-grid {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            width: 100%; 
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        .link-card {
+            background: var(--card-bg); 
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 15px; 
+            border-radius: 12px; 
+            text-align: center; 
+            text-decoration: none; 
+            color: #fff;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--neon-lol);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .link-card:hover::before { transform: scaleX(1); }
+        .link-card:hover { 
+            border-color: var(--neon-lol); 
+            transform: translateY(-8px); 
+            background: rgba(0, 179, 204, 0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(0,179,204,0.2);
+        }
+        
+        .link-icon-svg {
+            width: 55px;
+            height: 55px;
+            margin-bottom: 12px;
+        }
+        .link-title { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 5px;
+            font-family: var(--title-font);
+            font-size: 0.9rem;
+        }
+        .link-sub { font-size: 0.8rem; color: #888; }
+
+        /* Cards específicos */
+        .link-card.twitch:hover { 
+            border-color: #9146ff; 
+            background: rgba(145, 70, 255, 0.15);
+        }
+        .link-card.twitch:hover::before { background: #9146ff; }
+        .link-card.discord:hover { 
+            border-color: #5865f2; 
+            background: rgba(88, 101, 242, 0.15);
+        }
+        .link-card.discord:hover::before { background: #5865f2; }
+
+        /* --- SEÇÃO EXTRA: HORÁRIOS --- */
+        .schedule-section {
+            width: 100%; max-width: 500px;
+            background: rgba(20,20,25,0.8);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .schedule-title {
+            font-family: var(--title-font);
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px var(--neon-yellow);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .schedule-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .schedule-day {
+            font-weight: bold;
+            color: var(--neon-lol);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        .schedule-time {
+            font-family: var(--code-font);
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        /* Rodapé */
+        footer { 
+            margin-top: 20px; 
+            padding: 20px;
+            font-size: 0.85rem; 
+            color: #444;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+        footer span {
+            color: var(--neon-val);
+            font-weight: bold;
+        }
+
+        /* Responsivo */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .avatar-placeholder { width: 110px; height: 110px; font-size: 2rem; }
+            .badge { font-size: 0.65rem; padding: 4px 10px; }
+            .links-grid { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: 1fr; }
+            .stats-bar { gap: 15px; }
+            .stat-number { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="content-wrapper">
+
+    <div class="profile-container">
+        <div class="avatar-placeholder">KX</div>
+        <h1>Kael_X</h1>
+        <div class="badges">
+            <span class="badge b-val">Valorant Radiant</span>
+            <span class="badge b-lol">LoL Master</span>
+            <span class="badge b-ps5">PS5 Hunter</span>
+        </div>
+        <p class="bio-text">Lives diárias às 19:00h | FPS & Rage</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">25K</div>
+            <div class="stat-label">Seguidores</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">1.2K</div>
+            <div class="stat-label">Subs</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Lives</div>
+        </div>
+    </div>
+
+    <section class="music-section">
+        <div class="music-title">
+            <span>🎧</span> PLAYLIST DA LIVE (FUNK HITS)
+        </div>
+        <div class="music-options">
+            <div class="track" onclick="selectTrack(this)">
+                <span>1. MTG - Automotivo Gamer</span>
+                <span class="track-icon">▶</span>
+            </div>
+            <div class="track" onclick="selectTrack(this)">
+                <span>2. Ritmo de Clutch (Aquece)</span>
+                <span class="track-icon">▶</span>
+            </div>
+            <div class="track" onclick="selectTrack(this)">
+                <span>3. Mega Funk do Kael</span>
+                <span class="track-icon">▶</span>
+            </div>
+            <div class="track" onclick="selectTrack(this)">
+                <span>4. Beat Insano - Trap BR</span>
+                <span class="track-icon">▶</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="setup-container">
+        <h2 class="setup-title">MEU SETUP & FAQ</h2>
+        
+        <div class="pc-monitor">
+            <div class="screen-content" id="screen"></div>
+        </div>
+
+        <div class="pc-keyboard" id="keyboard"></div>
+    </div>
+
+    <div class="links-grid">
+        <a href="#" class="link-card twitch">
+            <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none">
+                <path d="M11.571 4.714h1.715v5.143H11.57V4.714zm4.715 0H18v5.143h-1.714V4.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0H6zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714v9.429z" fill="#9146FF"/>
+            </svg>
+            <span class="link-title">TWITCH.TV</span>
+            <span class="link-sub">Assista Agora</span>
+        </a>
+        <a href="#" class="link-card discord">
+            <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none">
+                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" fill="#5865F2"/>
+            </svg>
+            <span class="link-title">DISCORD</span>
+            <span class="link-sub">Entre na Gangue</span>
+        </a>
+        <a href="#" class="link-card">
+            <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none">
+                <path d="M12 1C8.14 1 5 4.14 5 8v4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2V8c0-3.86-3.14-7-7-7zm0 2c2.76 0 5 2.24 5 5v4H7V8c0-2.76 2.24-5 5-5z" fill="var(--neon-lol)"/>
+                <circle cx="9" cy="8" r="1.5" fill="var(--neon-green)"/>
+                <circle cx="15" cy="8" r="1.5" fill="var(--neon-val)"/>
+                <path d="M6 14h12v2H6z" fill="var(--neon-pink)"/>
+            </svg>
+            <span class="link-title">HEADSET PRO</span>
+            <span class="link-sub">O que eu uso</span>
+        </a>
+        <a href="#" class="link-card">
+            <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="6" width="20" height="12" rx="2" fill="#1a1a2e" stroke="var(--neon-ps5)" stroke-width="1.5"/>
+                <circle cx="7" cy="12" r="2" fill="none" stroke="#fff" stroke-width="1"/>
+                <circle cx="17" cy="12" r="0.8" fill="var(--neon-pink)"/>
+                <circle cx="19" cy="10" r="0.8" fill="var(--neon-lol)"/>
+                <circle cx="19" cy="14" r="0.8" fill="var(--neon-green)"/>
+                <circle cx="15" cy="12" r="0.8" fill="var(--neon-val)"/>
+                <rect x="10" y="10" width="4" height="4" rx="0.5" fill="#333"/>
+            </svg>
+            <span class="link-title">PSN ID</span>
+            <span class="link-sub">Add: KaelX_Pro</span>
+        </a>
+    </div>
+
+    <section class="schedule-section">
+        <div class="schedule-title">
+            <span>📅</span> HORÁRIOS DAS LIVES
+        </div>
+        <div class="schedule-grid">
+            <div class="schedule-item">
+                <div class="schedule-day">SEG - SEX</div>
+                <div class="schedule-time">19:00 - 23:00</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-day">SÁB - DOM</div>
+                <div class="schedule-time">15:00 - 00:00</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        Designed by <span>DevStores</span> 2026
+    </footer>
+
+</div>
+
+<script>
+    // --- PLAYER DE MÚSICA ---
+    function selectTrack(element) {
+        document.querySelectorAll('.track').forEach(t => {
+            t.classList.remove('playing');
+            t.querySelector('.track-icon').textContent = '▶';
+        });
+
+        element.classList.add('playing');
+        const icon = element.querySelector('.track-icon');
+        icon.innerHTML = '<span class="equalizer"><span></span><span></span><span></span><span></span></span>';
+    }
+
+    // --- SETUP DO COMPUTADOR + TECLADO ---
+    const faqData = [
+        { question: "📁 config_pc.txt", answer: "GPU: RTX 4070 Ti Super\nCPU: Ryzen 9 5900X\nRAM: 32GB 3600Mhz DDR4\nSSD: 2TB NVMe Gen4\nMONITOR: 240Hz 1ms" },
+        { question: "📁 sensibilidade_valorant.cfg", answer: "DPI: 800\nSENS: 0.35\nCROSSHAIR: 1-4-2-2 Cyan\nRANK: Imortal 3\nAGENT MAIN: Jett / Reyna" },
+        { question: "📁 perifericos.log", answer: "MOUSE: Logitech G Pro X Superlight\nTECLADO: Razer Huntsman Mini\nHEADSET: HyperX Cloud II Wireless\nMOUSEPAD: Artisan Hien XL" },
+        { question: "📁 horarios_live.txt", answer: "SEG-SEX: 19:00 - 23:00\nSAB-DOM: 15:00 - 00:00\nMARATONA: Domingão Especial!\nFERIADOS: 12h seguidas!" },
+        { question: "📁 redes_sociais.lnk", answer: "TWITTER: @KaelX_\nINSTAGRAM: @kael.x.oficial\nYOUTUBE: KaelX Gaming\nTIKTOK: @kaelx.clips" },
+        { question: "📁 pix_donate.exe", answer: "Chave PIX: kaelx@email.com\n\nAjuda a manter a live on!\nTamo junto, clã! 🎮\nTop donates aparecem na tela!" }
+    ];
+
+    const screen = document.getElementById('screen');
+    const keyboard = document.getElementById('keyboard');
+    
+    let typingTimeout; 
+    let keyboardInterval;
+
+    // Gerar teclas do teclado
+    for(let i = 0; i < 45; i++) {
+        let k = document.createElement('div');
+        k.className = 'key';
+        keyboard.appendChild(k);
+    }
+    const keys = document.querySelectorAll('.key');
+
+    // Menu inicial
+    function renderMenu() {
+        stopAnimation();
+        screen.innerHTML = "<div style='margin-bottom:12px; color: #666;'>C:\\USERS\\KAEL_X\\DESKTOP> dir /b</div>";
+        
+        faqData.forEach((item, index) => {
+            let folder = document.createElement('div');
+            folder.className = 'file-folder';
+            folder.innerHTML = `<span class="folder-icon"></span> ${item.question}`;
+            folder.onclick = () => startTyping(index);
+            screen.appendChild(folder);
+        });
+    }
+
+    // Digitar resposta
+    function startTyping(index) {
+        stopAnimation();
+        
+        screen.innerHTML = `<div style="color: #fff; margin-bottom:12px;">ABRINDO ${faqData[index].question}...</div><div id="type-area" class="typing-effect"></div>`;
+        
+        const typeArea = document.getElementById('type-area');
+        const textToType = faqData[index].answer;
+        let charIndex = 0;
+
+        keyboardInterval = setInterval(() => {
+            let randomKey = keys[Math.floor(Math.random() * keys.length)];
+            randomKey.classList.add('active');
+            setTimeout(() => randomKey.classList.remove('active'), 80);
+        }, 40);
+
+        function typeNextChar() {
+            if (charIndex < textToType.length) {
+                let char = textToType.charAt(charIndex);
+                if(char === '\n') {
+                    typeArea.innerHTML += '<br>';
+                } else {
+                    typeArea.innerHTML += char;
+                }
+                charIndex++;
+                typingTimeout = setTimeout(typeNextChar, 25);
+            } else {
+                stopAnimation();
+                let btn = document.createElement('button');
+                btn.className = 'back-btn';
+                btn.innerText = "[ VOLTAR AO SISTEMA ]";
+                btn.style.display = 'block';
+                btn.onclick = renderMenu;
+                screen.appendChild(btn);
+                screen.scrollTop = screen.scrollHeight;
+            }
+        }
+
+        typeNextChar();
+    }
+
+    function stopAnimation() {
+        clearTimeout(typingTimeout);
+        clearInterval(keyboardInterval);
+        keys.forEach(k => k.classList.remove('active'));
+    }
+
+    // Iniciar
+    renderMenu();
+</script>
+
+</body>
+</html>
