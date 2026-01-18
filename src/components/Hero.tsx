@@ -73,16 +73,28 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile - Nova imagem 9:16 otimizada */}
-      <div 
-        className={`absolute inset-0 lg:hidden bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
-        style={{ 
-          backgroundImage: `url(${heroBgMobile})`,
-          backgroundColor: 'hsl(var(--background))',
-          willChange: 'opacity'
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90" />
+      {/* Hero Image Background - Mobile - Dual Layer Strategy */}
+      <div className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        {/* Layer 1: FILL (cover) - Preenche 100% sem buracos pretos */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${heroBgMobile})`,
+            filter: 'blur(8px) brightness(0.4)',
+            transform: 'scale(1.1)',
+          }}
+        />
+        
+        {/* Layer 2: MAIN (contain) - Mostra imagem inteira com braços/objetos visíveis */}
+        <div 
+          className="absolute inset-0 bg-contain bg-[center_top] bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${heroBgMobile})`,
+          }}
+        />
+        
+        {/* Overlay gradient - Sutil para não esconder os objetos nas mãos */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80" />
       </div>
       
       {/* Hero Image Background - Desktop */}
