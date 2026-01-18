@@ -709,7 +709,7 @@
                         <h3>Casa de Ração</h3>
                         <a class="open-modal-btn" 
                             data-service="Casa de Ração"
-                            data-img="img/servico-racao.jpg" 
+                            data-img="/templates/img/servico-racao.jpg?v=1" 
                             data-description="Ampla variedade de rações premium e super-premium. Do filhote ao sênior, temos a nutrição ideal para seu pet. Entregamos em domicílio!">
                             Ver Detalhes
                         </a>
@@ -725,7 +725,7 @@
                         <h3>Clínica Veterinária</h3>
                         <a class="open-modal-btn"
                             data-service="Clínica Veterinária"
-                            data-img="img/servico-vet.jpg" 
+                            data-img="/templates/img/servico-vet.jpg?v=1" 
                             data-description="Consultas, vacinas, exames e cirurgias. Nossos veterinários estão prontos para cuidar da saúde do seu melhor amigo. Atendemos emergências.">
                             Ver Detalhes
                         </a>
@@ -741,7 +741,7 @@
                         <h3>Banho & Tosa</h3>
                         <a class="open-modal-btn"
                             data-service="Banho & Tosa"
-                            data-img="img/servico-banho.jpg" 
+                            data-img="/templates/img/servico-banho.jpg?v=1" 
                             data-description="Serviços de estética completos. Banhos terapêuticos, tosa higiênica, tosa da raça e hidratação. Deixe seu pet limpo e cheiroso!">
                             Ver Detalhes
                         </a>
@@ -758,7 +758,7 @@
                         <h3>Acessórios</h3>
                         <a class="open-modal-btn"
                             data-service="Acessórios e Brinquedos"
-                            data-img="img/servico-acessorios.jpg" 
+                            data-img="/templates/img/servico-acessorios.jpg?v=1" 
                             data-description="Coleiras, guias, caminhas, arranhadores, brinquedos e tudo que seu pet precisa para uma vida feliz e confortável.">
                             Ver Detalhes
                         </a>
@@ -933,8 +933,18 @@
             const serviceDesc = event.currentTarget.dataset.description;
             
             modalTitle.textContent = serviceTitle;
+            modalDescription.innerHTML = serviceDesc;
+            
+            // Reset + carrega imagem (com fallback caso o caminho absoluto falhe no iframe)
+            modalImg.dataset.retry = '0';
+            modalImg.onerror = () => {
+                if (modalImg.dataset.retry === '1') return;
+                modalImg.dataset.retry = '1';
+                if (serviceImg && serviceImg.startsWith('/templates/')) {
+                    modalImg.src = serviceImg.replace('/templates/', '');
+                }
+            };
             modalImg.src = serviceImg;
-            modalDescription.innerHTML = serviceDesc; // Use innerHTML para listas
             
             modalOverlay.classList.add('active');
         }
