@@ -46,10 +46,10 @@ export const Hero = () => {
     >
       {/* Hero Image Background - Mobile */}
       <div 
-        className="absolute inset-0 lg:hidden bg-cover bg-[center_20%] bg-no-repeat"
+        className="absolute inset-0 lg:hidden bg-contain bg-[center_top] bg-no-repeat"
         style={{ backgroundImage: `url(${heroBgMobile})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/95" />
       </div>
       
       {/* Hero Image Background - Desktop */}
