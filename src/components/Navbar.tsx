@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { SectionId, useActiveSection } from '@/hooks/useActiveSection';
 import { cn } from '@/lib/utils';
 import { StartModal } from '@/components/modals/StartModal';
@@ -11,25 +11,11 @@ const navLinks: { id: SectionId; label: string }[] = [
 ];
 
 export const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [showStartModal, setShowStartModal] = useState(false);
   const { activeSection, setActiveSection } = useActiveSection();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        'fixed top-[var(--notification-height)] left-0 right-0 z-40 transition-all duration-300',
-        scrolled ? 'bg-card/90 backdrop-blur-xl shadow-lg' : 'bg-transparent'
-      )}
-    >
+    <header className="h-[var(--header-height)]">
       <div className="container mx-auto px-4 h-[var(--header-height)] flex items-center justify-between">
         {/* Logo */}
         <button
