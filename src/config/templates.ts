@@ -47,5 +47,13 @@ export const templates: Template[] = [
     category: 'Barbearia',
     description: 'Agenda, serviços e valores organizados. O cliente já sabe o que esperar antes de sentar na cadeira.',
     features: ['Lista de preços', 'Agenda online', 'Perfil do barbeiro']
+  },
+  {
+    id: 6,
+    name: 'Gamer Zone',
+    file: 'template6.html',
+    category: 'Gamer / Streamer',
+    description: 'Setup, playlist, links de stream — tudo no estilo gamer. Seus fãs vão se sentir na sua live só de abrir sua bio.',
+    features: ['Terminal interativo', 'Player de música', 'Setup em 3D']
   }
 ];
