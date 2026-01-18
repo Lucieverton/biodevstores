@@ -32,9 +32,14 @@ interface FormErrors {
 }
 
 const paymentOptions = [
-  { value: 'mensal', label: 'Mensal Recorrente', description: 'Cobrança mensal automática' },
-  { value: 'anual', label: 'Anual com 20% OFF', description: 'Economia de 2 meses' },
-  { value: 'hibrido', label: 'Híbrido (50% + 50%)', description: '50% início, 50% entrega' },
+  // Pagamentos via PIX
+  { value: 'pix-1ano', label: 'À Vista (1 ano)', description: '20% OFF', group: 'pix' },
+  { value: 'pix-2anos', label: 'À Vista (2 anos)', description: '25% OFF', group: 'pix' },
+  { value: 'pix-3anos', label: 'À Vista (3 anos)', description: '30% OFF', group: 'pix' },
+  { value: 'hibrido', label: 'Híbrido (50% + 50%)', description: '50% início, 50% entrega', group: 'pix' },
+  // Pagamentos via InfinitePlay
+  { value: 'mensal', label: 'Assinatura Mensal', description: 'Recorrente', group: 'infiniteplay' },
+  { value: 'parcelado', label: 'Parcelado em até 12x', description: 'Link de pagamento', group: 'infiniteplay' },
 ];
 
 export const TemplateSelectionModal = ({ 
@@ -93,6 +98,7 @@ export const TemplateSelectionModal = ({
     if (!validateForm()) return;
 
     const selectedPayment = paymentOptions.find(p => p.value === formData.paymentMethod);
+    const paymentType = selectedPayment?.group === 'pix' ? 'Via PIX' : 'Via InfinitePlay';
 
     const message = `Olá! Me chamo *${formData.name.trim()}* da empresa *${formData.company.trim()}*.
 
@@ -101,7 +107,11 @@ export const TemplateSelectionModal = ({
 📁 *Categoria:* ${templateCategory}
 
 🏢 *Ramo:* ${formData.industry.trim()}
-💳 *Pagamento:* ${selectedPayment?.label}
+
+💳 *FORMA DE PAGAMENTO:*
+📌 *Método:* ${selectedPayment?.label}
+🏷️ *Tipo:* ${paymentType}
+
 📱 *WhatsApp:* ${formData.whatsapp.trim()}
 
 Quero contratar este template!`;
@@ -220,31 +230,60 @@ Quero contratar este template!`;
 
             {/* Payment Method Selection */}
             <div className="space-y-3">
-              <Label className="flex items-center gap-2 text-sm">
+              <Label className="flex items-center gap-2 text-sm font-semibold">
                 <CreditCard className="w-4 h-4 text-muted-foreground" />
                 Forma de Pagamento
               </Label>
               <RadioGroup
                 value={formData.paymentMethod}
                 onValueChange={(value) => handleChange('paymentMethod', value)}
-                className="space-y-2"
+                className="space-y-3"
               >
-                {paymentOptions.map((option) => (
-                  <div key={option.value} className="relative">
-                    <RadioGroupItem
-                      value={option.value}
-                      id={`payment-${option.value}`}
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor={`payment-${option.value}`}
-                      className="flex items-center justify-between p-3 rounded-lg border-2 border-border bg-background cursor-pointer transition-all hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5"
-                    >
-                      <span className="font-medium text-sm">{option.label}</span>
-                      <span className="text-xs text-muted-foreground">{option.description}</span>
-                    </Label>
+                {/* PIX Options */}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-emerald-400">📌 Pagamento via PIX</p>
+                  <div className="space-y-2 pl-2">
+                    {paymentOptions.filter(p => p.group === 'pix').map((option) => (
+                      <div key={option.value} className="relative">
+                        <RadioGroupItem
+                          value={option.value}
+                          id={`payment-${option.value}`}
+                          className="peer sr-only"
+                        />
+                        <Label
+                          htmlFor={`payment-${option.value}`}
+                          className="flex items-center justify-between p-3 rounded-lg border-2 border-border bg-background cursor-pointer transition-all hover:border-emerald-500/50 peer-data-[state=checked]:border-emerald-500 peer-data-[state=checked]:bg-emerald-500/10"
+                        >
+                          <span className="font-medium text-sm">{option.label}</span>
+                          <span className="text-xs text-emerald-400 font-semibold">{option.description}</span>
+                        </Label>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                {/* InfinitePlay Options */}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-primary">💳 Pagamento via InfinitePlay</p>
+                  <div className="space-y-2 pl-2">
+                    {paymentOptions.filter(p => p.group === 'infiniteplay').map((option) => (
+                      <div key={option.value} className="relative">
+                        <RadioGroupItem
+                          value={option.value}
+                          id={`payment-${option.value}`}
+                          className="peer sr-only"
+                        />
+                        <Label
+                          htmlFor={`payment-${option.value}`}
+                          className="flex items-center justify-between p-3 rounded-lg border-2 border-border bg-background cursor-pointer transition-all hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10"
+                        >
+                          <span className="font-medium text-sm">{option.label}</span>
+                          <span className="text-xs text-primary font-semibold">{option.description}</span>
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </RadioGroup>
               {errors.paymentMethod && <p className="text-xs text-destructive">{errors.paymentMethod}</p>}
             </div>

@@ -57,19 +57,32 @@ const plans = [
 
 const paymentMethods = [
   {
-    icon: CreditCard,
-    title: "Assinatura Recorrente",
-    description: "Cobrança mensal automática sem travar limite.",
+    icon: Smartphone,
+    title: "À Vista (PIX)",
+    description: "Pague o valor total de 1, 2 ou 3 anos com desconto especial.",
+    badge: "Via PIX",
+    badgeColor: "bg-emerald-500/20 text-emerald-400",
   },
   {
     icon: Percent,
-    title: "Desconto Anual",
-    description: "20% OFF para garantir 1 ano de site.",
+    title: "Modelo Híbrido",
+    description: "50% no início + 50% na entrega do projeto.",
+    badge: "Via PIX",
+    badgeColor: "bg-emerald-500/20 text-emerald-400",
   },
   {
-    icon: Smartphone,
-    title: "Modelo Híbrido (Pix)",
-    description: "Pague 50% no início e 50% na entrega.",
+    icon: CreditCard,
+    title: "Parcelamento 12x",
+    description: "Link de pagamento com parcelamento no cartão.",
+    badge: "Via InfinitePlay",
+    badgeColor: "bg-primary/20 text-primary",
+  },
+  {
+    icon: CreditCard,
+    title: "Assinatura Recorrente",
+    description: "Cobrança mensal automática sem travar limite.",
+    badge: "Via InfinitePlay",
+    badgeColor: "bg-primary/20 text-primary",
   },
 ];
 
@@ -269,13 +282,16 @@ export const PricingSection = () => {
               </h3>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {paymentMethods.map((method, idx) => (
                 <div
                   key={idx}
                   className="flex flex-col items-center text-center p-4 rounded-xl bg-background/50 border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full mb-3 ${method.badgeColor}`}>
+                    {method.badge}
+                  </span>
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                     <method.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h4 className="font-semibold text-foreground mb-2">{method.title}</h4>
