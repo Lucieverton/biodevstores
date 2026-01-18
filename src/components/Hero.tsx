@@ -66,7 +66,7 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen lg:min-h-[calc(100vh-120px)] flex items-start lg:items-center pt-14 pb-8 lg:pb-8 px-4 relative overflow-hidden"
+      className="min-h-screen lg:min-h-[calc(100vh-120px)] flex items-start lg:items-center pt-12 pb-4 lg:pb-8 px-4 relative overflow-hidden"
     >
       {/* Loading skeleton */}
       {!imagesLoaded && (
@@ -79,7 +79,7 @@ export const Hero = () => {
         style={{ 
           backgroundImage: `url(${heroBgMobile})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: 'center center',
           backgroundColor: 'hsl(var(--background))'
         }}
       >
@@ -101,7 +101,7 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto relative z-10">
-        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-6 pt-24 lg:pt-0">
+        <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-4 pt-16 lg:pt-0">
           {/* Main Content - Centered on mobile, left on desktop */}
           <div className="text-center lg:text-left space-y-6 animate-fade-in">
             <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
@@ -137,7 +137,7 @@ export const Hero = () => {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-2 gap-3 md:gap-4 animate-fade-in delay-200">
+          <div className="grid grid-cols-2 gap-2 md:gap-4 animate-fade-in delay-200">
             {benefits.map((benefit) => {
               const Icon = benefit.icon;
               return (
@@ -180,7 +180,7 @@ export const Hero = () => {
           <ExclusiveProjectModal isOpen={showExclusiveModal} onClose={() => setShowExclusiveModal(false)} />
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 md:gap-8 pt-4 animate-fade-in delay-400">
+          <div className="grid grid-cols-3 gap-4 md:gap-8 pt-2 animate-fade-in delay-400">
             <div className="text-center lg:text-left space-y-1">
               <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
               <div className="text-xs md:text-sm text-muted-foreground">Clientes Ativos</div>
