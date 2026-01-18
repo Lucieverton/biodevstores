@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
+import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles, Instagram, CheckCircle2, ExternalLink } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
@@ -32,6 +32,25 @@ const benefits = [
     icon: Sparkles,
     title: "100% Personalizável",
     description: "Adaptamos cores, fontes e layout para seu negócio"
+  }
+];
+
+const socialProof = [
+  {
+    instagram: "@belladata",
+    instagramUrl: "https://instagram.com/belladata",
+    siteUrl: "https://belladata.devstores.com.br",
+    plan: "Plano Elite",
+    years: 3,
+    testimonial: "Minha bio ficou incrível! Clientes elogiam toda hora ✨"
+  },
+  {
+    instagram: "@barbeariabrutos",
+    instagramUrl: "https://instagram.com/barbeariabrutos",
+    siteUrl: "https://barbeariabrutos.com.br",
+    plan: "Site Exclusivo",
+    years: 4,
+    testimonial: "Profissionalismo que faz diferença no nosso atendimento 💈"
   }
 ];
 
@@ -106,18 +125,18 @@ export const Hero = () => {
           {/* Main Content - Centered on mobile, left on desktop */}
           <div className="text-center lg:text-left space-y-6 animate-fade-in">
             <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
-              Mini-Sites Estratégicos
+              Link da Bio Profissional
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-              <span className="text-foreground">Seu negócio merece uma </span>
-              <span className="text-gradient">Presença Digital</span>
-              <span className="text-foreground"> de </span>
-              <span className="text-gradient-purple">Elite</span>
+              <span className="text-foreground">A </span>
+              <span className="text-gradient">Bio que Vende</span>
+              <span className="text-foreground"> por </span>
+              <span className="text-gradient-purple">Você</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-              De Bios profissionais a Sistemas com IA: criamos a tecnologia que{" "}
-              <span className="text-primary font-semibold">vende por você</span>{" "}
-              enquanto você dorme.
+              Transforme seu Link da Bio em uma{" "}
+              <span className="text-primary font-semibold">máquina de clientes</span>.{" "}
+              Chega de links genéricos — tenha uma presença digital de elite.
             </p>
           </div>
 
@@ -180,8 +199,63 @@ export const Hero = () => {
           {/* Modals */}
           <ExclusiveProjectModal isOpen={showExclusiveModal} onClose={() => setShowExclusiveModal(false)} />
 
+          {/* Social Proof Section */}
+          <div className="space-y-4 animate-fade-in delay-400">
+            <div className="flex items-center justify-center lg:justify-start gap-2">
+              <CheckCircle2 className="w-5 h-5 text-green-400" />
+              <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                Clientes que confiam há anos
+              </span>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {socialProof.map((client) => (
+                <div
+                  key={client.instagram}
+                  className="group relative p-4 rounded-xl bg-card/60 border border-border/30 backdrop-blur-md hover:border-primary/40 transition-all duration-300"
+                >
+                  {/* Badge de tempo */}
+                  <div className="absolute -top-2 right-3 px-2 py-0.5 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-medium">
+                    ✓ Cliente há {client.years} anos
+                  </div>
+                  
+                  <div className="flex items-start gap-3 mt-1">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center flex-shrink-0">
+                      <Instagram className="w-5 h-5 text-white" />
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <a 
+                        href={client.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-foreground hover:text-primary transition-colors"
+                      >
+                        {client.instagram}
+                      </a>
+                      <div className="text-xs text-primary font-medium mt-0.5">{client.plan}</div>
+                      <a 
+                        href={client.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mt-1"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span className="truncate">{client.siteUrl.replace('https://', '')}</span>
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <p className="text-xs text-muted-foreground mt-3 italic">
+                    "{client.testimonial}"
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 md:gap-8 pt-2 animate-fade-in delay-400">
+          <div className="grid grid-cols-3 gap-4 md:gap-8 pt-2 animate-fade-in delay-500">
             <div className="text-center lg:text-left space-y-1">
               <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
               <div className="text-xs md:text-sm text-muted-foreground">Clientes Ativos</div>
