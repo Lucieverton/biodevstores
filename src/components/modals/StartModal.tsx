@@ -30,14 +30,14 @@ const plans = [
     name: 'Start', 
     price: 35, 
     icon: Sparkles,
-    features: ['3 itens no carrossel', 'Design personalizado', 'Suporte básico']
+    features: ['5 links', '3 carrossel', '3 FAQs', 'Subdomínio devstores']
   },
   { 
     id: 'profissional', 
     name: 'Profissional', 
     price: 60, 
     icon: Star,
-    features: ['6 itens no carrossel', 'Design premium', 'Suporte prioritário'],
+    features: ['10 links', '6 carrossel', '6 FAQs', 'V-Card + Pixel'],
     recommended: true
   },
   { 
@@ -45,7 +45,7 @@ const plans = [
     name: 'Elite', 
     price: 90, 
     icon: Crown,
-    features: ['Itens ilimitados', 'Design VIP', 'Suporte 24/7']
+    features: ['Links ilimitados', 'Carrossel ilimitado', 'Domínio próprio', 'Suporte VIP 24h']
   }
 ];
 
