@@ -69,7 +69,8 @@
             margin: 0 auto;
             
             /* [MELHORIA] Imagem de fundo de sorvete */
-            background: linear-gradient(180deg, rgba(255,249,230,0.95) 0%, rgba(255,236,210,0.98) 100%);
+            background: linear-gradient(180deg, rgba(255,249,230,0.85) 0%, rgba(255,236,210,0.88) 100%),
+                        url('/templates/img/fundo-sorvete.jpg?v=1');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -684,7 +685,7 @@
 
     <div class="container">
         <header class="header">
-            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=100&h=100&fit=crop&crop=center" alt="Flocos Mágicos Logo" class="logo-img"> 
+            <img src="/templates/img/sorvete-logo.png?v=1" alt="Flocos Mágicos Logo" class="logo-img" onerror="this.onerror=null; this.src='img/sorvete-logo.png?v=1';"> 
             <h1>Flocos Mágicos</h1>
             <p class="subtitle">A Magia do Sorvete Artesanal</p>
             
@@ -709,7 +710,7 @@
                         <h3>Taça Avalanche</h3>
                         <a class="open-modal-btn" 
                             data-service="Taça Avalanche de Morango"
-                            data-img="img/servico-taca.jpg" 
+                            data-img="/templates/img/servico-taca.jpg?v=1" 
                             data-description="Nossa taça especial com 3 bolas de sorvete, morangos frescos, chantilly, calda de chocolate e um canudo wafer.">
                             Ver Detalhes
                         </a>
@@ -727,7 +728,7 @@
                         <h3>Açaí Mágico</h3>
                         <a class="open-modal-btn"
                             data-service="Açaí Mágico Premium"
-                            data-img="img/servico-acai.jpg" 
+                            data-img="/templates/img/servico-acai.jpg?v=1" 
                             data-description="O mais puro açaí batido com banana (ou morango), servido com granola premium, leite em pó e mel.">
                             Ver Detalhes
                         </a>
@@ -743,7 +744,7 @@
                         <h3>Picolés Artesanais</h3>
                         <a class="open-modal-btn"
                             data-service="Picolés Artesanais"
-                            data-img="img/servico-picoles.jpg" 
+                            data-img="/templates/img/servico-picoles.jpg?v=1" 
                             data-description="Sabores puros da fruta, como Maracujá com calda, Limão Siciliano, e também nossas opções recheadas.">
                             Ver Detalhes
                         </a>
@@ -983,8 +984,18 @@
             const serviceDesc = event.currentTarget.dataset.description;
             
             modalTitle.textContent = serviceTitle;
-            modalImg.src = serviceImg;
             modalDescription.textContent = serviceDesc;
+            
+            // Reset + carrega imagem (com fallback caso o caminho absoluto falhe no iframe)
+            modalImg.dataset.retry = '0';
+            modalImg.onerror = () => {
+                if (modalImg.dataset.retry === '1') return;
+                modalImg.dataset.retry = '1';
+                if (serviceImg && serviceImg.startsWith('/templates/')) {
+                    modalImg.src = serviceImg.replace('/templates/', '');
+                }
+            };
+            modalImg.src = serviceImg;
             
             modalOverlay.classList.add('active');
         }
