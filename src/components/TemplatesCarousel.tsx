@@ -153,13 +153,13 @@ export const TemplatesCarousel = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-sm font-tech text-primary uppercase tracking-wider mb-4 block animate-fade-in">
-            Templates Premium
+            Sua Vitrine Digital
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gradient animate-fade-in">
-            Escolha seu Template
+            Veja Como Seu Negócio Vai Ficar
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in">
-            Navegue pelos nossos templates profissionais e escolha o que mais combina com seu negócio
+            Cada template foi criado pensando no seu nicho. Escolha um modelo e nós personalizamos com sua marca, cores e conteúdo em até 48h.
           </p>
         </div>
 

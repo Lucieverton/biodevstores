@@ -13,39 +13,39 @@ export const templates: Template[] = [
     name: 'AutoTech Solutions',
     file: 'template1.html',
     category: 'Automotivo',
-    description: 'Design moderno com tema automotivo, perfeito para oficinas e lojas de peças.',
-    features: ['Paleta cinza metálico', 'Efeitos glow', 'Animações pulse']
+    description: 'Seus clientes vão encontrar serviços, promoções e contato direto. Ideal para oficinas que querem parecer profissionais no digital.',
+    features: ['Catálogo de serviços', 'Botão WhatsApp', 'Destaque promoções']
   },
   {
     id: 2,
     name: 'Encanto Personalizado',
     file: 'template2.html',
     category: 'Papelaria',
-    description: 'Template delicado com cores suaves, ideal para papelarias, personalizados e artesanato.',
-    features: ['Rosa e lilás', 'Design criativo', 'Estilo artesanal']
+    description: 'Mostre seu trabalho artesanal de forma organizada. Catálogo visual que vende enquanto você cria.',
+    features: ['Galeria de produtos', 'Links de compra', 'Estilo delicado']
   },
   {
     id: 3,
     name: 'Mundo Animal',
     file: 'template3.html',
     category: 'Pet Shop',
-    description: 'Visual amigável e colorido para pet shops e clínicas veterinárias.',
-    features: ['Verde e amarelo', 'Fundo de patinhas', 'Design alegre']
+    description: 'Banho, tosa, veterinário, rações — tudo em um lugar só. Seus clientes agendam com um clique.',
+    features: ['Seções por serviço', 'Agendamento fácil', 'Visual amigável']
   },
   {
     id: 4,
     name: 'Flocos Mágicos',
     file: 'template4.html',
     category: 'Sorveteria',
-    description: 'Template vibrante e divertido para sorveterias e confeitarias.',
-    features: ['Cores vibrantes', 'Borda casquinha', 'Efeito granulado']
+    description: 'Cardápio visual que dá água na boca. Seu cliente escolhe o sabor antes de chegar na loja.',
+    features: ['Cardápio interativo', 'Fotos dos produtos', 'Localização']
   },
   {
     id: 5,
     name: 'Barbearia Vintage',
     file: 'template5.html',
     category: 'Barbearia',
-    description: 'Design sofisticado com tema vintage, perfeito para barbearias premium.',
-    features: ['Dourado e cobre', 'Backdrop blur', 'Estilo luxuoso']
+    description: 'Agenda, serviços e valores organizados. O cliente já sabe o que esperar antes de sentar na cadeira.',
+    features: ['Lista de preços', 'Agenda online', 'Perfil do barbeiro']
   }
 ];
