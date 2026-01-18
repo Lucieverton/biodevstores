@@ -1,4 +1,7 @@
-import { Code, Brain, Server, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { Code, Brain, Server, Sparkles, Crown, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ExclusiveProjectModal } from '@/components/modals/ExclusiveProjectModal';
 
 const techStack = [
   { name: 'React', icon: Code },
@@ -8,6 +11,8 @@ const techStack = [
 ];
 
 export const ExpertSection = () => {
+  const [showExclusiveModal, setShowExclusiveModal] = useState(false);
+
   return (
     <section id="expert" className="py-24 px-4 relative overflow-hidden">
       {/* Background Effect */}
@@ -80,14 +85,28 @@ export const ExpertSection = () => {
                   <p className="text-sm text-muted-foreground">Alta performance garantida</p>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-4">
                 Para empresas que buscam resultados extraordinários. 
                 Desenvolvimento personalizado com suporte dedicado e tecnologias premium.
               </p>
+              <Button 
+                className="w-full bg-gradient-gold hover:opacity-90 text-background font-semibold group"
+                onClick={() => setShowExclusiveModal(true)}
+              >
+                <Crown className="w-4 h-4 mr-2" />
+                Solicitar Orçamento
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Exclusive Project Modal */}
+      <ExclusiveProjectModal 
+        isOpen={showExclusiveModal} 
+        onClose={() => setShowExclusiveModal(false)} 
+      />
     </section>
   );
 };
