@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { StartModal } from "@/components/modals/StartModal";
 import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
 import heroBgMobile from "@/assets/hero-bg-mobile.png";
@@ -38,7 +37,6 @@ const benefits = [
 
 export const Hero = () => {
   const { setActiveSection } = useActiveSection();
-  const [showStartModal, setShowStartModal] = useState(false);
   const [showExclusiveModal, setShowExclusiveModal] = useState(false);
 
   return (
@@ -124,15 +122,8 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in delay-300">
             <Button
               size="lg"
-              onClick={() => setShowStartModal(true)}
-              className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan"
-            >
-              COMEÇAR AGORA
-            </Button>
-            <Button
-              size="lg"
               onClick={() => setActiveSection('templates')}
-              className="bg-primary hover:bg-primary/90 transition-all text-base md:text-lg px-8 h-12 md:h-14"
+              className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan"
             >
               VER TEMPLATES
             </Button>
@@ -147,7 +138,6 @@ export const Hero = () => {
           </div>
 
           {/* Modals */}
-          <StartModal isOpen={showStartModal} onClose={() => setShowStartModal(false)} />
           <ExclusiveProjectModal isOpen={showExclusiveModal} onClose={() => setShowExclusiveModal(false)} />
 
           {/* Stats */}
