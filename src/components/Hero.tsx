@@ -4,7 +4,7 @@ import { Shield, Zap, HeadphonesIcon, Users, TrendingUp, Clock, Sparkles } from 
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
-import heroBgMobile from "@/assets/hero-bg-mobile-new.png";
+import heroBgMobile from "@/assets/hero-bg-mobile-optimized.png";
 
 const trustBadges = [
   { icon: Shield, text: "Site Seguro" },
@@ -73,31 +73,18 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-background animate-pulse" />
       )}
 
-      {/* Hero Image Background - Mobile - Dual Layer Strategy */}
+      {/* Hero Image Background - Mobile - Single Layer Clean */}
       <div 
         className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ backgroundColor: 'hsl(var(--background))' }}
       >
-        {/* Layer 1: FILL (cover) - Preenche 100% sem buracos pretos */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${heroBgMobile})`,
-            filter: 'blur(4px) brightness(0.6)',
-            transform: 'scale(1.2)',
-          }}
+          className="absolute inset-0 bg-cover bg-[center_top] bg-no-repeat"
+          style={{ backgroundImage: `url(${heroBgMobile})` }}
         />
         
-        {/* Layer 2: MAIN (contain) - Mostra imagem inteira com braços/objetos visíveis */}
-        <div 
-          className="absolute inset-0 bg-contain bg-[center_20%] bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${heroBgMobile})`,
-          }}
-        />
-        
-        {/* Overlay gradient - Transição suave entre layers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background/70" />
+        {/* Overlay gradient - Sutil para legibilidade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
       </div>
       
       {/* Hero Image Background - Desktop */}
