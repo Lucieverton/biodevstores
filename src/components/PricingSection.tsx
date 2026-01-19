@@ -14,7 +14,7 @@ const plans = [
       "Até 5 Links na Bio",
       "3 Itens no Carrossel",
       "3 FAQs Interativos",
-      "5 Imagens na Vitrine",
+      "5 Imagens (3 Vitrine + Logo + Perfil)",
       "Hospedagem: seulink.devstores.com.br",
       "Design Personalizado",
       "Botão WhatsApp",
