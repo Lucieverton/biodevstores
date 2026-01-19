@@ -54,7 +54,7 @@ const plans = [
       "Carrossel Ilimitado",
       "10 FAQs Interativos",
       "22 Imagens (20 Vitrine + Logo + Perfil)",
-      "Domínio Próprio Grátis",
+      "Hospedagem: seulink.devstores.com.br",
       "Design 100% Exclusivo",
       "Seções Ilimitadas",
       "Atualizações Ilimitadas",
