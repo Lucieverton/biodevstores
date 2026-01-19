@@ -22,7 +22,7 @@ const IndexContent = () => {
       
       <CircuitTransition isTransitioning={isTransitioning} />
       
-      <main className="relative pt-[calc(var(--notification-height)+var(--header-height))] pb-[var(--bottom-nav-height)] lg:pb-0">
+      <main className="relative pt-[var(--header-height)] pb-[var(--bottom-nav-height)] lg:pb-0">
         <SectionContainer id="home">
           <Hero />
         </SectionContainer>
