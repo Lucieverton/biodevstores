@@ -615,9 +615,34 @@
                 
                 <div class="service-item">
                     <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="45" cy="45" r="40" fill="#100F0F"/>
-                        <path d="M30 25h30l-5 45H35l-5-45z" fill="#DAA520"/>
-                        <path d="M35 35h20M38 45h14M40 55h10" stroke="#100F0F" stroke-width="2"/>
+                        <defs>
+                            <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFD700"/>
+                                <stop offset="50%" stop-color="#DAA520"/>
+                                <stop offset="100%" stop-color="#B8860B"/>
+                            </linearGradient>
+                            <filter id="glow1" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                        <circle cx="45" cy="45" r="40" fill="#1a1918"/>
+                        <circle cx="45" cy="45" r="38" fill="none" stroke="url(#goldGrad1)" stroke-width="1.5" opacity="0.6"/>
+                        <!-- Tesoura profissional -->
+                        <g filter="url(#glow1)">
+                            <!-- Lâmina esquerda -->
+                            <path d="M22 30 L42 48 L40 52 L20 34 Z" fill="url(#goldGrad1)"/>
+                            <ellipse cx="18" cy="32" rx="6" ry="8" fill="none" stroke="url(#goldGrad1)" stroke-width="2.5"/>
+                            <!-- Lâmina direita -->
+                            <path d="M68 30 L48 48 L50 52 L70 34 Z" fill="url(#goldGrad1)"/>
+                            <ellipse cx="72" cy="32" rx="6" ry="8" fill="none" stroke="url(#goldGrad1)" stroke-width="2.5"/>
+                            <!-- Parafuso central -->
+                            <circle cx="45" cy="50" r="4" fill="#B8860B"/>
+                            <circle cx="45" cy="50" r="2" fill="#1a1918"/>
+                        </g>
+                        <!-- Pente estilizado abaixo -->
+                        <rect x="30" y="62" width="30" height="6" rx="2" fill="url(#goldGrad1)" opacity="0.8"/>
+                        <path d="M33 68v6M37 68v6M41 68v6M45 68v6M49 68v6M53 68v6M57 68v6" stroke="url(#goldGrad1)" stroke-width="1.5" opacity="0.8"/>
                     </svg>
                     <h3>Corte Clássico</h3>
                     <a class="open-modal-btn" 
@@ -629,10 +654,39 @@
                 
                 <div class="service-item">
                     <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="45" cy="45" r="40" fill="#100F0F"/>
-                        <ellipse cx="45" cy="55" rx="20" ry="15" fill="#DAA520"/>
-                        <circle cx="45" cy="35" r="15" fill="#DAA520"/>
-                        <path d="M35 50c0 0 5 8 10 8s10-8 10-8" stroke="#100F0F" stroke-width="3"/>
+                        <defs>
+                            <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFD700"/>
+                                <stop offset="50%" stop-color="#DAA520"/>
+                                <stop offset="100%" stop-color="#B8860B"/>
+                            </linearGradient>
+                            <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#CD7F32"/>
+                                <stop offset="50%" stop-color="#B87333"/>
+                                <stop offset="100%" stop-color="#8B4513"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="45" cy="45" r="40" fill="#1a1918"/>
+                        <circle cx="45" cy="45" r="38" fill="none" stroke="url(#goldGrad2)" stroke-width="1.5" opacity="0.6"/>
+                        <!-- Navalha de barbear elegante -->
+                        <g transform="rotate(-20 45 45)">
+                            <!-- Cabo da navalha -->
+                            <rect x="18" y="40" width="28" height="10" rx="2" fill="url(#copperGrad)"/>
+                            <rect x="20" y="42" width="24" height="6" rx="1" fill="#5D3A1A"/>
+                            <path d="M22 42v6M26 42v6M30 42v6M34 42v6M38 42v6" stroke="#3D2A0A" stroke-width="0.5"/>
+                            <!-- Lâmina -->
+                            <path d="M46 38 L74 38 Q78 38 78 42 L78 48 Q78 52 74 52 L46 52 Z" fill="url(#goldGrad2)"/>
+                            <path d="M48 40 L72 40 Q74 40 74 42 L74 48 Q74 50 72 50 L48 50 Z" fill="#1a1918" opacity="0.3"/>
+                            <!-- Brilho na lâmina -->
+                            <path d="M50 41 L70 41" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+                            <!-- Pivô -->
+                            <circle cx="46" cy="45" r="4" fill="#8B4513"/>
+                            <circle cx="46" cy="45" r="2" fill="url(#goldGrad2)"/>
+                        </g>
+                        <!-- Espuma decorativa -->
+                        <circle cx="25" cy="68" r="5" fill="#E8E8E8" opacity="0.6"/>
+                        <circle cx="32" cy="70" r="4" fill="#F0F0F0" opacity="0.5"/>
+                        <circle cx="28" cy="64" r="3" fill="#FFF" opacity="0.4"/>
                     </svg>
                     <h3>Barba Tradicional</h3>
                     <a class="open-modal-btn"
@@ -644,9 +698,37 @@
 
                 <div class="service-item">
                     <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="45" cy="45" r="40" fill="#100F0F"/>
-                        <rect x="25" y="30" width="40" height="30" rx="5" fill="#B87333"/>
-                        <path d="M35 40v10M45 38v14M55 40v10" stroke="#100F0F" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="goldGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFD700"/>
+                                <stop offset="50%" stop-color="#DAA520"/>
+                                <stop offset="100%" stop-color="#B8860B"/>
+                            </linearGradient>
+                            <linearGradient id="copperGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#CD7F32"/>
+                                <stop offset="100%" stop-color="#8B4513"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="45" cy="45" r="40" fill="#1a1918"/>
+                        <circle cx="45" cy="45" r="38" fill="none" stroke="url(#goldGrad3)" stroke-width="1.5" opacity="0.6"/>
+                        <!-- Pincel de pigmentação -->
+                        <g transform="rotate(-30 45 45)">
+                            <!-- Cabo do pincel -->
+                            <rect x="50" y="38" width="25" height="14" rx="3" fill="url(#copperGrad3)"/>
+                            <rect x="52" y="40" width="21" height="10" rx="2" fill="#5D3A1A"/>
+                            <!-- Virola metálica -->
+                            <rect x="44" y="36" width="8" height="18" rx="1" fill="url(#goldGrad3)"/>
+                            <path d="M46 38v14M48 38v14M50 38v14" stroke="#B8860B" stroke-width="0.5"/>
+                            <!-- Cerdas do pincel -->
+                            <path d="M20 40 Q28 35 44 38 L44 52 Q28 55 20 50 Z" fill="#2C2C2C"/>
+                            <path d="M22 42 Q30 38 42 40 L42 50 Q30 52 22 48 Z" fill="#1a1a1a"/>
+                            <!-- Ponta com pigmento -->
+                            <ellipse cx="22" cy="45" rx="4" ry="6" fill="url(#goldGrad3)" opacity="0.8"/>
+                        </g>
+                        <!-- Gotas de tinta decorativas -->
+                        <circle cx="28" cy="72" r="3" fill="url(#goldGrad3)" opacity="0.7"/>
+                        <circle cx="35" cy="68" r="2" fill="url(#copperGrad3)" opacity="0.6"/>
+                        <circle cx="24" cy="66" r="2" fill="#B8860B" opacity="0.5"/>
                     </svg>
                     <h3>Pigmentação</h3>
                     <a class="open-modal-btn"
@@ -658,12 +740,40 @@
                 
                 <div class="service-item">
                     <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="45" cy="45" r="40" fill="#8B4513"/>
-                        <circle cx="45" cy="40" r="18" fill="#E0E0E0"/>
-                        <circle cx="38" cy="38" r="4" fill="#100F0F"/>
-                        <circle cx="52" cy="38" r="4" fill="#100F0F"/>
-                        <path d="M38 48c0 0 3 5 7 5s7-5 7-5" stroke="#100F0F" stroke-width="2"/>
-                        <path d="M30 28c5-8 15-10 20-8M60 28c-5-8-15-10-20-8" stroke="#E0E0E0" stroke-width="3"/>
+                        <defs>
+                            <linearGradient id="goldGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFD700"/>
+                                <stop offset="50%" stop-color="#DAA520"/>
+                                <stop offset="100%" stop-color="#B8860B"/>
+                            </linearGradient>
+                            <linearGradient id="skinTone" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#FFE4C4"/>
+                                <stop offset="100%" stop-color="#DEB887"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="45" cy="45" r="40" fill="#1a1918"/>
+                        <circle cx="45" cy="45" r="38" fill="none" stroke="url(#goldGrad4)" stroke-width="1.5" opacity="0.6"/>
+                        <!-- Rosto de criança estilizado -->
+                        <circle cx="45" cy="42" r="22" fill="url(#skinTone)"/>
+                        <!-- Cabelo estilizado -->
+                        <path d="M25 35 Q30 15 45 18 Q60 15 65 35 Q60 25 45 28 Q30 25 25 35" fill="#4A3728"/>
+                        <path d="M28 33 Q33 20 45 22 Q57 20 62 33" fill="#5D4A3A" opacity="0.8"/>
+                        <!-- Topete fofo -->
+                        <path d="M38 22 Q42 12 48 14 Q54 12 52 22" fill="#4A3728"/>
+                        <!-- Olhos felizes -->
+                        <ellipse cx="38" cy="40" rx="3.5" ry="4" fill="#2C2018"/>
+                        <ellipse cx="52" cy="40" rx="3.5" ry="4" fill="#2C2018"/>
+                        <circle cx="39" cy="39" r="1.5" fill="#FFF"/>
+                        <circle cx="53" cy="39" r="1.5" fill="#FFF"/>
+                        <!-- Bochechas -->
+                        <circle cx="32" cy="48" r="4" fill="#FFB6C1" opacity="0.4"/>
+                        <circle cx="58" cy="48" r="4" fill="#FFB6C1" opacity="0.4"/>
+                        <!-- Sorriso -->
+                        <path d="M38 52 Q45 60 52 52" fill="none" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Estrelinhas decorativas -->
+                        <path d="M20 25 L22 28 L25 25 L22 27 Z" fill="url(#goldGrad4)" opacity="0.8"/>
+                        <path d="M70 30 L72 33 L75 30 L72 32 Z" fill="url(#goldGrad4)" opacity="0.8"/>
+                        <path d="M68 65 L70 68 L73 65 L70 67 Z" fill="url(#goldGrad4)" opacity="0.6"/>
                     </svg>
                     <h3>Kids Cut</h3>
                     <a class="open-modal-btn"
