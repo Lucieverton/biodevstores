@@ -123,17 +123,17 @@ export const Hero = () => {
       <div className="container mx-auto relative z-10">
         <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-4 pt-16 lg:pt-0">
           {/* Main Content - Centered on mobile, left on desktop */}
-          <div className="text-center lg:text-left space-y-5">
+          <div className="text-center lg:text-left space-y-4 lg:space-y-6">
             {/* Badge de Identificação - Typing Effect */}
-            <div className="flex items-center justify-center lg:justify-start gap-2 mb-2 animate-fade-in">
-              <div className="w-2 h-2 rounded-full bg-primary animate-circuit-pulse" />
-              <span className="typing-container text-xs sm:text-sm font-tech text-primary uppercase tracking-widest">
+            <div className="flex items-center justify-center lg:justify-start gap-2 lg:gap-3 animate-fade-in">
+              <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-primary animate-circuit-pulse flex-shrink-0" />
+              <span className="typing-container text-sm sm:text-base lg:text-lg font-tech text-primary uppercase tracking-wide lg:tracking-widest">
                 💡 Se você está aqui, já sabe que precisa de uma bio melhor
               </span>
             </div>
 
             {/* Título Principal - Word Reveal + Circuit Glow */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
               <span className="word-animate text-foreground">A </span>
               <span className="word-animate text-gradient circuit-glow">Bio que Vende</span>
               <span className="word-animate text-foreground"> por </span>
@@ -141,7 +141,7 @@ export const Hero = () => {
             </h1>
 
             {/* Subtítulo - Fade in com destaque na dor */}
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 opacity-0 animate-slide-up-glow" style={{ animationDelay: '1.4s' }}>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 opacity-0 animate-slide-up-glow leading-relaxed" style={{ animationDelay: '1.4s' }}>
               Enquanto você usa <span className="strike-through">Linktree</span>, seus concorrentes estão{" "}
               <span className="text-primary font-semibold">convertendo visitantes em clientes</span>{" "}
               com uma bio profissional.
