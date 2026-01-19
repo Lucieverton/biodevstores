@@ -196,6 +196,18 @@ export const Hero = () => {
             </Button>
           </div>
 
+          {/* Urgency Banner */}
+          <div className="flex justify-center lg:justify-start animate-fade-in delay-350">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-neon-yellow/10 to-orange-500/10 border border-neon-yellow/30 backdrop-blur-sm">
+              <div className="w-2 h-2 rounded-full bg-neon-yellow animate-pulse" />
+              <span className="text-sm font-medium">
+                <span className="text-neon-yellow font-bold">Agenda 85% preenchida</span>
+                <span className="text-muted-foreground"> — Garanta sua vaga!</span>
+              </span>
+              <Zap className="w-4 h-4 text-neon-yellow animate-pulse" />
+            </div>
+          </div>
+
           {/* Modals */}
           <ExclusiveProjectModal isOpen={showExclusiveModal} onClose={() => setShowExclusiveModal(false)} />
 
