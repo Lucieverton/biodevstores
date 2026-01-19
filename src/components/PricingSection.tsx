@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Check, CreditCard, Percent, Smartphone, Lock } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Check, CreditCard, Percent, Smartphone, Lock, Globe, Link2 } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import sectionBg from "@/assets/section-bg.png";
-
 const plans = [
   {
     name: "Start",
@@ -15,7 +15,6 @@ const plans = [
       "3 Itens no Carrossel",
       "3 FAQs Interativos",
       "5 Imagens (3 Vitrine + Logo + Perfil)",
-      "Hospedagem: seulink.devstores.com.br",
       "Design Personalizado",
       "Botão WhatsApp",
       "Bio Profissional",
@@ -54,7 +53,6 @@ const plans = [
       "Carrossel Ilimitado",
       "10 FAQs Interativos",
       "22 Imagens (20 Vitrine + Logo + Perfil)",
-      "Hospedagem: seulink.devstores.com.br",
       "Design 100% Exclusivo",
       "Seções Ilimitadas",
       "Atualizações Ilimitadas",
@@ -99,11 +97,21 @@ const paymentMethods = [
 
 export const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
-const [selectedPlan, setSelectedPlan] = useState<{
+  const [selectedPlan, setSelectedPlan] = useState<{
     name: string;
     monthlyPrice: number;
   } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [brandName, setBrandName] = useState("");
+
+  const formatBrandName = (name: string) => {
+    return name
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "")
+      .slice(0, 20);
+  };
 
   const calculatePrice = (monthlyPrice: number) => {
     if (isAnnual) {
@@ -280,6 +288,55 @@ const [selectedPlan, setSelectedPlan] = useState<{
               </div>
             );
           })}
+        </div>
+
+        {/* Simulador de Link */}
+        <div className="max-w-2xl mx-auto mb-16">
+          <div className="bg-card/80 rounded-2xl p-8 border border-primary/30 backdrop-blur-sm">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                <Globe className="w-6 h-6 text-primary" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-xl font-bold font-tech text-foreground">
+                  Seu Link Exclusivo
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Todos os planos incluem hospedagem gratuita
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="relative">
+                <Input
+                  type="text"
+                  placeholder="Digite o nome da sua marca..."
+                  value={brandName}
+                  onChange={(e) => setBrandName(e.target.value)}
+                  maxLength={20}
+                  className="h-14 text-lg bg-background/50 border-border focus:border-primary pl-12"
+                />
+                <Link2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              </div>
+
+              <div className="bg-background/80 rounded-xl p-4 border border-border">
+                <p className="text-xs text-muted-foreground mb-2 text-center">
+                  Seu link ficará assim:
+                </p>
+                <div className="flex items-center justify-center gap-1 text-lg font-mono">
+                  <span className="text-primary font-bold">
+                    {formatBrandName(brandName) || "suamarca"}
+                  </span>
+                  <span className="text-muted-foreground">.devstores.com.br</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-center text-muted-foreground">
+                💡 Dica: Use o nome do seu negócio ou Instagram para facilitar a divulgação
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Seção de Métodos de Pagamento */}
