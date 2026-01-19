@@ -701,11 +701,26 @@
                 <div class="services-carousel">
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="35" cy="35" r="32" fill="#E91E63"/>
-                            <path d="M20 45c0-8 6.7-15 15-15s15 7 15 15v10H20v-10z" fill="#FFFFFF"/>
-                            <circle cx="28" cy="35" r="8" fill="#FFEB3B"/>
-                            <circle cx="42" cy="35" r="8" fill="#4CAF50"/>
-                            <circle cx="35" cy="25" r="8" fill="#FF9800"/>
+                            <defs>
+                                <linearGradient id="pinkGradIce" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FF6B9D"/>
+                                    <stop offset="100%" stop-color="#C2185B"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="35" cy="35" r="32" fill="url(#pinkGradIce)"/>
+                            <!-- Taça elegante -->
+                            <path d="M20 50l5-20h20l5 20c0 3-6.7 6-15 6s-15-3-15-6z" fill="#FFF"/>
+                            <rect x="32" y="50" width="6" height="8" fill="#8D6E63"/>
+                            <ellipse cx="35" cy="60" rx="10" ry="3" fill="#A1887F"/>
+                            <!-- Bolas de sorvete -->
+                            <circle cx="28" cy="28" r="10" fill="#FFEB3B"/>
+                            <circle cx="42" cy="28" r="10" fill="#4CAF50"/>
+                            <circle cx="35" cy="18" r="10" fill="#FF9800"/>
+                            <!-- Chantilly -->
+                            <ellipse cx="35" cy="12" rx="6" ry="4" fill="#FFF"/>
+                            <!-- Cereja -->
+                            <circle cx="35" cy="8" r="3" fill="#D32F2F"/>
+                            <path d="M35 5v-3c2 0 3 1 4 2" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
                         </svg>
                         <h3>Taça Avalanche</h3>
                         <a class="open-modal-btn" 
@@ -718,12 +733,30 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="35" cy="35" r="32" fill="#00BCD4"/>
-                            <ellipse cx="35" cy="40" rx="20" ry="15" fill="#4A148C"/>
-                            <path d="M25 35c0-5 4.5-8 10-8s10 3 10 8" fill="#7B1FA2"/>
-                            <circle cx="28" cy="48" r="3" fill="#FFEB3B"/>
-                            <circle cx="42" cy="48" r="3" fill="#FFEB3B"/>
-                            <rect x="30" y="55" width="10" height="5" fill="#8D6E63"/>
+                            <defs>
+                                <linearGradient id="cyanGradIce" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00E5FF"/>
+                                    <stop offset="100%" stop-color="#00838F"/>
+                                </linearGradient>
+                                <linearGradient id="acaiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#7B1FA2"/>
+                                    <stop offset="100%" stop-color="#4A148C"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="35" cy="35" r="32" fill="url(#cyanGradIce)"/>
+                            <!-- Tigela de açaí -->
+                            <ellipse cx="35" cy="45" rx="20" ry="12" fill="#FFF"/>
+                            <ellipse cx="35" cy="42" rx="18" ry="10" fill="url(#acaiGrad)"/>
+                            <!-- Toppings -->
+                            <ellipse cx="28" cy="40" rx="5" ry="3" fill="#FFEB3B" transform="rotate(-15 28 40)"/>
+                            <ellipse cx="42" cy="40" rx="5" ry="3" fill="#FFEB3B" transform="rotate(15 42 40)"/>
+                            <circle cx="35" cy="38" r="4" fill="#8BC34A"/>
+                            <!-- Granola -->
+                            <circle cx="30" cy="45" r="2" fill="#D7CCC8"/>
+                            <circle cx="35" cy="46" r="2" fill="#D7CCC8"/>
+                            <circle cx="40" cy="45" r="2" fill="#D7CCC8"/>
+                            <!-- Colher -->
+                            <rect x="48" y="30" width="3" height="20" rx="1" fill="#8D6E63" transform="rotate(20 48 30)"/>
                         </svg>
                         <h3>Açaí Mágico</h3>
                         <a class="open-modal-btn"
@@ -736,10 +769,27 @@
 
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="35" cy="35" r="32" fill="#FFC107"/>
-                            <rect x="28" y="20" width="14" height="35" rx="7" fill="#FF5722"/>
-                            <rect x="30" y="55" width="10" height="8" fill="#8D6E63"/>
-                            <path d="M31 25h8v5h-8z" fill="#FFEB3B"/>
+                            <defs>
+                                <linearGradient id="yellowGradIce" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFD54F"/>
+                                    <stop offset="100%" stop-color="#FF8F00"/>
+                                </linearGradient>
+                                <linearGradient id="popsicleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#FF5722"/>
+                                    <stop offset="50%" stop-color="#E64A19"/>
+                                    <stop offset="100%" stop-color="#BF360C"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="35" cy="35" r="32" fill="url(#yellowGradIce)"/>
+                            <!-- Picolé estilizado -->
+                            <rect x="26" y="15" width="18" height="32" rx="9" fill="url(#popsicleGrad)"/>
+                            <!-- Camada de cobertura -->
+                            <path d="M26 25c0-5 4-10 9-10s9 5 9 10" fill="#5D4037"/>
+                            <!-- Brilho -->
+                            <path d="M30 20v15" stroke="#FFF" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+                            <!-- Palito -->
+                            <rect x="32" y="47" width="6" height="12" rx="1" fill="#D7CCC8"/>
+                            <rect x="33" y="48" width="4" height="10" rx="1" fill="#BCAAA4"/>
                         </svg>
                         <h3>Picolés Artesanais</h3>
                         <a class="open-modal-btn"
@@ -747,6 +797,7 @@
                             data-img="/templates/img/servico-picoles.jpg?v=1" 
                             data-description="Sabores puros da fruta, como Maracujá com calda, Limão Siciliano, e também nossas opções recheadas.">
                             Ver Detalhes
+                        </a>
                         </a>
                     </div>
                 </div>

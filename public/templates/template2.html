@@ -734,10 +734,27 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="60" height="60" rx="8" fill="#800080"/>
-                            <rect x="15" y="12" width="40" height="30" rx="3" fill="#FFE6F2"/>
-                            <path d="M20 50h30M25 55h20" stroke="#FFE6F2" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="35" cy="27" r="8" fill="#C8A2C8"/>
+                            <defs>
+                                <linearGradient id="purpleGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#9C27B0"/>
+                                    <stop offset="50%" stop-color="#800080"/>
+                                    <stop offset="100%" stop-color="#4A0072"/>
+                                </linearGradient>
+                                <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFF0F5"/>
+                                    <stop offset="100%" stop-color="#FFE6F2"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="5" y="5" width="60" height="60" rx="10" fill="url(#purpleGrad1)"/>
+                            <!-- Envelope elegante -->
+                            <path d="M12 20h46v32H12z" fill="url(#pinkGrad)"/>
+                            <path d="M12 20l23 18 23-18" fill="none" stroke="#C8A2C8" stroke-width="2"/>
+                            <path d="M12 52l18-14M58 52l-18-14" fill="none" stroke="#C8A2C8" stroke-width="1.5"/>
+                            <!-- Selo/Lacre -->
+                            <circle cx="35" cy="38" r="8" fill="url(#purpleGrad1)"/>
+                            <path d="M32 38l2 2 4-4" stroke="#FFE6F2" stroke-width="1.5" stroke-linecap="round"/>
+                            <!-- Coração decorativo -->
+                            <path d="M52 12c3 0 5 2 5 5 0 6-8 10-8 10s-8-4-8-10c0-3 2-5 5-5 2 0 3 1 3 1s1-1 3-1z" fill="#FF69B4" opacity="0.8"/>
                         </svg>
                         <h3>Convites & Cartões</h3>
                         <a class="open-modal-btn" 
@@ -750,10 +767,29 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="60" height="60" rx="8" fill="#800080"/>
-                            <path d="M35 15L40 30H30L35 15Z" fill="#FFE6F2"/>
-                            <ellipse cx="35" cy="35" rx="18" ry="12" fill="#C8A2C8"/>
-                            <path d="M20 48c0-3 6.7-5 15-5s15 2 15 5v7H20v-7z" fill="#FFE6F2"/>
+                            <defs>
+                                <linearGradient id="purpleGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#9C27B0"/>
+                                    <stop offset="100%" stop-color="#4A0072"/>
+                                </linearGradient>
+                                <linearGradient id="cakeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFF"/>
+                                    <stop offset="100%" stop-color="#FFE6F2"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="5" y="5" width="60" height="60" rx="10" fill="url(#purpleGrad2)"/>
+                            <!-- Bolo estilizado -->
+                            <ellipse cx="35" cy="52" rx="20" ry="5" fill="#D4A5D4"/>
+                            <path d="M18 42c0 0 0 10 17 10s17-10 17-10H18z" fill="url(#cakeGrad)"/>
+                            <path d="M20 42h30v-4c0-2-6.7-4-15-4s-15 2-15 4v4z" fill="#FF69B4"/>
+                            <path d="M22 38h26v-3c0-2-5.8-3-13-3s-13 1-13 3v3z" fill="url(#cakeGrad)"/>
+                            <!-- Topo de bolo decorativo -->
+                            <path d="M30 28c0-4 2.2-8 5-8s5 4 5 8" fill="none" stroke="#FFD700" stroke-width="2"/>
+                            <circle cx="35" cy="20" r="4" fill="#FFD700"/>
+                            <path d="M35 16v-4" stroke="#FFD700" stroke-width="1.5"/>
+                            <!-- Estrelas decorativas -->
+                            <path d="M25 25l1 2 2-1-1 2 2 1-2 1 1 2-2-1-1 2-1-2-2 1 1-2-2-1 2-1-1-2 2 1z" fill="#FFD700" transform="scale(0.5) translate(30, 30)"/>
+                            <path d="M25 25l1 2 2-1-1 2 2 1-2 1 1 2-2-1-1 2-1-2-2 1 1-2-2-1 2-1-1-2 2 1z" fill="#FFD700" transform="scale(0.4) translate(130, 45)"/>
                         </svg>
                         <h3>Topos de Bolo</h3>
                         <a class="open-modal-btn"
@@ -766,11 +802,31 @@
 
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="60" height="60" rx="8" fill="#800080"/>
-                            <rect x="15" y="15" width="25" height="35" rx="3" fill="#FFE6F2"/>
-                            <path d="M20 22h15M20 28h15M20 34h10" stroke="#C8A2C8" stroke-width="2"/>
-                            <circle cx="50" cy="25" r="10" fill="#FFE6F2"/>
-                            <path d="M50 20v10M45 25h10" stroke="#800080" stroke-width="2"/>
+                            <defs>
+                                <linearGradient id="purpleGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#9C27B0"/>
+                                    <stop offset="100%" stop-color="#4A0072"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="5" y="5" width="60" height="60" rx="10" fill="url(#purpleGrad3)"/>
+                            <!-- Caderno elegante -->
+                            <rect x="15" y="12" width="28" height="40" rx="2" fill="#FFF"/>
+                            <rect x="15" y="12" width="5" height="40" fill="#C8A2C8"/>
+                            <!-- Espiral do caderno -->
+                            <circle cx="17" cy="18" r="2" fill="#800080"/>
+                            <circle cx="17" cy="26" r="2" fill="#800080"/>
+                            <circle cx="17" cy="34" r="2" fill="#800080"/>
+                            <circle cx="17" cy="42" r="2" fill="#800080"/>
+                            <!-- Linhas do caderno -->
+                            <path d="M24 20h16M24 26h14M24 32h12M24 38h16M24 44h10" stroke="#E0E0E0" stroke-width="1"/>
+                            <!-- Tag decorativa -->
+                            <rect x="45" y="20" width="16" height="24" rx="2" fill="#FFE6F2" stroke="#C8A2C8" stroke-width="1"/>
+                            <circle cx="53" cy="26" r="3" fill="none" stroke="#FF69B4" stroke-width="1.5"/>
+                            <path d="M50 32h6M50 36h6M50 40h4" stroke="#C8A2C8" stroke-width="1"/>
+                            <!-- Laço -->
+                            <path d="M53 44v6" stroke="#FF69B4" stroke-width="1.5"/>
+                            <ellipse cx="50" cy="52" rx="4" ry="2" fill="#FF69B4"/>
+                            <ellipse cx="56" cy="52" rx="4" ry="2" fill="#FF69B4"/>
                         </svg>
                         <h3>Mimos & Cadernos</h3>
                         <a class="open-modal-btn"
