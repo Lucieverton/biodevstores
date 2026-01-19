@@ -123,20 +123,28 @@ export const Hero = () => {
       <div className="container mx-auto relative z-10">
         <div className="max-w-4xl lg:max-w-2xl mx-auto lg:mx-0 lg:ml-4 xl:ml-12 space-y-4 pt-16 lg:pt-0">
           {/* Main Content - Centered on mobile, left on desktop */}
-          <div className="text-center lg:text-left space-y-6 animate-fade-in">
-            <span className="inline-block text-sm font-tech text-primary uppercase tracking-widest mb-2">
-              Link da Bio Profissional
-            </span>
+          <div className="text-center lg:text-left space-y-5">
+            {/* Badge de Identificação - Typing Effect */}
+            <div className="flex items-center justify-center lg:justify-start gap-2 mb-2 animate-fade-in">
+              <div className="w-2 h-2 rounded-full bg-primary animate-circuit-pulse" />
+              <span className="typing-container text-xs sm:text-sm font-tech text-primary uppercase tracking-widest">
+                💡 Se você está aqui, já sabe que precisa de uma bio melhor
+              </span>
+            </div>
+
+            {/* Título Principal - Word Reveal + Circuit Glow */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-              <span className="text-foreground">A </span>
-              <span className="text-gradient">Bio que Vende</span>
-              <span className="text-foreground"> por </span>
-              <span className="text-gradient-purple">Você</span>
+              <span className="word-animate text-foreground">A </span>
+              <span className="word-animate text-gradient circuit-glow">Bio que Vende</span>
+              <span className="word-animate text-foreground"> por </span>
+              <span className="word-animate text-gradient-purple circuit-glow">Você</span>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-              Transforme seu Link da Bio em uma{" "}
-              <span className="text-primary font-semibold">máquina de clientes</span>.{" "}
-              Chega de links genéricos — tenha uma presença digital de elite.
+
+            {/* Subtítulo - Fade in com destaque na dor */}
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 opacity-0 animate-slide-up-glow" style={{ animationDelay: '1.4s' }}>
+              Enquanto você usa <span className="strike-through">Linktree</span>, seus concorrentes estão{" "}
+              <span className="text-primary font-semibold">convertendo visitantes em clientes</span>{" "}
+              com uma bio profissional.
             </p>
           </div>
 
