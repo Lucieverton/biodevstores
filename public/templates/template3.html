@@ -700,11 +700,30 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="45" cy="45" r="40" fill="#009B90"/>
-                            <ellipse cx="45" cy="40" rx="20" ry="25" fill="#FFFFFF"/>
-                            <path d="M30 55h30l-3 15H33l-3-15z" fill="#F9A826"/>
-                            <circle cx="38" cy="35" r="4" fill="#E87A00"/>
-                            <circle cx="52" cy="35" r="4" fill="#E87A00"/>
+                            <defs>
+                                <linearGradient id="tealGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00BFA5"/>
+                                    <stop offset="100%" stop-color="#006B5B"/>
+                                </linearGradient>
+                                <linearGradient id="goldGradPet" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFD54F"/>
+                                    <stop offset="100%" stop-color="#FF8F00"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="45" cy="45" r="40" fill="url(#tealGrad1)"/>
+                            <circle cx="45" cy="45" r="37" fill="none" stroke="#fff" stroke-width="1" opacity="0.3"/>
+                            <!-- Saco de ração estilizado -->
+                            <path d="M28 30h34l-4 40H32l-4-40z" fill="#FFF"/>
+                            <path d="M28 30c0-3 7.6-6 17-6s17 3 17 6" fill="#E8E8E8"/>
+                            <!-- Rótulo colorido -->
+                            <rect x="32" y="38" width="26" height="18" rx="2" fill="url(#goldGradPet)"/>
+                            <path d="M38 44h14M38 48h10" stroke="#fff" stroke-width="2" opacity="0.8"/>
+                            <!-- Patinha no rótulo -->
+                            <ellipse cx="45" cy="62" rx="6" ry="4" fill="url(#goldGradPet)"/>
+                            <circle cx="40" cy="58" r="2" fill="url(#goldGradPet)"/>
+                            <circle cx="50" cy="58" r="2" fill="url(#goldGradPet)"/>
+                            <circle cx="43" cy="56" r="1.5" fill="url(#goldGradPet)"/>
+                            <circle cx="47" cy="56" r="1.5" fill="url(#goldGradPet)"/>
                         </svg>
                         <h3>Casa de Ração</h3>
                         <a class="open-modal-btn" 
@@ -717,10 +736,23 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="45" cy="45" r="40" fill="#009B90"/>
-                            <path d="M30 35h30v25c0 5-6.7 10-15 10s-15-5-15-10V35z" fill="#FFFFFF"/>
-                            <path d="M45 25v15M35 40h20" stroke="#E87A00" stroke-width="4" stroke-linecap="round"/>
-                            <circle cx="45" cy="55" r="6" fill="#F9A826"/>
+                            <defs>
+                                <linearGradient id="tealGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00BFA5"/>
+                                    <stop offset="100%" stop-color="#006B5B"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="45" cy="45" r="40" fill="url(#tealGrad2)"/>
+                            <!-- Cruz médica elegante -->
+                            <rect x="38" y="22" width="14" height="46" rx="3" fill="#FFF"/>
+                            <rect x="22" y="38" width="46" height="14" rx="3" fill="#FFF"/>
+                            <!-- Coração no centro -->
+                            <path d="M45 42c2-3 6-3 7 0 1 4-7 10-7 10s-8-6-7-10c1-3 5-3 7 0z" fill="#E87A00"/>
+                            <!-- Estetoscópio estilizado -->
+                            <path d="M28 65c-5-5-5-12 0-17" stroke="#F9A826" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M62 65c5-5 5-12 0-17" stroke="#F9A826" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <circle cx="28" cy="68" r="4" fill="#F9A826"/>
+                            <circle cx="62" cy="68" r="4" fill="#F9A826"/>
                         </svg>
                         <h3>Clínica Veterinária</h3>
                         <a class="open-modal-btn"
@@ -733,10 +765,34 @@
 
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="45" cy="45" r="40" fill="#009B90"/>
-                            <ellipse cx="45" cy="50" rx="22" ry="18" fill="#FFFFFF"/>
-                            <ellipse cx="45" cy="35" rx="15" ry="10" fill="#F9A826"/>
-                            <path d="M35 60c0-3 4.5-5 10-5s10 2 10 5" stroke="#E87A00" stroke-width="3"/>
+                            <defs>
+                                <linearGradient id="tealGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00BFA5"/>
+                                    <stop offset="100%" stop-color="#006B5B"/>
+                                </linearGradient>
+                                <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#E3F2FD"/>
+                                    <stop offset="100%" stop-color="#90CAF9"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="45" cy="45" r="40" fill="url(#tealGrad3)"/>
+                            <!-- Cachorro fofo estilizado -->
+                            <ellipse cx="45" cy="52" rx="20" ry="16" fill="#FFF"/>
+                            <!-- Orelhas -->
+                            <ellipse cx="30" cy="35" rx="8" ry="12" fill="#F9A826" transform="rotate(-15 30 35)"/>
+                            <ellipse cx="60" cy="35" rx="8" ry="12" fill="#F9A826" transform="rotate(15 60 35)"/>
+                            <!-- Cabeça -->
+                            <circle cx="45" cy="40" r="16" fill="#FFF"/>
+                            <!-- Olhos felizes -->
+                            <path d="M38 38c0-2 2-4 4-4s4 2 4 4" stroke="#4A3F35" stroke-width="2" fill="none"/>
+                            <path d="M44 38c0-2 2-4 4-4s4 2 4 4" stroke="#4A3F35" stroke-width="2" fill="none"/>
+                            <!-- Focinho -->
+                            <ellipse cx="45" cy="48" rx="4" ry="3" fill="#4A3F35"/>
+                            <!-- Bolhas de sabão -->
+                            <circle cx="65" cy="25" r="5" fill="url(#bubbleGrad)" opacity="0.8"/>
+                            <circle cx="72" cy="35" r="3" fill="url(#bubbleGrad)" opacity="0.6"/>
+                            <circle cx="25" cy="22" r="4" fill="url(#bubbleGrad)" opacity="0.7"/>
+                            <circle cx="18" cy="32" r="2.5" fill="url(#bubbleGrad)" opacity="0.5"/>
                         </svg>
                         <h3>Banho & Tosa</h3>
                         <a class="open-modal-btn"
@@ -749,11 +805,26 @@
                     
                     <div class="service-item">
                         <svg class="icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="45" cy="45" r="40" fill="#009B90"/>
-                            <circle cx="45" cy="40" r="15" fill="#F9A826"/>
-                            <path d="M30 60c0 0 5-10 15-10s15 10 15 10" stroke="#FFFFFF" stroke-width="4"/>
-                            <circle cx="38" cy="38" r="3" fill="#FFFFFF"/>
-                            <circle cx="52" cy="38" r="3" fill="#FFFFFF"/>
+                            <defs>
+                                <linearGradient id="tealGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00BFA5"/>
+                                    <stop offset="100%" stop-color="#006B5B"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="45" cy="45" r="40" fill="url(#tealGrad4)"/>
+                            <!-- Coleira estilizada -->
+                            <ellipse cx="45" cy="40" rx="18" ry="16" fill="none" stroke="#FFF" stroke-width="6"/>
+                            <rect x="38" y="30" width="14" height="10" rx="2" fill="#F9A826"/>
+                            <circle cx="45" cy="35" r="3" fill="#E87A00"/>
+                            <!-- Tag de identificação -->
+                            <path d="M45 50l-8 15h16l-8-15z" fill="#F9A826"/>
+                            <circle cx="45" cy="58" r="4" fill="#FFF"/>
+                            <!-- Osso decorativo -->
+                            <g transform="translate(62, 60) rotate(30)">
+                                <rect x="-8" y="-3" width="16" height="6" rx="2" fill="#FFF"/>
+                                <circle cx="-8" cy="0" r="4" fill="#FFF"/>
+                                <circle cx="8" cy="0" r="4" fill="#FFF"/>
+                            </g>
                         </svg>
                         <h3>Acessórios</h3>
                         <a class="open-modal-btn"
