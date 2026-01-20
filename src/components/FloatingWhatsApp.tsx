@@ -1,9 +1,18 @@
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { WHATSAPP_NUMBER } from '@/config/contact';
+
 export const FloatingWhatsApp = () => {
-  const whatsappNumber = '5511999999999';
+  const { activeSection } = useActiveSection();
   const message = encodeURIComponent('Olá! Vim pelo site DevStores e gostaria de mais informações.');
 
+  // Ocultar nas seções templates (Showcase) e planos (Planos Bio)
+  const hiddenSections = ['templates', 'planos'];
+  if (hiddenSections.includes(activeSection)) {
+    return null;
+  }
+
   const handleClick = () => {
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
   };
 
   return (
