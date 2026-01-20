@@ -36,7 +36,6 @@ const plans = [
       "12 Imagens (10 Vitrine + Logo + Perfil)",
       "Design Premium",
       "V-Card Inteligente",
-      "Pixel de Rastreamento",
       "2 Atualizações/mês",
       "Suporte Prioritário",
     ],
