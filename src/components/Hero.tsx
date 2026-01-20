@@ -113,7 +113,7 @@ export const Hero = () => {
         style={{ 
           backgroundImage: `url(${heroBgDesktop})`,
           backgroundColor: 'hsl(var(--background))',
-          backgroundPosition: '70% center',
+          backgroundPosition: '90% center',
           willChange: 'opacity'
         }}
       >
