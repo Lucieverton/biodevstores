@@ -320,15 +320,15 @@ export const PricingSection = () => {
                 <Link2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               </div>
 
-              <div className="bg-background/80 rounded-xl p-4 border border-border">
+              <div className="bg-background/80 rounded-xl p-4 border border-border overflow-hidden">
                 <p className="text-xs text-muted-foreground mb-2 text-center">
                   Seu link ficará assim:
                 </p>
-                <div className="flex items-center justify-center gap-1 text-lg font-mono">
-                  <span className="text-primary font-bold">
+                <div className="flex items-center justify-center gap-0.5 text-xs sm:text-sm md:text-base font-mono flex-wrap max-w-full">
+                  <span className="text-primary font-bold break-all">
                     {formatBrandName(brandName) || "suamarca"}
                   </span>
-                  <span className="text-muted-foreground">.devstores.com.br</span>
+                  <span className="text-muted-foreground break-all">.devstores.com.br</span>
                 </div>
               </div>
 
