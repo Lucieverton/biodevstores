@@ -1,14 +1,15 @@
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
-import { Button } from './ui/button';
 import { templates } from '@/config/templates';
 import sectionBg from "@/assets/section-bg.png";
-import { TemplateSelectionModal } from './modals/TemplateSelectionModal';
+import { NeonBioButton } from './NeonBioButton';
 
-export const TemplatesCarousel = () => {
+interface TemplatesCarouselProps {
+  onNavigate?: (section: string) => void;
+}
+
+export const TemplatesCarousel = ({ onNavigate }: TemplatesCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showTemplateModal, setShowTemplateModal] = useState(false);
-  const [selectedTemplateData, setSelectedTemplateData] = useState({ name: '', category: '' });
   const [loadedIframes, setLoadedIframes] = useState<Set<number>>(new Set());
   const [bgLoaded, setBgLoaded] = useState(false);
 
@@ -60,10 +61,9 @@ export const TemplatesCarousel = () => {
     setActiveIndex((prev) => (prev === templates.length - 1 ? 0 : prev + 1));
   }, []);
 
-  const handleSelectTemplate = (template: typeof templates[0]) => {
-    setSelectedTemplateData({ name: template.name, category: template.category });
-    setShowTemplateModal(true);
-  };
+  const handleNavigateToBio = useCallback(() => {
+    onNavigate?.('planos');
+  }, [onNavigate]);
 
   const handleIframeLoad = useCallback((index: number) => {
     setLoadedIframes(prev => new Set(prev).add(index));
@@ -276,13 +276,6 @@ export const TemplatesCarousel = () => {
               </span>
             ))}
           </div>
-          <Button
-            size="lg"
-            onClick={() => handleSelectTemplate(activeTemplate)}
-            className="bg-gradient-to-r from-primary to-cyan-400 hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] transition-all mt-4"
-          >
-            Escolher Este Template
-          </Button>
         </div>
 
         {/* Dots Indicator */}
@@ -300,14 +293,10 @@ export const TemplatesCarousel = () => {
             />
           ))}
         </div>
-      </div>
 
-      <TemplateSelectionModal
-        isOpen={showTemplateModal}
-        onClose={() => setShowTemplateModal(false)}
-        templateName={selectedTemplateData.name}
-        templateCategory={selectedTemplateData.category}
-      />
+        {/* Neon Bio Button CTA */}
+        <NeonBioButton onClick={handleNavigateToBio} />
+      </div>
     </div>
   );
 };

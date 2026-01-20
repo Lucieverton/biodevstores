@@ -10,11 +10,15 @@ import { Footer } from "@/components/Footer";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { SectionContainer } from "@/components/SectionContainer";
-import { ActiveSectionProvider, useActiveSection } from "@/hooks/useActiveSection";
+import { ActiveSectionProvider, useActiveSection, SectionId } from "@/hooks/useActiveSection";
 import { CircuitTransition } from "@/components/CircuitTransition";
 
 const IndexContent = () => {
-  const { isTransitioning } = useActiveSection();
+  const { isTransitioning, setActiveSection } = useActiveSection();
+
+  const handleNavigate = (section: string) => {
+    setActiveSection(section as SectionId);
+  };
 
   return (
     <div className="min-h-screen bg-background overflow-hidden">
@@ -28,7 +32,7 @@ const IndexContent = () => {
         </SectionContainer>
 
         <SectionContainer id="templates">
-          <TemplatesCarousel />
+          <TemplatesCarousel onNavigate={handleNavigate} />
         </SectionContainer>
 
         <SectionContainer id="nichos">
