@@ -41,43 +41,45 @@ const faqs = [
 
 export const FAQSection = () => {
   return (
-    <section id="faq" className="py-24 px-4 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${sectionBg})` }}
       />
       <div className="absolute inset-0 bg-background/70" />
       
-      <div className="container mx-auto max-w-3xl relative z-10">
-        <div className="text-center space-y-4 mb-16">
-          <span className="text-sm font-tech text-primary uppercase tracking-wider">
-            Tire suas dúvidas
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gradient">
-            Perguntas Frequentes
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Tudo que você precisa saber sobre nossos serviços
-          </p>
-        </div>
+      <div className="flex-1 flex items-center py-16 px-4 pb-24 lg:pb-16">
+        <div className="container mx-auto max-w-3xl relative z-10">
+          <div className="text-center space-y-4 mb-12">
+            <span className="text-sm font-tech text-primary uppercase tracking-wider">
+              Tire suas dúvidas
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">
+              Perguntas Frequentes
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Tudo que você precisa saber sobre nossos serviços
+            </p>
+          </div>
 
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="glass rounded-xl border border-border/50 px-6 data-[state=open]:glow-cyan transition-all"
-            >
-              <AccordionTrigger className="text-left hover:text-primary py-5 font-semibold">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-5">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="glass rounded-xl border border-border/50 px-6 data-[state=open]:glow-cyan transition-all"
+              >
+                <AccordionTrigger className="text-left hover:text-primary py-5 font-semibold">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
