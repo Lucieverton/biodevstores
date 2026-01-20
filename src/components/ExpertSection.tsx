@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Code, Brain, Server, Sparkles, Crown, ArrowRight, Zap, Database, Globe, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExclusiveProjectModal } from '@/components/modals/ExclusiveProjectModal';
+import { CircuitBackgroundCard } from '@/components/CircuitBackgroundCard';
 import sectionBg from "@/assets/section-bg.png";
 import profileExpert from "@/assets/profile-expert.png";
 
@@ -213,48 +214,13 @@ export const ExpertSection = () => {
             {/* Animated Border Gradient */}
             <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-50 group-hover:opacity-100 blur-sm transition-opacity duration-500 animate-gradient-x" />
             
-            <div className="relative glass rounded-2xl p-6 md:p-8 border border-accent/20 bg-background/80 overflow-hidden">
-              {/* Circuit Background Effect */}
-              <div className="absolute inset-0 pointer-events-none">
-                {/* Circuit Lines */}
-                <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-                      <stop offset="50%" stopColor="hsl(var(--accent))" stopOpacity="0.6" />
-                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.4" />
-                    </linearGradient>
-                  </defs>
-                  {/* Horizontal lines */}
-                  <line x1="0" y1="20%" x2="30%" y2="20%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" />
-                  <line x1="70%" y1="20%" x2="100%" y2="20%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-                  <line x1="0" y1="50%" x2="20%" y2="50%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1s' }} />
-                  <line x1="80%" y1="50%" x2="100%" y2="50%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.3s' }} />
-                  <line x1="0" y1="80%" x2="25%" y2="80%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.7s' }} />
-                  <line x1="75%" y1="80%" x2="100%" y2="80%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1.2s' }} />
-                  
-                  {/* Vertical lines */}
-                  <line x1="10%" y1="0" x2="10%" y2="30%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.2s' }} />
-                  <line x1="90%" y1="70%" x2="90%" y2="100%" stroke="url(#circuitGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.8s' }} />
-                  
-                  {/* Circuit nodes */}
-                  <circle cx="10%" cy="20%" r="3" fill="hsl(var(--primary))" className="animate-ping" style={{ animationDuration: '2s' }} />
-                  <circle cx="90%" cy="20%" r="3" fill="hsl(var(--accent))" className="animate-ping" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
-                  <circle cx="10%" cy="80%" r="3" fill="hsl(var(--primary))" className="animate-ping" style={{ animationDuration: '3s', animationDelay: '1s' }} />
-                  <circle cx="90%" cy="80%" r="3" fill="hsl(var(--accent))" className="animate-ping" style={{ animationDuration: '2.2s', animationDelay: '0.3s' }} />
-                  <circle cx="50%" cy="50%" r="2" fill="hsl(var(--primary))" className="animate-pulse" />
-                </svg>
-                
-                {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-primary/30 rounded-tl-lg" />
-                <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-accent/30 rounded-tr-lg" />
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-accent/30 rounded-bl-lg" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-primary/30 rounded-br-lg" />
-              </div>
+            <div className="relative glass rounded-2xl p-6 md:p-8 border border-accent/20 bg-background/90 overflow-hidden">
+              {/* Circuit Background Effect - Canvas igual ao Navbar */}
+              <CircuitBackgroundCard />
               
               {/* Header */}
               <div className="flex items-center gap-4 mb-5 relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/30 to-primary/30 flex items-center justify-center animate-pulse">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/30 to-primary/30 flex items-center justify-center">
                   <Crown className="w-6 h-6 text-accent drop-shadow-[0_0_8px_hsl(var(--accent))]" />
                 </div>
                 <div>
@@ -272,24 +238,24 @@ export const ExpertSection = () => {
                   'Consultoria estratégica incluída'
                 ].map((benefit, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground group/item hover:text-foreground transition-colors">
-                    <div className="relative">
-                      <Sparkles className="w-4 h-4 text-accent flex-shrink-0 drop-shadow-[0_0_6px_hsl(var(--accent))] group-hover/item:scale-125 transition-transform" />
-                      <div className="absolute inset-0 w-4 h-4 bg-accent/30 rounded-full blur-md animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                    <div className="relative flex-shrink-0">
+                      <Sparkles className="w-4 h-4 text-accent drop-shadow-[0_0_6px_hsl(var(--accent))] group-hover/item:scale-125 transition-transform" />
+                      <div className="absolute inset-0 w-4 h-4 bg-accent/40 rounded-full blur-sm animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                     </div>
-                    {benefit}
+                    <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* CTA Button */}
+              {/* CTA Button - Ajustado para mobile */}
               <Button 
                 size="lg"
-                className="w-full relative z-10 bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_30px_rgba(0,255,255,0.4)] transition-all duration-300 font-semibold group/btn"
+                className="w-full relative z-10 bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_30px_rgba(0,255,255,0.4)] transition-all duration-300 font-semibold group/btn text-sm md:text-base px-3 md:px-6"
                 onClick={() => setShowExclusiveModal(true)}
               >
-                <Crown className="w-5 h-5 mr-2 drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
-                Quero um Projeto Exclusivo
-                <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                <Crown className="w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
+                <span className="truncate">Quero um Projeto Exclusivo</span>
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-1.5 md:ml-2 flex-shrink-0 group-hover/btn:translate-x-1 transition-transform" />
               </Button>
 
               {/* Trust Badge */}
