@@ -62,16 +62,15 @@
             padding: 1rem 0.5rem;
         }
 
-        /* --- Contêiner Principal --- */
+        /* --- Contêiner Principal (Otimizado para Mockup) --- */
         .container {
-            /* [MELHORIA RESPONSIVA] Padrão de 420px (bio link) em vez de 194px (mockup) */
-            max-width: 420px; 
+            max-width: 194px; /* Otimizado para phone mockup */
             width: 100%;
             margin: 0 auto;
             background-color: var(--color-container-bg);
             border: 2px solid var(--color-primary);
             border-radius: 10px;
-            padding: 0.5rem 0;
+            padding: 0.4rem 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1),
                         0 0 10px var(--color-primary),
                         0 0 20px rgba(0, 155, 144, 0.3), 
@@ -81,7 +80,7 @@
         }
         
         .header, .artist-profile, .faq {
-            padding: 0 0.75rem; /* [PADRÃO] Padding interno */
+            padding: 0 0.5rem; /* Padding reduzido para mockup */
         }
 
         /* --- Cabeçalho --- */
@@ -415,21 +414,21 @@
         .button .bloom-container:active .button-inner { transform: scale(1.2); }
 
 
-        /* --- Seção de FAQ (Dúvidas) --- */
+        /* --- Seção de FAQ (Otimizado para Mockup) --- */
         .faq {
             width: 100%;
         }
         
         .faq-item {
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .question {
             width: 100%;
             background-color: var(--color-container-bg);
             border: 1px solid rgba(0, 155, 144, 0.3);
-            border-radius: 6px;
-            padding: 0.4rem;
+            border-radius: 4px;
+            padding: 0.35rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -437,20 +436,20 @@
             text-align: left;
             color: var(--color-text);
             font-family: 'Nunito', sans-serif;
-            /* [MELHORIA RESPONSIVA] Fonte fluida */
-            font-size: clamp(0.65rem, 3vw, 0.8rem);
+            font-size: 0.55rem;
             font-weight: 700;
+            line-height: 1.3;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 4px rgba(0, 155, 144, 0.2);
             transition: all 0.3s ease;
         }
 
         .question:hover {
-            background-color: #F8F4E3; /* Fundo Bege sutil */
+            background-color: #F8F4E3;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 0 8px var(--color-accent);
         }
 
         .question .arrow {
-            font-size: 1rem;
+            font-size: 0.7rem;
             font-weight: 700;
             transition: transform 0.3s ease;
             color: var(--color-primary);
@@ -459,19 +458,17 @@
         .answer {
             max-height: 0;
             overflow: hidden;
-            background-color: #F8F4E3; /* Fundo Bege sutil */
-            border-radius: 0 0 6px 6px;
-            padding: 0 0.4rem;
+            background-color: #F8F4E3;
+            border-radius: 0 0 4px 4px;
+            padding: 0 0.35rem;
             transition: all 0.4s ease-out;
             color: var(--color-text);
             opacity: 0.9;
             border: 1px solid transparent;
             border-top: 0;
-            /* [MELHORIA RESPONSIVA] Fonte fluida */
-            font-size: clamp(0.6rem, 2.8vw, 0.75rem);
-            line-height: 1.5;
+            font-size: 0.5rem;
+            line-height: 1.4;
             text-align: left; 
-            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
         }
         
         .faq-item.active .question {
@@ -482,7 +479,7 @@
         
         .faq-item.active .answer {
             max-height: 10rem;
-            padding: 0.4rem;
+            padding: 0.35rem;
             border-color: rgba(0, 155, 144, 0.3);
         }
 
