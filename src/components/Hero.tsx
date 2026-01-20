@@ -5,57 +5,52 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { ExclusiveProjectModal } from "@/components/modals/ExclusiveProjectModal";
 import heroBgDesktop from "@/assets/hero-bg-desktop.png";
 import heroBgMobile from "@/assets/hero-bg-mobile-optimized.png";
-
-const trustBadges = [
-  { icon: Shield, text: "Site Seguro" },
-  { icon: Zap, text: "Alta Performance" },
-  { icon: HeadphonesIcon, text: "Suporte Humano" },
-];
-
-const benefits = [
-  {
-    icon: Users,
-    title: "Converte Visitantes",
-    description: "Transforme curiosos em clientes com CTAs estratégicos"
-  },
-  {
-    icon: TrendingUp,
-    title: "Profissionaliza sua Marca",
-    description: "Deixe de usar links genéricos e tenha presença digital de elite"
-  },
-  {
-    icon: Clock,
-    title: "Disponível 24/7",
-    description: "Seu mini-site trabalha por você enquanto você dorme"
-  },
-  {
-    icon: Sparkles,
-    title: "100% Personalizável",
-    description: "Adaptamos cores, fontes e layout para seu negócio"
-  }
-];
-
-const socialProof = [
-  {
-    instagram: "@belladata",
-    instagramUrl: "https://instagram.com/belladata",
-    siteUrl: "https://belladata.devstores.com.br",
-    plan: "Plano Elite",
-    years: 3,
-    testimonial: "Minha bio ficou incrível! Clientes elogiam toda hora ✨"
-  },
-  {
-    instagram: "@barbeariabrutos",
-    instagramUrl: "https://instagram.com/barbeariabrutos",
-    siteUrl: "https://barbeariabrutos.com.br",
-    plan: "Site Exclusivo",
-    years: 4,
-    testimonial: "Profissionalismo que faz diferença no nosso atendimento 💈"
-  }
-];
-
+const trustBadges = [{
+  icon: Shield,
+  text: "Site Seguro"
+}, {
+  icon: Zap,
+  text: "Alta Performance"
+}, {
+  icon: HeadphonesIcon,
+  text: "Suporte Humano"
+}];
+const benefits = [{
+  icon: Users,
+  title: "Converte Visitantes",
+  description: "Transforme curiosos em clientes com CTAs estratégicos"
+}, {
+  icon: TrendingUp,
+  title: "Profissionaliza sua Marca",
+  description: "Deixe de usar links genéricos e tenha presença digital de elite"
+}, {
+  icon: Clock,
+  title: "Disponível 24/7",
+  description: "Seu mini-site trabalha por você enquanto você dorme"
+}, {
+  icon: Sparkles,
+  title: "100% Personalizável",
+  description: "Adaptamos cores, fontes e layout para seu negócio"
+}];
+const socialProof = [{
+  instagram: "@belladata",
+  instagramUrl: "https://instagram.com/belladata",
+  siteUrl: "https://belladata.devstores.com.br",
+  plan: "Plano Elite",
+  years: 3,
+  testimonial: "Minha bio ficou incrível! Clientes elogiam toda hora ✨"
+}, {
+  instagram: "@barbeariabrutos",
+  instagramUrl: "https://instagram.com/barbeariabrutos",
+  siteUrl: "https://barbeariabrutos.com.br",
+  plan: "Site Exclusivo",
+  years: 4,
+  testimonial: "Profissionalismo que faz diferença no nosso atendimento 💈"
+}];
 export const Hero = () => {
-  const { setActiveSection } = useActiveSection();
+  const {
+    setActiveSection
+  } = useActiveSection();
   const [showExclusiveModal, setShowExclusiveModal] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
@@ -63,60 +58,39 @@ export const Hero = () => {
   useEffect(() => {
     const preloadImages = async () => {
       const imageUrls = [heroBgDesktop, heroBgMobile];
-      
-      await Promise.all(
-        imageUrls.map(
-          (src) =>
-            new Promise((resolve) => {
-              const img = new Image();
-              img.onload = resolve;
-              img.onerror = resolve; // Don't block on error
-              img.src = src;
-            })
-        )
-      );
-      
+      await Promise.all(imageUrls.map(src => new Promise(resolve => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve; // Don't block on error
+        img.src = src;
+      })));
       setImagesLoaded(true);
     };
-
     preloadImages();
   }, []);
-
-  return (
-    <section
-      id="hero"
-      className="min-h-screen lg:min-h-[calc(100vh-120px)] flex items-start lg:items-center pt-12 pb-4 lg:pb-8 px-4 relative overflow-hidden"
-    >
+  return <section id="hero" className="min-h-screen lg:min-h-[calc(100vh-120px)] flex items-start lg:items-center pt-12 pb-4 lg:pb-8 px-4 relative overflow-hidden">
       {/* Loading skeleton */}
-      {!imagesLoaded && (
-        <div className="absolute inset-0 bg-background animate-pulse" />
-      )}
+      {!imagesLoaded && <div className="absolute inset-0 bg-background animate-pulse" />}
 
       {/* Hero Image Background - Mobile - Fixed Effect */}
-      <div 
-        className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
-        style={{ 
-          backgroundImage: `url(${heroBgMobile})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundAttachment: 'fixed',
-          backgroundColor: 'hsl(var(--background))'
-        }}
-      >
+      <div className={`absolute inset-0 lg:hidden transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`} style={{
+      backgroundImage: `url(${heroBgMobile})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      backgroundAttachment: 'fixed',
+      backgroundColor: 'hsl(var(--background))'
+    }}>
         {/* Overlay gradient - Para legibilidade sobre a imagem */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80" />
       </div>
       
       {/* Hero Image Background - Desktop */}
-      <div 
-        className={`absolute inset-0 hidden lg:block bg-cover bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
-        style={{ 
-          backgroundImage: `url(${heroBgDesktop})`,
-          backgroundColor: 'hsl(var(--background))',
-          backgroundPosition: '90% center',
-          willChange: 'opacity'
-        }}
-      >
+      <div className={`absolute inset-0 hidden lg:block bg-cover bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`} style={{
+      backgroundImage: `url(${heroBgDesktop})`,
+      backgroundColor: 'hsl(var(--background))',
+      backgroundPosition: '90% center',
+      willChange: 'opacity'
+    }}>
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
       </div>
 
@@ -153,28 +127,19 @@ export const Hero = () => {
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center lg:justify-start gap-3 animate-fade-in delay-100">
             {trustBadges.map((badge, index) => {
-              const Icon = badge.icon;
-              return (
-                <div
-                  key={badge.text}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 border border-border/50 backdrop-blur-sm ${index === 2 ? 'hidden sm:flex' : ''}`}
-                >
+            const Icon = badge.icon;
+            return <div key={badge.text} className={`flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 border border-border/50 backdrop-blur-sm ${index === 2 ? 'hidden sm:flex' : ''}`}>
                   <Icon className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">{badge.text}</span>
-                </div>
-              );
-            })}
+                </div>;
+          })}
           </div>
 
           {/* Benefits Grid */}
           <div className="grid grid-cols-2 gap-2 md:gap-4 animate-fade-in delay-200">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
-              return (
-                <div
-                  key={benefit.title}
-                  className="group p-4 rounded-xl bg-card/40 border border-border/20 backdrop-blur-md hover:border-primary/30 transition-all duration-300"
-                >
+            {benefits.map(benefit => {
+            const Icon = benefit.icon;
+            return <div key={benefit.title} className="group p-4 rounded-xl bg-card/40 border border-border/20 backdrop-blur-md hover:border-primary/30 transition-all duration-300">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-5 h-5 text-primary" />
                   </div>
@@ -182,26 +147,16 @@ export const Hero = () => {
                   <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
                     {benefit.description}
                   </p>
-                </div>
-              );
-            })}
+                </div>;
+          })}
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in delay-300">
-            <Button
-              size="lg"
-              onClick={() => setActiveSection('templates')}
-              className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan"
-            >
+            <Button size="lg" onClick={() => setActiveSection('templates')} className="bg-gradient-neon hover:shadow-glow-intense transition-all text-base md:text-lg px-8 h-12 md:h-14 glow-cyan">
               VER TEMPLATES
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => setShowExclusiveModal(true)}
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all text-base md:text-lg px-8 h-12 md:h-14"
-            >
+            <Button size="lg" variant="outline" onClick={() => setShowExclusiveModal(true)} className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all text-base md:text-lg px-8 h-12 md:h-14">
               SITE EXCLUSIVO
             </Button>
           </div>
@@ -231,11 +186,7 @@ export const Hero = () => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {socialProof.map((client) => (
-                <div
-                  key={client.instagram}
-                  className="group relative p-4 rounded-xl bg-card/60 border border-border/30 backdrop-blur-md hover:border-primary/40 transition-all duration-300"
-                >
+              {socialProof.map(client => <div key={client.instagram} className="group relative p-4 rounded-xl bg-card/60 border border-border/30 backdrop-blur-md hover:border-primary/40 transition-all duration-300">
                   {/* Badge de tempo */}
                   <div className="absolute -top-2 right-3 px-2 py-0.5 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-medium">
                     ✓ Cliente há {client.years} anos
@@ -247,21 +198,11 @@ export const Hero = () => {
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                      <a 
-                        href={client.instagramUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-foreground hover:text-primary transition-colors"
-                      >
+                      <a href={client.instagramUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-primary transition-colors">
                         {client.instagram}
                       </a>
                       <div className="text-xs text-primary font-medium mt-0.5">{client.plan}</div>
-                      <a 
-                        href={client.siteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mt-1"
-                      >
+                      <a href={client.siteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mt-1">
                         <ExternalLink className="w-3 h-3" />
                         <span className="truncate">{client.siteUrl.replace('https://', '')}</span>
                       </a>
@@ -271,15 +212,14 @@ export const Hero = () => {
                   <p className="text-xs text-muted-foreground mt-3 italic">
                     "{client.testimonial}"
                   </p>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 md:gap-8 pt-2 animate-fade-in delay-500">
             <div className="text-center lg:text-left space-y-1">
-              <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">500+</div>
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold text-gradient font-tech">150+</div>
               <div className="text-xs md:text-sm text-muted-foreground">Clientes Ativos</div>
             </div>
             <div className="text-center lg:text-left space-y-1">
@@ -293,6 +233,5 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
