@@ -109,7 +109,7 @@ export const Hero = () => {
       
       {/* Hero Image Background - Desktop */}
       <div 
-        className={`absolute inset-0 hidden lg:block bg-cover bg-[70%_center] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 hidden lg:block bg-cover bg-[35%_center] bg-no-repeat transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ 
           backgroundImage: `url(${heroBgDesktop})`,
           backgroundColor: 'hsl(var(--background))',
