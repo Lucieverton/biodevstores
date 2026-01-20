@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { StartModal } from '@/components/modals/StartModal';
 
 const navLinks: { id: SectionId; label: string }[] = [
-  { id: 'templates', label: 'Showcase' },
+  { id: 'templates', label: 'Vitrine' },
   { id: 'planos', label: 'Planos Bio' },
   { id: 'faq', label: 'Dúvidas' },
   { id: 'expert', label: 'Expert' },
