@@ -390,10 +390,10 @@
         }
 
         .faq-question {
-            padding: 10px 12px;
+            padding: 10px 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -416,16 +416,19 @@
 
         .faq-text {
             flex: 1;
+            min-width: 0;
         }
         .faq-text h3 {
             font-family: var(--title-font);
             font-size: 0.65rem;
             color: #fff;
             margin-bottom: 2px;
+            overflow-wrap: anywhere;
         }
         .faq-text p {
             font-size: 0.55rem;
             color: #666;
+            overflow-wrap: anywhere;
         }
 
         .faq-toggle {
