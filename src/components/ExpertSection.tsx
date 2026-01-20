@@ -250,12 +250,12 @@ export const ExpertSection = () => {
               {/* CTA Button - Ajustado para mobile */}
               <Button 
                 size="lg"
-                className="w-full relative z-10 bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_30px_rgba(0,255,255,0.4)] transition-all duration-300 font-semibold group/btn text-sm md:text-base px-3 md:px-6"
+                className="w-full relative z-10 bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_30px_rgba(0,255,255,0.4)] transition-all duration-300 font-semibold group/btn text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-6"
                 onClick={() => setShowExclusiveModal(true)}
               >
-                <Crown className="w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
-                <span className="truncate">Quero um Projeto Exclusivo</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-1.5 md:ml-2 flex-shrink-0 group-hover/btn:translate-x-1 transition-transform" />
+                <Crown className="w-4 h-4 md:w-5 md:h-5 mr-1 sm:mr-1.5 md:mr-2 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
+                <span className="whitespace-nowrap">Projeto Exclusivo</span>
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-1 sm:ml-1.5 md:ml-2 flex-shrink-0 group-hover/btn:translate-x-1 transition-transform" />
               </Button>
 
               {/* Trust Badge */}
