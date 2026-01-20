@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encanto Personalizado | Papelaria</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -158,21 +158,27 @@
         .section-title {
             font-family: 'Bebas Neue', sans-serif;
             /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 1rem;
+            font-size: 0.95rem;
             padding: 4px 6px;
             font-weight: 400;
             color: var(--color-secondary);
             background-color: var(--color-accent);
-            border: 1px solid var(--color-accent); 
+            border: 1px solid var(--color-accent);
             text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3);
             border-radius: 4px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            display: inline-block;
-            box-shadow: 0 2px 3px rgba(128, 0, 128, 0.2), 
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            box-shadow: 0 2px 3px rgba(128, 0, 128, 0.2),
                         inset 0 1px 1px rgba(255,255,255,0.3),
                         inset 0 -1px 1px rgba(0, 0, 0, 0.2);
-            margin-bottom: 0; 
+            margin-bottom: 0;
             transition: all 0.3s ease;
         }
         
@@ -457,20 +463,23 @@
             background-color: var(--color-item-bg);
             border: 1px solid var(--color-primary);
             border-radius: 6px;
-            padding: 0.4rem;
+            padding: 0.35rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
             cursor: pointer;
             text-align: left;
             color: var(--color-text);
             font-family: 'Exo 2', sans-serif;
             /* [CORREÇÃO] 'clamp' com 'vw' removido. Valor estático. */
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 600;
             box-shadow: 0 2px 4px rgba(200, 162, 200, 0.2), 0 0 4px rgba(200, 162, 200, 0.4);
             transition: all 0.3s ease;
         }
+
+        .question span:first-child { flex: 1 1 auto; min-width: 0; }
 
         .question:hover {
             background-color: var(--color-container-bg);
@@ -478,10 +487,11 @@
         }
 
         .question .arrow {
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 700;
             transition: transform 0.3s ease;
             color: var(--color-primary);
+            flex: 0 0 auto;
         }
 
         .answer {

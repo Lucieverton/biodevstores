@@ -204,23 +204,28 @@
 
         .section-title {
             font-family: 'Fredoka One', cursive;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             padding: 6px 8px;
             font-weight: 400;
-            color: var(--color-plate-text); 
+            color: var(--color-plate-text);
             background-color: var(--color-secondary);
             border: 1px solid var(--color-secondary);
             border-radius: 4px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             text-transform: uppercase;
-            display: inline-block;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
             text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.2);
-            box-shadow: 0 2px 3px rgba(0, 188, 212, 0.2), 
+            box-shadow: 0 2px 3px rgba(0, 188, 212, 0.2),
                         inset 0 1px 1px rgba(255,255,255,0.3),
                         inset 0 -1px 1px rgba(0, 188, 212, 0.1);
-            margin-bottom: 0; 
+            margin-bottom: 0;
             transition: all 0.3s ease;
-            text-align: center; 
+            text-align: center;
+            white-space: normal;
+            overflow-wrap: anywhere;
         }
         
         /* --- Carrossel de Destaques --- */
@@ -434,19 +439,22 @@
             background-color: var(--color-bg);
             border: 1px solid var(--color-cone-edge);
             border-radius: 6px;
-            padding: 0.4rem;
+            padding: 0.35rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
             cursor: pointer;
             text-align: left;
             color: var(--color-text);
             font-family: 'Nunito', sans-serif;
-            font-size: 0.65rem; /* [PADRÃO] Tamanho estático */
+            font-size: 0.62rem; /* [AJUSTE] Menor para não cortar no mockup */
             font-weight: 700;
             box-shadow: 0 2px 4px rgba(121, 85, 72, 0.2), 0 0 4px rgba(121, 85, 72, 0.4);
             transition: all 0.3s ease;
         }
+
+        .question span:first-child { flex: 1 1 auto; min-width: 0; }
 
         .question:hover {
             background-color: rgba(0, 188, 212, 0.1);
@@ -454,10 +462,11 @@
         }
 
         .question .arrow {
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 700;
             transition: transform 0.3s ease;
             color: var(--color-text);
+            flex: 0 0 auto;
         }
 
         .answer {
